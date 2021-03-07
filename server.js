@@ -61,18 +61,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.post('/', (req, res) => {
-  // db.addProperty({})
-  //   .then(property => {
-  //     res.send(property);
-  //   })
-  //   .catch(e => {
-  //     console.error(e);
-  //     res.send(e)
-  //   });
-
-  //Do we need a post?? I don't believe so
-});
 
 app.get('/login/', (req, res) => {
   req.session.user_id = req.params.id;
