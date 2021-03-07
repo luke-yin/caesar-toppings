@@ -2,8 +2,8 @@
 require('dotenv').config();
 
 // Web server config
-const PORT       = process.env.PORT || 8080;
-const ENV        = process.env.ENV || "development";
+const PORT       = process.env.PORT || 8080;//***/
+const ENV        = process.env.ENV || "development";//***/
 const express    = require("express");
 const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
@@ -33,22 +33,57 @@ app.use(express.static("public"));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
-const widgetsRoutes = require("./routes/widgets");
+const cartRoutes = require("./routes/cart");
+//const widgetsRoutes = require("./routes/widgets");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
+app.use("/cart", cartRoutes(db));
+//app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-app.get("/", (req, res) => {
-  res.render("index");
+app.get('/', (req, res) => {
+  db.query(`SELECT * FROM items;`)
+    .then(data => {
+      const items = data.rows;
+      res.json({ items });
+      //const templateVars = { items }
+      //info to send to the ejs file titled home
+      //res.render('index', templateVars)
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
 });
+
+app.post('/', (req, res) => {
+  // db.addProperty({})
+  //   .then(property => {
+  //     res.send(property);
+  //   })
+  //   .catch(e => {
+  //     console.error(e);
+  //     res.send(e)
+  //   });
+
+  //Do we need a post?? I don't believe so
+});
+
+app.get('/login/', (req, res) => {
+  req.session.user_id = req.params.id;
+  res.redirect('/');
+});
+
+app.post('/login/', (req, res) => {
+  
+});
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
