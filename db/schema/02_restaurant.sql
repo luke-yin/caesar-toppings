@@ -1,4 +1,4 @@
--- Drop and recreate Widgets table (Example)
+-- Drop and recreate Widgets table
 
 DROP TABLE IF EXISTS orders, items_orders, items CASCADE;
 
