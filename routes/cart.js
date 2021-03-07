@@ -10,10 +10,13 @@ const router  = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
+    db.query(`----WRITE QUERY----`)
       .then(data => {
-        const users = data.rows;
-        res.json({ users });
+        const cart = data.rows;
+        res.json({ cart });
+        //const templateVars = { cart }
+        //info to send to the ejs file titled cart
+        //res.render('cart', templateVars)
       })
       .catch(err => {
         res
@@ -21,5 +24,11 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  router.post("/", (req, res) => {
+    //I'm inside a route so wondering where I will get redirected
+    res.redirect("/");
+  });
+
   return router;
 };
