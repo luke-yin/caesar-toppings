@@ -10,7 +10,7 @@ const router  = express.Router();
 
 module.exports = (db) => {
 
-  //Add to cart
+  //TODO HOW DO WE IMPLEMENT LOGIC FOR ADDING TO CAR
   router.post("/", (req, res) => {
 
     const item = req.params.itemId;
@@ -32,18 +32,18 @@ module.exports = (db) => {
           .status(500)
           .json({ error: err.message });
       });
-    
-    
+
+
     res.redirect("/");
   });
 
-  //View Cart
+  //TODO View Cart
   // router.get("/", (req, res) => {
   //   const userId = req.session.user_id;
-  //   const 
+  //   const
   //   db.query(`
   //     SELECT name, photo_url, price, FROM items
-  //     JOIN users ON 
+  //     JOIN users ON
   //     WHERE order_id = ${orderId};
   //   `)
   //     .then(data => {
@@ -59,7 +59,7 @@ module.exports = (db) => {
   //     });
   // });
 
-  
+
 
   return router;
 };
