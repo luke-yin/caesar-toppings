@@ -2,19 +2,20 @@
 require('dotenv').config();
 
 // Web server config
-const PORT       = process.env.PORT || 8080;//***/
-const ENV        = process.env.ENV || "development";//***/
-const express    = require("express");
+const PORT = process.env.PORT || 8080;//***/
+const ENV = process.env.ENV || "development";//***/
+const express = require("express");
 const bodyParser = require("body-parser");
-const sass       = require("node-sass-middleware");
-const app        = express();
-const morgan     = require('morgan');
+const sass = require("node-sass-middleware");
+const app = express();
+const morgan = require('morgan');
 
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
 const db = new Pool(dbParams);
 db.connect();
+module.exports = db;
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -43,11 +44,14 @@ app.use("/cart", cartRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 
+//queries functions
+const { getItems } = require('./db/items_queries')
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get('/', (req, res) => {
-  db.query(`SELECT * FROM items;`)
+  //replaced query with query function /db/items_queries
+  getItems()
     .then(data => {
       const items = data.rows;
       //  res.json({ items });
@@ -68,7 +72,7 @@ app.get('/login/', (req, res) => {
 });
 
 app.post('/login/', (req, res) => {
-  
+
 });
 
 
