@@ -26,7 +26,21 @@ module.exports = (db) => {
   });
 
   router.post("/", (req, res) => {
-    //I'm inside a route so wondering where I will get redirected
+    db.query(`----WRITE QUERY----`)
+      .then(data => {
+        const order = data.rows;
+        res.json({ order });
+        //const templateVars = { cart }
+        //info to send to the ejs file titled cart
+        //res.render('cart', templateVars)
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+    
+    
     res.redirect("/");
   });
 

@@ -50,10 +50,9 @@ app.get('/', (req, res) => {
   db.query(`SELECT * FROM items;`)
     .then(data => {
       const items = data.rows;
-      res.json({ items });
-      //const templateVars = { items }
-      //info to send to the ejs file titled home
-      //res.render('index', templateVars)
+      //  res.json({ items });
+      const templateVars = { items }
+      res.render('index', templateVars)
     })
     .catch(err => {
       res

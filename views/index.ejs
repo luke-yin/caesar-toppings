@@ -10,8 +10,19 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
-
+ 
   <body>
     <h1>Hello World!</h1>
+
+    <article>
+      <% for(let item of items) { %>
+        <ul>
+          <li><%= item.name %></li>
+         
+          
+        </ul>
+      <% } %>
+  </article>
+
   </body>
 </html>
