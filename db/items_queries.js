@@ -11,12 +11,14 @@ const getItems = function () {
   // .then(data => data.rows)
 }
 // user clicks place order from cart
+
 const createOrder = function (userId, itemObj) {
   // creates a new order row to create an order key
   const newOrder = `INSERT INTO orders (user_id) VALUES ($1);`
 
 //TODO not sure how to find the total price of all items from items_orders
   // const totalPrice =
+  
 
   // updates order created in newOrder and sets the total price of order
   const updateOrder = `UPDATE orders SET total_price = $1 WHERE user_id = $2 AND status = t;`

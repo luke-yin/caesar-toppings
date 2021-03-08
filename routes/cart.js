@@ -13,18 +13,18 @@ module.exports = (db) => {
 
   router.post("/:itemId", (req, res) => {
 
-    const { itemId } = req.params;
+    const { itemId } = req.params.itemId;
     const userId = req.session.userId;
     console.log('this is the item:' + itemId)
     // new helper query to add.. but we may need to use arrays to hold cart items
-  //   addItem(itemId, userId)
-  //     .then(data => console.log(data.name))//logs name of item about item
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  // });
+    addItem(itemId, userId)
+      .then(data => console.log(data.name))//logs name of item about item
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
   return router;
 }
     // .then(data => {
@@ -67,4 +67,4 @@ module.exports = (db) => {
 
 
   //   return router;
-  // };
+  };

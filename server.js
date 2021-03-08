@@ -39,41 +39,29 @@ const cartRoutes = require("./routes/cart");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
+app.use("/items", cartRoutes(db));
 app.use("/cart", cartRoutes(db));
-//app.use("/api/widgets", widgetsRoutes(db));
-// Note: mount other resources here, using the same pattern above
+app.use("/login", cartRoutes(db));
+app.use("/orders", cartRoutes(db));
 
+
+// Note: mount other resources here, using the same pattern above
 
 //queries functions
 const { getItems } = require('./db/items_queries')
 // Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
 app.get('/', (req, res) => {
-  //replaced query with query function /db/items_queries
-  getItems()
-    .then(data => {
-      const items = data.rows;
-      //  res.json({ items });
-      const templateVars = { items }
-      res.render('index', templateVars)
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
+//if user doesn't exist redirect to '/login'
+
+const userId = req.session.user_id;
+  if (!userId) {
+    res.redirect("/login");
+    return;
+  }
+  res.redirect("/items");
 });
 
 
-app.get('/login/', (req, res) => {
-  req.session.user_id = req.params.id;
-  res.redirect('/');
-});
-
-app.post('/login/', (req, res) => {
-
-});
 
 
 app.listen(PORT, () => {
