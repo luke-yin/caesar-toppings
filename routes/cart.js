@@ -15,16 +15,16 @@ module.exports = (db) => {
 
     const { itemId } = req.params;
     const userId = req.session.userId;
-    // console.log('this is the item:' + itemId)
-    //new helper query to add.. but we may need to use arrays to hold cart items
-    // addItem(itemId, userId)
-      // .then(data => console.log(data.name))//logs name of item about item
-      // .catch(err => {
-      //   res
-      //     .status(500)
-      //     .json({ error: err.message });
-      // });
-  });
+    console.log('this is the item:' + itemId)
+    // new helper query to add.. but we may need to use arrays to hold cart items
+  //   addItem(itemId, userId)
+  //     .then(data => console.log(data.name))//logs name of item about item
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // });
   return router;
 }
     // .then(data => {
