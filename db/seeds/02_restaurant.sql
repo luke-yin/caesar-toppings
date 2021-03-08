@@ -7,12 +7,3 @@ VALUES ('Classic Caesar', 899, 8, '/images/01_classic.png', 'Canada''s national 
  ('The Game Night', 3599, 30, '/images/05_thegame_night.png', 'You need this for your game night - Cheeseburger Topped with Fried Pickle, Fries, and 3 Extra-Hot Wings. Best served on top of The Charr and ordered in dozens.'),
  ('The Family Meal', 6099, 120, '/images/06_the_family_meal.png', 'The Sunday Tradition waiting to be adopted. Full Roasted Chicken with Hoisin Glaze, Fries, Cheeseburger, and a Fudgy Brownie. Best served on top of our Classic Caesar');
 
-
-
-
-
--- INSERT INTO orders (user_id, total_price, created_at)
--- VALUES ();
-
--- INSERT INTO items_orders (item_id, order_id, quantity)
--- VALUES ();
