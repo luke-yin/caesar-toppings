@@ -76,9 +76,6 @@ const userId = 1; //place holder to set user
   res.redirect("/items");
 });
 
-
-
-
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

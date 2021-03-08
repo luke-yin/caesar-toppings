@@ -3,7 +3,7 @@ const router = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    //
+    //hardcoded user for Demo purposes
     let userId; 
 
     if (!userId) {
@@ -11,8 +11,10 @@ module.exports = (db) => {
         user: null,
       };
       res.render("login", templateVars);
+      return;
     }
     res.redirect("/items");
+    // return;
   });
 
   router.post("/", (req, res) => {
