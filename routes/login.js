@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-//const { addItem } = require('../db/items_queries')
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    const userId = req.session.user_id;
+    //
+    let userId; 
 
     if (!userId) {
       const templateVars = {
@@ -17,11 +17,11 @@ module.exports = (db) => {
 
   router.post("/", (req, res) => {
     const userName = req.body.userName; //input = sori han
-    let userId;
-    db.query(`SELECT id FROM users WHERE name = $1;`, [userName]).then(
-      (res) => (userId = res)
-    ); //** will this work? */
-    req.session.userId = userId;
+    let userId = 1;
+    // db.query(`SELECT id FROM users WHERE name = $1;`, [userName]).then(
+    //   (res) => (userId = res)
+    // ); //** will this work? */
+    // req.session.userId = userId;
 
     res.redirect("/items");
   });

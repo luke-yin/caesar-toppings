@@ -10,6 +10,14 @@ const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require('morgan');
 
+//for demo purposes user identification is hardcoded as user =1 
+// const cookieSession = require('cookie-session');
+// app.use(cookieSession({
+//   name: 'session',
+//   keys: ['key1', 'key2'],
+// }));
+
+
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
@@ -32,32 +40,39 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
+const itemRoutes = require("./routes/items");
 const cartRoutes = require("./routes/cart");
-//const widgetsRoutes = require("./routes/widgets");
+const loginRoutes = require("./routes/login");
+const ordersRoutes = require("./routes/orders");
+
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/items", cartRoutes(db));
+app.use("/items", itemRoutes(db));
 app.use("/cart", cartRoutes(db));
-app.use("/login", cartRoutes(db));
-app.use("/orders", cartRoutes(db));
+app.use("/login", loginRoutes(db));
+app.use("/orders", ordersRoutes(db));
 
 
 // Note: mount other resources here, using the same pattern above
 
 //queries functions
-const { getItems } = require('./db/items_queries')
+
+
 // Home page
 app.get('/', (req, res) => {
 //if user doesn't exist redirect to '/login'
+//const userID = req.cookies.id;
+const userId = 1; //place holder to set user
 
-const userId = req.session.user_id;
   if (!userId) {
     res.redirect("/login");
     return;
   }
+  //otherwise, it redirects to /items
   res.redirect("/items");
 });
 
