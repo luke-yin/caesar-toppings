@@ -7,7 +7,7 @@ const { getItems } = require('../db/items_queries')
 module.exports = (db) => {
 
   router.get("/", (req, res) => {
-const userId = 1; //placeholder for user
+  const userId = 1; //placeholder for user
 
   if (!userId) {
   res.redirect('/login');
