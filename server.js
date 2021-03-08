@@ -10,6 +10,14 @@ const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require('morgan');
 
+//for demo purposes user identification is hardcoded as user =1 
+// const cookieSession = require('cookie-session');
+// app.use(cookieSession({
+//   name: 'session',
+//   keys: ['key1', 'key2'],
+// }));
+
+
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
@@ -32,48 +40,43 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
+const itemRoutes = require("./routes/items");
 const cartRoutes = require("./routes/cart");
-//const widgetsRoutes = require("./routes/widgets");
+const loginRoutes = require("./routes/login");
+const ordersRoutes = require("./routes/orders");
+
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
+app.use("/items", itemRoutes(db));
 app.use("/cart", cartRoutes(db));
-//app.use("/api/widgets", widgetsRoutes(db));
+app.use("/login", loginRoutes(db));
+app.use("/orders", ordersRoutes(db));
+
+
 // Note: mount other resources here, using the same pattern above
 
-
 //queries functions
-const { getItems } = require('./db/items_queries')
+
+
 // Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
 app.get('/', (req, res) => {
-  //replaced query with query function /db/items_queries
-  getItems()
-    .then(data => {
-      const items = data.rows;
-      //  res.json({ items });
-      const templateVars = { items }
-      res.render('index', templateVars)
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
+//if user doesn't exist redirect to '/login'
+//const userID = req.cookies.id;
+const userId = 1; //place holder to set user
+
+  if (!userId) {
+    res.redirect("/login");
+    return;
+  }
+  //otherwise, it redirects to /items
+  res.redirect("/items");
 });
 
 
-app.get('/login/', (req, res) => {
-  req.session.user_id = req.params.id;
-  res.redirect('/');
-});
-
-app.post('/login/', (req, res) => {
-
-});
 
 
 app.listen(PORT, () => {
