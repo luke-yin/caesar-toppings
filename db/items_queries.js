@@ -10,33 +10,31 @@ const getItems = function () {
     `)
   // .then(data => data.rows)
 }
-// user clicks place order from cart
 
-const createOrder = function (userId, itemObj) {
-  // creates a new order row to create an order key
-  const newOrder = `INSERT INTO orders (user_id) VALUES ($1);`
+const getOrderId = function (userId) {
+return db.query(`
+SELECT id FROM orders
+WHERE user_id = ${userId} AND status = 'precheckout';
+`)
+};
 
-//TODO not sure how to find the total price of all items from items_orders
-  // const totalPrice =
-  
 
-  // updates order created in newOrder and sets the total price of order
-  const updateOrder = `UPDATE orders SET total_price = $1 WHERE user_id = $2 AND status = t;`
-  return db.query(newOrder, [userId])
-    .then(order => {
-      // loops through user's ordered object and creates a new row of items_orders for each item
-      for (const item in itemObj) {
-        const itemsOrders = `INSERT INTO items_orders (order_id, item_id, quantity)
-      VALUES ($1, $2, $3);`
-        const itemsArray = [order.id, item.id, item.quantity]
-        db.query(itemsOrders, itemsArray)
-      }
-    })
-    .then()
-    //TODO need to grab the total price and run updateOrder to update and return the full order detail
+const createOrder = function (userId, status) {
+  return db.query(
+  `INSERT INTO orders (user_id, status)
+  VALUES (${userId}, ${status});
+  `);
+    //RETURNING * ;
+    //.then(res => console.log(res.rows))
+};
+
+const createOrderItem = function (itemId, orderId) {
+return db.query(`
+INSERT INTO items_orders (item_id, order_id, quantity)
+VALUES (${item.itemId}, ${orderId}, ${item.value});
+`)
 
 }
-
 
 
 
@@ -101,6 +99,8 @@ const createOrder = function (userId, itemObj) {
 
 
 module.exports = {
-  getItems
-  // addItem
+  getItems,
+  getOrderId,
+  createOrder,
+  createOrderItem
 };
