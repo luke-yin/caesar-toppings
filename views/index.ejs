@@ -22,11 +22,11 @@
 
   <body>
     <%- include('partials/_header') %>
-    <main style="margin: 1em;">
+    <main>
     <h1>Base Caesars</h1>
 
-    <article class="open-card">
-      <% for(let item of items) { %>
+    <% for(let item of items) { %>
+      <article class="open-card">
         <!-- <div class="item-name"><%= item.name %></div> -->
         <div class='item-header'>
           <label for="item-name"><%= item.name %></label>
@@ -39,9 +39,10 @@
             <input type="text" name="amount" id="amount" value="0">
             <div class="inc button">+</div>
           </div>
+          <div class='space'></div>
         </form>
-      <% } %>
-  </article>
-  </main>
+      </article>
+    <% } %>
+  </main
   </body>
 </html>
