@@ -7,7 +7,8 @@ const { getItems } = require('../db/items_queries')
 module.exports = (db) => {
 
   router.get("/", (req, res) => {
-  const userId = 1; //placeholder for user
+  const userId = req.session.userId; //TODO **** add user through req.session.userId
+  const userName = req.session.userName; 
 
   if (!userId) {
   res.redirect('/login');
@@ -17,7 +18,10 @@ module.exports = (db) => {
   .then(data => {
       const items = data.rows;
       //  res.json({ items });
-      const templateVars = { items }
+      const templateVars = {
+        items,
+        user: userName 
+      }
       res.render('index', templateVars)
     })
     .catch(err => {

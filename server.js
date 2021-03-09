@@ -10,12 +10,20 @@ const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require('morgan');
 
+<<<<<<< HEAD
 //for demo purposes user identification is hardcoded as user =1
 // const cookieSession = require('cookie-session');
 // app.use(cookieSession({
 //   name: 'session',
 //   keys: ['key1', 'key2'],
 // }));
+=======
+const cookieSession = require('cookie-session');
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2'],
+}));
+>>>>>>> origin/backend
 
 
 // PG database client/connection setup
@@ -70,7 +78,7 @@ app.use("/api", restaurantRoutes(db));
 app.get('/', (req, res) => {
 //if user doesn't exist redirect to '/login'
 //const userID = req.cookies.id;
-const userId = 1; //place holder to set user
+const userId = req.session.userId;
 
   if (!userId) {
     res.redirect("/login");
