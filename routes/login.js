@@ -6,7 +6,7 @@ const { getOrderId, createOrder } = require('../db/items_queries')
 module.exports = (db) => {
   router.get("/", (req, res) => {
     //hardcoded user for Demo purposes
-    let userId;
+    let userId = 'Sori Han';
 
     if (!userId) {
       const templateVars = {
@@ -40,7 +40,6 @@ module.exports = (db) => {
     res.redirect("/items");
   });
 
-  return router;
 });
-
+return router;
 };
