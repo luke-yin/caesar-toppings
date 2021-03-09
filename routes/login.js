@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const { getOrderId, createOrder } = require('../db/items_queries')
+
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -21,18 +23,24 @@ module.exports = (db) => {
     const userId = 1;
     const status = "precheckout";
 
-    db.query(
-      `INSERT INTO orders (user_id, status)
-    VALUES (${userId}, ${status})
-    RETURNING *;
-    `)
-    .then(res => console.log(res.rows))
+ 
+    getOrderId(userID)
+    .then((res) => {
+        //If an order is already in progress for that user
+        if (res) {
+          res.redirect("/items");
+          return;
+        }
+    //If an order is not in progress for that user
+    createOrder(userId, status)
     .catch((err) => {
-      res.status(500).json({ error: err.message });
+        res.status(500).json({ error: err.message });
     });
 
     res.redirect("/items");
   });
 
   return router;
+});
+
 };

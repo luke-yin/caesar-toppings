@@ -7,48 +7,37 @@
 
 const express = require('express');
 const router = express.Router();
-const { addItem } = require('../db/items_queries')
+const { getItems, getOrderId, createOrder, createOrderItem } = require('../db/items_queries')
 
-// module.exports = (db) => {
+module.exports = (db) => {
 
-//   router.post("/", (req, res) => {
-// // req from form(s), the quantity and the items(id)
-// //tell luke to name the form submit (using serializeArray() to cart!)
+  router.post("/", (req, res) => {
+  // req from form(s), the quantity and the items(id)
+  //tell luke to name the form submit (using serializeArray() to cart!)
+  const userID = 1;
+  let orderId = 0; 
 
-// // const orderId = 
-// const orderItems = req.body.cart; //should be an array of objects with itemId and quantity
+  if (!userId) {
+    res.redirect('/login');
+    return
+    };
+     
+  getOrderId(userID)
+  .then(res => orderId = res.rows[0].id);
 
-// // cart= [
-// // {
-// // itemId: 1,
-// // value: 1
-// // },
-// // {
-// // itemId: 2,
-// // value: 2
-// // },
-// // {
-// // itemId: 2,
-// // value: 0
-// // },
-// // {
-// // itemId: 2,
-// // value: 4
-// // },
-// // {
-// // itemId: 2,
-// // value: 0
-// // },
-// // ];
+  const orderItems = req.body.cart; //should be an array of objects with itemId and quantity
+  createOrderItem(orderItems, orderId);
+  res.redirect('/cart');
 
-// for (const item of orderItems) {
+  });
 
-//   if(item.value > 0)
-//   db.query(`INSERT INTO items_orders (item_id, order_id, quantity)
-//   VALUES (${item.itemId}, ${orderId}, ${item.value});
-//   `)
+  router.get("/", (req, res) => {
+    
+  
+    });
 
-// }
+  
+}
 
 // db.query(`SELECT id FROM users WHERE name = $1;`, [userName]).then(
     //   (res) => (userId = res)

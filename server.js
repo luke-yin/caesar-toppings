@@ -1,4 +1,4 @@
-// load .env data into process.env
+dd// load .env data into process.env
 require('dotenv').config();
 
 // Web server config
@@ -44,17 +44,21 @@ app.use(express.static("public"));
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const itemRoutes = require("./routes/items");
-// const cartRoutes = require("./routes/cart");
+const cartRoutes = require("./routes/cart");
 const loginRoutes = require("./routes/login");
 const ordersRoutes = require("./routes/orders");
+const restaurantRoutes = require("./routes/restaurant");
+const apiRoutes = require("./routes/api");
 
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/items", itemRoutes(db));
-// app.use("/cart", cartRoutes(db));
+app.use("/cart", cartRoutes(db));
 app.use("/login", loginRoutes(db));
 app.use("/orders", ordersRoutes(db));
+app.use("/restaurant", restaurantRoutes(db));
+app.use("/api", restaurantRoutes(db));
 
 
 // Note: mount other resources here, using the same pattern above
