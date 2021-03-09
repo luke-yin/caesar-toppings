@@ -1,4 +1,4 @@
-dd// load .env data into process.env
+// load .env data into process.env
 require('dotenv').config();
 
 // Web server config
@@ -10,7 +10,7 @@ const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require('morgan');
 
-//for demo purposes user identification is hardcoded as user =1 
+//for demo purposes user identification is hardcoded as user =1
 // const cookieSession = require('cookie-session');
 // app.use(cookieSession({
 //   name: 'session',
