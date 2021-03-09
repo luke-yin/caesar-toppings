@@ -19,7 +19,7 @@ module.exports = (db) => {
   const userName = req.session.userName; 
   const orderId = req.session.orderId
   const orderItems = req.body.cart; //should be an array of objects with itemId and quantity
-  let orderId; 
+  // let orderId; 
 
   if (!userId) {
     res.redirect('/login');
@@ -36,6 +36,8 @@ module.exports = (db) => {
 
 
   router.get("/", (req, res) => {
+    const userId = req.session.userId;
+    
     if (!userId) {
       res.redirect('/login');
       return

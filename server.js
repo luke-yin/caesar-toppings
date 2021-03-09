@@ -69,7 +69,7 @@ app.use("/api", restaurantRoutes(db));
 app.get('/', (req, res) => {
 //if user doesn't exist redirect to '/login'
 //const userID = req.cookies.id;
-let userId; //place holder to set user
+const userId = req.session.userId;
 
   if (!userId) {
     res.redirect("/login");

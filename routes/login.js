@@ -11,7 +11,7 @@ app.use(cookieSession({
 module.exports = (db) => {
   router.get("/", (req, res) => {
     //hardcoded user for Demo purposes
-    let userId;
+   const userId = req.session.userId;
 
     if (!userId) {
       let templateVars = {
@@ -24,9 +24,9 @@ module.exports = (db) => {
     res.redirect("/items");
   });
 
+  //REMINDER: Reset db 
   router.post("/", (req, res) => {
     const userName = req.body.userName; //input = sori han
-    const status = "precheckout";
 
     db.query(`
     SELECT id from users
@@ -36,6 +36,10 @@ module.exports = (db) => {
         return res.status(401).json({ error: 'Invalid User' });
       }
      const userId = result.rows[0].id;
+
+     req.session.userId = userId;
+     req.session.userName = userName; 
+
      getOrderId(userId)
      .then((result) => {
          //If an order is already in progress for that user
@@ -43,13 +47,13 @@ module.exports = (db) => {
            res.redirect("/items");
            return;
          }
-         createOrder(userId, status)
+         createOrder(userId)
         //  /UnhandledPromiseRejectionWarning: error: column "precheckout" does not exist
          .then(result => {
            let orderId = result.rows[0].id;
+
            req.session.orderId = orderId; //TODO clear this on checkout
-           req.session.userId = userId; //cookies
-           req.session.userName = userName; //cookies
+
            res.redirect("/items");
           })
         })  

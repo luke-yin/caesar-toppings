@@ -10,7 +10,6 @@ module.exports = (db) => {
   const userId = req.session.userId; //TODO **** add user through req.session.userId
   const userName = req.session.userName; 
 
-
   if (!userId) {
   res.redirect('/login');
   return
@@ -19,7 +18,10 @@ module.exports = (db) => {
   .then(data => {
       const items = data.rows;
       //  res.json({ items });
-      const templateVars = { items }//need to add user
+      const templateVars = {
+        items,
+        user: userName 
+      }
       res.render('index', templateVars)
     })
     .catch(err => {

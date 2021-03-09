@@ -12,19 +12,19 @@ const getItems = function () {
 }
 
 const getOrderId = function (userId) {
-return db.query(`
-SELECT id FROM orders
-WHERE user_id = ${userId} AND status = 'precheckout';
-`)
-};
-
-
-const createOrder = function (userId, status) {
-  return db.query(
-  `INSERT INTO orders (user_id, status)
-  VALUES (${userId}, ${status})
-  RETURNING id;
-  `);
+  return db.query(`
+  SELECT id FROM orders
+  WHERE user_id = ${userId} AND status = 'precheckout';
+  `)
+  };
+  
+  
+  const createOrder = function (userId) {
+    return db.query(
+    `INSERT INTO orders (user_id, status)
+    VALUES (${userId}, 'precheckout')
+    RETURNING id;
+    `);
     //RETURNING * ;
     //.then(res => console.log(res.rows))
 };
@@ -51,13 +51,12 @@ WHERE orders.id = ${orderId};
 `)
 };
 
-//place order and changes order status
-//TODO how do we update timeStamp to when we place order?
-//STRETCH TODO update the timestamp to order place
+
 const placeOrder = function (orderId) {
   return db.query(`
   UPDATE orders
-  status = waiting_approval;
+  status = 'waiting_approval'
+  created_at = NOW();
   `)
 }
 
