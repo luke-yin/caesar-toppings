@@ -46,7 +46,6 @@ const itemRoutes = require("./routes/items");
 const cartRoutes = require("./routes/cart");
 const loginRoutes = require("./routes/login");
 const ordersRoutes = require("./routes/orders");
-const restaurantRoutes = require("./routes/restaurant");
 const apiRoutes = require("./routes/api");
 
 
@@ -56,8 +55,7 @@ app.use("/items", itemRoutes(db));
 app.use("/cart", cartRoutes(db));
 app.use("/login", loginRoutes(db));
 app.use("/orders", ordersRoutes(db));
-app.use("/restaurant", restaurantRoutes(db));
-app.use("/api", restaurantRoutes(db));
+app.use("/api", apiRoutes(db));
 
 
 // Note: mount other resources here, using the same pattern above

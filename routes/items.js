@@ -9,6 +9,12 @@ module.exports = (db) => {
   router.get("/", (req, res) => {
   const userId = req.session.userId; //TODO **** add user through req.session.userId
   const userName = req.session.userName; 
+  const userType = req.session.userType;
+  
+  if(userType === 'restaurant') {
+    res.redirect('/orders')
+    return;
+  }
 
   if (!userId) {
   res.redirect('/login');
