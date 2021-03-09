@@ -3,7 +3,7 @@ const router = express.Router();
 
 //query functions
 const { getItems } = require('../db/items_queries')
-    
+
 module.exports = (db) => {
 
   router.get("/", (req, res) => {
@@ -25,7 +25,7 @@ module.exports = (db) => {
         .status(500)
         .json({ error: err.message });
     });
-    
+
   });
   return router;
-};
+}
