@@ -32,10 +32,13 @@ module.exports = (db) => {
   });
 
   router.get("/", (req, res) => {
-    
+    if (!userId) {
+      res.redirect('/login');
+      return
+      };
   
     });
-
+return router;
   
 }
 
