@@ -3,11 +3,21 @@ $greenBtn: #ABD148;
 $bgColor:#EEE;
 $orange-red: #E35645;
 
+<<<<<<< HEAD
+=======
+
+@font-face {
+  font-family: Intro;
+  src: url('../fonts/IntroBlackInline.otf');
+}
+
+>>>>>>> 1c70496535fedfdf11ed3d89da8fac082ef12e6f
 body {
   background-color: $bgColor;
 
-  h1 {
-    color: #244751;
+  h2 {
+    color: #222222;
+    font: bold 36px Lato, sans-serif;
   }
 
   main {
@@ -18,10 +28,11 @@ body {
 
 .navbar {
   background-color: $orange-red !important;
+  height: 96px;
 }
 
 .navbar-brand {
-  font: bold 24px Intro, sans-serif;
+  font:  40px Intro, sans-serif;
 }
 
 .quantity {
@@ -34,37 +45,45 @@ body {
   display: block;
   background-color: #51832D;
   color: #FFFFFF;
-  padding: 10px auto !important;
+  padding: 12px;
+  padding-bottom: 16px;
   border-radius: 8px;
   width: 100%;
   height: 100%;
+  margin-bottom: 20px;
 }
 
 
 .item-header {
-
   display: flex;
   justify-content: space-between;
+  align-self: center;
   font: bold 24px Lato, sans-serif;
   padding: 10 10 10 10;
+
 }
 
 .button {
   background-color:  $greenBtn;
   margin: 0 0 0 0;
   cursor: pointer;
-  width: 29px;
-  height: 29px;
+  width: 28px;
+  height: 30px;
   float: left;
+  color: #111111;
   text-align: center;
+  font-size: 18px;
 }
 
 input[type=text] {
+  display: flex;
   float: left;
   width: 40px;
-  font: bold 20px Helvetica, sans-serif;
-  padding: 3px 0 0 0;
+  height: 30px;
+  font: 16px Lato, sans-serif;
+  padding-bottom: 1.5px;
   text-align: center;
+  align-items: center;
 }
 
 .space {

@@ -7,6 +7,10 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
+  <!-- Google font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
   <!-- External JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -23,8 +27,8 @@
   <body>
     <%- include('partials/_header') %>
     <main>
-    <h1>Base Caesars</h1>
-
+    <h2>Our Caesars</h2>
+     <!-- form action method maybe to send the quatity to js? -->
     <% for(let item of items) { %>
       <article class="open-card">
         <!-- <div class="item-name"><%= item.name %></div> -->
@@ -39,10 +43,10 @@
             <input type="text" name="amount" id="amount" value="0">
             <div class="inc button">+</div>
           </div>
-          <div class='space'></div>
+          <!-- <div class='space'></div> -->
         </form>
       </article>
     <% } %>
-  </main
+    </main>
   </body>
 </html>
