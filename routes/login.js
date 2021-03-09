@@ -36,9 +36,16 @@ module.exports = (db) => {
         return res.status(401).json({ error: 'Invalid User' });
       }
      const userId = result.rows[0].id;
+     const userType = result.rows[0].type;
 
      req.session.userId = userId;
      req.session.userName = userName; 
+     req.session.userType = userType;
+
+      if (userType === 'restaurant') {
+        res.redirect('/orders');
+        return;
+      }
 
      getOrderId(userId)
      .then((result) => {
@@ -52,8 +59,9 @@ module.exports = (db) => {
          .then(result => {
            let orderId = result.rows[0].id;
 
-           req.session.orderId = orderId; //TODO clear this on checkout
 
+           req.session.orderId = orderId; //TODO clear this on checkout
+          console.log('THIS IS COOKIE ORDER ID!!!!!!: ', req.session.orderId);
            res.redirect("/items");
           })
         })  
