@@ -25,25 +25,20 @@
     <main style="margin: 1em;">
     <h1>Base Caesars</h1>
 
-    <article>
+    <article class="open-card">
       <% for(let item of items) { %>
         <!-- <div class="item-name"><%= item.name %></div> -->
-        <div>
+        <div class='item-header'>
           <label for="item-name"><%= item.name %></label>
-          <input type="text" name="item-name" id="item-name" value="0">
+          <div class="item-price">$<%= item.price %></div>
         </div>
-        <div class="item-price"><%= item.price %></div>
         <p class="item-description"><%= item.description %></p>
-        <!-- <ul>
-          <li><%= item.name %></li>
-          <li><%= item.price %></li>
-          <li><%= item.description %></li>
-          <img src='<%= item.photo_url %>'> -->
-          <!-- <li><%= item.description %></li> -->
-
-        <!-- </ul> -->
         <form method="post" action="">
-          <input type="submit" value="Submit" id="submit">
+          <div class="quantity">
+            <div class="dec button">-</div>
+            <input type="text" name="amount" id="amount" value="0">
+            <div class="inc button">+</div>
+          </div>
         </form>
       <% } %>
   </article>
