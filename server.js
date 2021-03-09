@@ -10,20 +10,11 @@ const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require('morgan');
 
-<<<<<<< HEAD
-//for demo purposes user identification is hardcoded as user =1
-// const cookieSession = require('cookie-session');
-// app.use(cookieSession({
-//   name: 'session',
-//   keys: ['key1', 'key2'],
-// }));
-=======
 const cookieSession = require('cookie-session');
 app.use(cookieSession({
   name: 'session',
   keys: ['key1', 'key2'],
 }));
->>>>>>> origin/backend
 
 
 // PG database client/connection setup

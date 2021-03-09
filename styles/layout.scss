@@ -1,32 +1,56 @@
 // See: https://sass-lang.com/
-$greenbtn: #ABD148;
+$greenBtn: #ABD148;
+$bgColor:#EEE;
+$orange-red: #E35645;
+
 body {
-  background-color: #EEE;
+  background-color: $bgColor;
 
   h1 {
     color: #244751;
   }
+
+  main {
+    margin: 1em;
+  }
+
+}
+
+.navbar {
+  background-color: $orange-red !important;
+}
+
+.navbar-brand {
+  font: bold 24px Intro, sans-serif;
 }
 
 .quantity {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .open-card {
+  display: block;
   background-color: #51832D;
   color: #FFFFFF;
-  padding: 10 10 10 10;
+  padding: 10px auto !important;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
 }
 
+
 .item-header {
+
   display: flex;
   justify-content: space-between;
   font: bold 24px Lato, sans-serif;
+  padding: 10 10 10 10;
 }
 
 .button {
-  background-color:  $greenbtn;
+  background-color:  $greenBtn;
   margin: 0 0 0 0;
   cursor: pointer;
   width: 29px;
@@ -41,4 +65,9 @@ input[type=text] {
   font: bold 20px Helvetica, sans-serif;
   padding: 3px 0 0 0;
   text-align: center;
+}
+
+.space {
+  height: 20px;
+  background-color: $bgColor;
 }
