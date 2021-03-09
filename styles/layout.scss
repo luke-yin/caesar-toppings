@@ -1,5 +1,5 @@
 // See: https://sass-lang.com/
-
+$greenbtn: #ABD148;
 body {
   background-color: #EEE;
 
@@ -26,7 +26,7 @@ body {
 }
 
 .button {
-  background-color:  #ABD148;
+  background-color:  $greenbtn;
   margin: 0 0 0 0;
   cursor: pointer;
   width: 29px;
