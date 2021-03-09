@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { getItems, getOrderId, createOrder, createOrderItem, getOrderItems } = require('../db/items_queries');
+const { getOrderId, createOrderItem, getOrderItems, placeOrder } = require('../db/items_queries');
 const items = require('./items');
 
 module.exports = (db) => {

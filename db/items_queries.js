@@ -66,5 +66,6 @@ module.exports = {
   getOrderId,
   createOrder,
   createOrderItem,
-  getOrderItems
+  getOrderItems,
+  placeOrder
 };
