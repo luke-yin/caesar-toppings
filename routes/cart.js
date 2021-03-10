@@ -14,12 +14,12 @@ const items = require('./items');
 module.exports = (db) => {
 
   router.post("/", (req, res) => {
-  // req from form(s), the quantity and the items(id)
-  //tell luke to name the form submit (using serializeArray() to cart!)
+    // req from form(s), the quantity and the items(id)
+    //tell luke to name the form submit (using serializeArray() to cart!)
     const userId = req.session.userId; //TODO **** add user through req.session.userId
-    const userName = req.session.userName;
-    const orderId = req.session.orderId;
-  
+    // const userName = req.session.userName;
+    const order = req.session.order;
+
     const orderItems = req.body; //should be an array of objects with itemId and quantity
     //an object {5:1, 1:1, etc }
     // console.log(orderItems); input=button <- we may get this...
@@ -28,19 +28,26 @@ module.exports = (db) => {
       res.redirect('/login');
       return;
     }
-      
-    getOrderById(userID)
-      .then(order => {
-        createOrderItem(orderItems, order);
-        res.redirect('/cart', orderId);
-      });
+
+
+
+    //TODO make sure this works
+    if (order.status === 'precheckout') {
+      createOrderItem(orderItems, order.id)
+        .then(() => res.redirect('/cart'))
+      return;
+    }
+
+    // if user's order is waiting_approval, preparation, or completed
+    //user is directed to the specific order info page
+    res.redirect(`/orders/${order.id}`);
   });
 
 
   router.get("/", (req, res) => {
     const userId = req.session.userId;
     const userType = req.session.userType;
-    const orderId = req.session.orderId;
+    const order = req.session.order;
 
     if (userType === 'restaurant') {
       res.redirect('/orders');
@@ -51,12 +58,11 @@ module.exports = (db) => {
       res.redirect('/login');
       return;
     }
-      
+
     //User logged in
-    getOrderItems(orderId)
-      .then(data => {
-        const cartItems = data.rows;
-        const templateVars = { cartItems };
+    getOrderItems(order.id)
+      .then(items => {
+        const templateVars = { items };
         res.render('cart', templateVars);
       })
       .catch(err => {
@@ -69,14 +75,13 @@ module.exports = (db) => {
 
   router.post("/:orderid", (req, res) => {
     const userId = req.session.userId; //TODO **** add user through req.session.userId
-    const userName = req.session.userName;
-    const orderId = req.session.orderId;
-  
+    const order = req.session.order;
+
     //update status of orders = 'waiting_approval'
-    placeOrder(orderId)
-      .then(result => {
-        console.log(result);
-        res.redirect('/orders/:orderId');
+    placeOrder(order.id)
+      .then(order => {
+        console.log(order);
+        res.redirect(`/orders/${order.id}`);
       })
       .catch(err => {
         res
@@ -84,23 +89,16 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
 
-
-      
-
     //IMPLEMENT TWILIO
     // ON POST (places order) USE TWILIO TO SEND TEXT TO RESTAURANT
 
-      
+
     //       App.post (‘/cart/:orderid’)
     // Places the order and sends notification to restaurant
     // Sends message / shows on page - ‘order placed…etc’
 
     // res.redirect('/cart', orderId);
-    
+
   });
-
-
-
   return router;
-  
 };

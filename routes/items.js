@@ -7,10 +7,10 @@ const { getAllItems, getOrderById, createOrder } = require('../db/items_queries'
 module.exports = (db) => {
 
   router.get("/", (req, res) => {
-    const userId = req.session.userId; //TODO **** add user through req.session.userId
+    const userId = req.session.userId;
     const userName = req.session.userName;
     const userType = req.session.userType;
-  
+
     if (userType === 'restaurant') {
       res.redirect('/orders');
       return;
@@ -32,21 +32,24 @@ module.exports = (db) => {
       })
       .then((order) => {
         if (order) {
-          req.session.orderId = order.id;
-     
+          req.session.order = order;
+          console.log('>>>>"items.js/35" order is already active this is the order: ', order)
+
           const templateVars = { items: allItems, user: userName };
-          //this page AJAX - loads ALL items for the order (existing order history)
           res.render('index', templateVars);
           return;
         }
- 
         // no order in progress
-        return createOrder(userId);
-      })
-      .then(orderId => {
-        req.session.orderId = orderId; //TODO clear this on checkout
-        console.log('THIS IS COOKIE ORDER ID!!!!!!🍪: ', req.session.orderId);
-        res.redirect("/items");
+        createOrder(userId)
+        .then(order => {
+          req.session.order = order;
+          const templateVars = { items: allItems, user: userName };
+          console.log('>>>>"items.js/49" order was JUST created + stored into🍪: ', req.session.order);
+          res.render("index", templateVars);
+        })
+        .catch((err) => {
+          res.status(500).json({ error: err.message });
+        });
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
