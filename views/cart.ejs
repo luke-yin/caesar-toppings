@@ -29,53 +29,36 @@
     <%- include('partials/_header') %>
     <main>
       
-    <h2>Cart</h2>
-     <section class='cart-all-items'>
-      <% for(let item of items) { %>
-        <article class="cart-item">
-          <div class='cart-item-pic'>
-            <img src='<%= item.photo_url %>'></img>
-          </div>
-          <div class='cart-item-info'>
-            <h3 class='cart-item-info'><%= item.name %></h3>
-            <h4 class='cart-item-price'><%= item.price %></h4>
-            <!-- Need this info from templateVars? -->
-            <h4 class='cart-item-quantity'><%= item.quantity %></h4>
-          </div>
-        </article>
-    <% } %>
-  </section class='cart-total-price'>
-    <strong class="cart-total-title">Total</strong>
-    <span class="cart-total-price">$</span>
-  <section>
-
-  </section>
-    <div class="space"> </div>
-    <div class="view-cart">View Cart ($<div id='itemTotalPrice'>0</div>)</div>
-    </main>
-    <!-- <footer>
-      <div class="view-cart">View Cart</div>
-    </footer> -->
-
-    <script>
       
-      function updateCartTotal() {
-          let cartItemContainer = document.querySelector('.cart-all-items');
-          let cartRows = cartItemContainer.querySelectorAll('.cart-item');
+      <a href="./items">←</a>
+      <h2>Cart</h2>
+      
+      <section class='cart-all-items'>
+        <% for(let item of items) { %>
+          <article class="cart-item">
+            <div class='cart-item-pic'>
+              <img src='<%= item.photo_url %>'></img>
+            </div>
+            <div class='cart-item-info'>
+              <h3 class='cart-item-info'><%= item.name %></h3>
+              <h4>Quantity: <span class='cart-item-quantity'><%= item.quantity %></span></h4>
+              <h4>Price: <span class='cart-item-price'>$<%= item.total / 100 %></span>
+            </div>
+          </article>
+      <% } %>
+      </section class='cart-total-price'>
+    
+      <section>
+        <h3>Cart total: <span class="cart-total-price">$<%= total / 100 %></span></h3>
+      </section>
 
-          let total = 0
-          for (let i = 0; i < cartRows.length; i++) {
-              let cartRow = cartRows[i]
-              let priceElement = cartRow.querySelector('.cart-item-price');
-              let quantityElement = cartRow.querySelector('.cart-item-quantity');
+    </main>
 
-              let price = parseFloat(priceElement.innerText.replace('$', ''))
-              let quantity = quantityElement.value
-              total = total + (price * quantity)
-          }
-          total = Math.round(total * 100) / 100
-          document.querySelector('.cart-total-price').innerText = '$' + total;
-      }
-  </script>
+    <footer>
+      <form action="/orders/<%= orderId %>" method="post">
+        <button type="submit">Checkout</button>
+      </form>
+    </footer>
+
   </body>
 </html>
