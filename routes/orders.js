@@ -48,7 +48,7 @@ module.exports = (db) => {
   });
 
 
-  router.get("/:orderId", (req, res) => {
+  router.get("/:orderid", (req, res) => {
     let templateVars = {};
     const userId = req.session.userId;
     const order = req.session.order;
@@ -94,7 +94,7 @@ module.exports = (db) => {
   });
 
 
-  router.post("/:orderId/confirm", (req, res) => {
+  router.post("/:orderid/confirm", (req, res) => {
 
     const userId = req.session.userId;
     const order = req.session.order;
@@ -121,7 +121,7 @@ module.exports = (db) => {
       //TODO when restaurant confirms order, we need to let the custmer know the order is in preparation
     };
 
-    router.post("/:orderId/complete", (req, res) => {
+    router.post("/:orderid/complete", (req, res) => {
 
       const userId = req.session.userId;
       const orderId = req.session.orderId;

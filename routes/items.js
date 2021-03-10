@@ -50,7 +50,7 @@ module.exports = (db) => {
           req.session.order = order;
           const templateVars = { items: allItems, user: userName };
           console.log('>>>>"items.js/49" order was JUST created + stored into🍪: ', req.session.order);
-          res.render("index", templateVars);
+          res.render('index', templateVars);
         })
         .catch((err) => {
           res.status(500).json({ error: err.message });
