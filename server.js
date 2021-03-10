@@ -9,13 +9,12 @@ const bodyParser = require("body-parser");
 const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require('morgan');
-
 const cookieSession = require('cookie-session');
+
 app.use(cookieSession({
   name: 'session',
   keys: ['key1', 'key2'],
 }));
-
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -26,7 +25,7 @@ module.exports = db;
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
-//         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
+// The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 
 app.set("view engine", "ejs");
@@ -41,7 +40,6 @@ app.use(express.static("public"));
 
 
 // Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
 const itemRoutes = require("./routes/items");
 const cartRoutes = require("./routes/cart");
 const loginRoutes = require("./routes/login");
@@ -50,7 +48,6 @@ const apiRoutes = require("./routes/api");
 
 
 // Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
 app.use("/items", itemRoutes(db));
 app.use("/cart", cartRoutes(db));
 app.use("/login", loginRoutes(db));
@@ -60,22 +57,17 @@ app.use("/api", apiRoutes(db));
 
 // Note: mount other resources here, using the same pattern above
 
-//queries functions
-
 
 // Home page
 app.get('/', (req, res) => {
-//if user doesn't exist redirect to '/login'
-//const userID = req.cookies.id;
 const userId = req.session.userId;
-
   if (!userId) {
     res.redirect("/login");
     return;
   }
-  //otherwise, it redirects to /items
   res.redirect("/items");
 });
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

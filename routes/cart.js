@@ -14,13 +14,12 @@ const { createOrderItem, getOrderItems, placeOrder } = require('../db/items_quer
 module.exports = (db) => {
 
   router.post("/", (req, res) => {
-    // req from form(s), the quantity and the items(id)
-    //tell luke to name the form submit (using serializeArray() to cart!)
     const userId = req.session.userId; //TODO **** add user through req.session.userId
-    // const userName = req.session.userName;
-    const order = req.session.order;
+    const userName = req.session.userName;
+    const orderId = req.session.orderId;
 
-    const orderItems = req.body; //should be an array of objects with itemId and quantity
+  //should be an array of objects with itemId and quantity
+    const orderItems = req.body;
     //an object {5:1, 1:1, etc }
     console.log('this is the body we return for order!!!', orderItems);
 
