@@ -119,7 +119,6 @@ module.exports = (db) => {
 
     const userId = req.session.userId;
     const orderId = req.session.orderId;
-    const userName = req.session.userName;
     const userType = req.session.userType;
 
     if (!userId) {
