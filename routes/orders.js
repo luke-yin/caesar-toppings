@@ -120,8 +120,8 @@ module.exports = (db) => {
             .json({ error: err.message });
         });
 
-        //TODO AJAX can listen for change in order.status cookie? or from orders??????????
-      //TODO when restaurant confirms order, we need to let the custmer know the order is in preparation
+// send a notification to  the user phone number when restaurant confirms it
+
     };
 
 
