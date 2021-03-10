@@ -15,6 +15,7 @@ body {
   h2 {
     color: #222222;
     font: bold 36px Lato, sans-serif;
+    margin-bottom: 1.5rem;
   }
 
   main {
@@ -91,6 +92,22 @@ input[type=text] {
 }
 
 .space {
-  height: 20px;
+  height: 40px;
   background-color: $bgColor;
+}
+
+.view-cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 6vw;
+  height: 72px;
+  width: 85vw;
+  background-color: #F2753F;
+  font: bold 24px Lato, sans-serif;
+  color: #FFFFFF;
+  position: fixed;
+  bottom: 0%;
+  z-index: 1;
+  border-radius: 10px 10px 0 0;
 }
