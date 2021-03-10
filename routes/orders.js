@@ -62,6 +62,7 @@ module.exports = (db) => {
     // if restaurant - show the specific order details. (all the items)
     if (userType === 'restaurant') {
 
+
       //TODO customer is already on this page (submitted order)
       //Restaurant may come back after 'confirming' order
       //We need to somehow refresh the message on customer side
@@ -70,6 +71,7 @@ module.exports = (db) => {
       getSpecificOrder(order.id)
         .then(customerOrder => {
           templateVars = { customerOrder };
+
           res.render('order', templateVars);
         })
         .catch(err => {
@@ -117,9 +119,11 @@ module.exports = (db) => {
             .status(500)
             .json({ error: err.message });
         });
+      
         //TODO AJAX can listen for change in order.status cookie? or from orders??????????
       //TODO when restaurant confirms order, we need to let the custmer know the order is in preparation
     };
+
 
     router.post("/:orderId/complete", (req, res) => {
 
