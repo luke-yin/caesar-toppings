@@ -3,35 +3,35 @@ const db = require('../server');
 
 
 // Returns all the information of every menu item
-const getItems = function () {
+const getAllItems = function () {
   return db.query(`
     SELECT *
     FROM items;
     `)
-  // .then(data => data.rows)
+  .then(data => data.rows)
 }
 
-const getOrderId = function (userId) {
+const getOrderById = function (userId) {
   return db.query(`
   SELECT id FROM orders
   WHERE user_id = ${userId} AND status = 'precheckout';
   `)
+  .then(res => res.rows[0]);
   };
   
   
-  const createOrder = function (userId) {
-    return db.query(
-    `INSERT INTO orders (user_id, status)
-    VALUES (${userId}, 'precheckout')
-    RETURNING id;
-    `);
-    //RETURNING * ;
-    //.then(res => console.log(res.rows))
+const createOrder = function (userId) {
+  return db.query(
+  `INSERT INTO orders (user_id, status)
+  VALUES (${userId}, 'precheckout')
+  RETURNING id;
+  `)
+  .then(res => res.rows[0].id);
 };
 
 const createOrderItem = function (orderItems, orderId) {
 
-  for (const item of orderItems) {
+  for (const item in orderItems) {
 
     if(item.value > 0) {
       db.query(`INSERT INTO items_orders (item_id, order_id, quantity)
@@ -74,6 +74,7 @@ const getAllOrders = function () {
   return db.query(`
   SELECT * FROM orders;
 `)
+.then(res => res.rows);
 };
 
 
@@ -82,6 +83,7 @@ const getSpecificOrder = function (orderId) {
   SELECT * FROM orders
   WHERE id = ${orderId};
 `)
+.then(res => res.rows[0]);
 };
 
 const getSpecificUserOrder = function (orderId, userId) {
@@ -94,6 +96,7 @@ const getSpecificUserOrder = function (orderId, userId) {
   WHERE orders.id = ${orderId} AND user_id = ${userId}
   GROUP BY orders.id;
 `)
+.then(res => res.rows);
 };
 
 const confirmOrder = function (orderId) {
@@ -102,12 +105,20 @@ const confirmOrder = function (orderId) {
   SET status = 'preparing'
   WHERE orderId = ${orderId};
   `)
-
 }
 
+const completeOrder = function (orderId) {
+  return db.query(`
+  UPDATE orders
+  SET status = 'complete'
+  WHERE orderId = ${orderId};
+  `)
+}
+
+
 module.exports = {
-  getItems,
-  getOrderId,
+  getAllItems,
+  getOrderById,
   createOrder,
   createOrderItem,
   getOrderItems,
@@ -116,5 +127,6 @@ module.exports = {
   getAllOrders,
   getSpecificOrder,
   getSpecificUserOrder,
-  confirmOrder
+  confirmOrder,
+  completeOrder
 };

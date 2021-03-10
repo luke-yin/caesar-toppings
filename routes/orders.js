@@ -5,62 +5,48 @@ const { getAllOrders, getUserOrders, getSpecificOrder, getSpecificUserOrder, con
 
 module.exports = (db) => {
 
-  //main page for restaurant. if restaurant at login. user gets redirected here. 
+  //main page for restaurant. if restaurant at login. user gets redirected here.
   router.get("/", (req, res) => {
 
-    const userId = req.session.userId; 
+    const userId = req.session.userId;
     const userName = req.session.userName;
     const userType = req.session.userType;
 
     if (!userId) {
       res.redirect('/login');
-      return
-      };
-
-let templateVars = {};
-
-if (userType ==='restaurant') {
-  getAllOrders()
-  .then(data => {
-    const orders = data.rows;
-    templateVars = {
-      orders,
-      userType,
-      user: userName
+      return;
     }
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
-  })
-}
+
+    let templateVars = {};
+
+    if (userType === 'restaurant') {
+      getAllOrders()
+        .then(orders => {
+          templateVars = { orders, userType, user: userName };
+          res.render('orders', templateVars);
+        })
+        .catch(err => {
+          res
+            .status(500)
+            .json({ error: err.message });
+        });
+  
+      return;
+    }
 
     //order history for specific user
     getUserOrders(userId)
-    .then(data => {
-      const orders = data.rows;
-      templateVars = {
-        orders,
-        userType,
-        user: userName
-      }
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
-
-    res.render('orders', templateVars);
+      .then(data => {
+        const orders = data.rows;
+        templateVars = {orders, userType, user: userName};
+        res.render('orders', templateVars);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
   });
-
-    // router.get '/orders'
-      // if customer show ALL customer specific orders and their status
-      // status, total price, created at
-      // if restaurant show ALL  orders and their status. (waiting approval at top)
-      // status, total price, created at
-  
   
 
   router.get("/:orderId", (req, res) => {
@@ -72,30 +58,26 @@ if (userType ==='restaurant') {
     
     if (!userId) {
       res.redirect('/login');
-      return
-      };
-      // if restaurant - show the specific order details. (all the items)
-      if (userType === 'restaurant') {
-        getSpecificOrder(orderId)
-        .then(data => {
-          const order = data.rows[0];
-          templateVars = {
-            order
-          }
+      return;
+    }
+    // if restaurant - show the specific order details. (all the items)
+    if (userType === 'restaurant') {
+      getSpecificOrder(orderId)
+        .then(order => { 
+          templateVars = {order};
+          res.render('order', templateVars);
         })
         .catch(err => {
           res
             .status(500)
             .json({ error: err.message });
         });
-      }
+        return;
+    }
 
-      getSpecificUserOrder(orderId, userId)
-      .then(data => {
-        const order = data.rows[0];
-        templateVars = {
-          order
-        }
+    getSpecificUserOrder(orderId, userId)
+      .then(order => { templateVars = { order };
+        res.render('order', templateVars);
       })
       .catch(err => {
         res
@@ -103,9 +85,6 @@ if (userType ==='restaurant') {
           .json({ error: err.message });
       });
 
-
-    res.render('order', templateVars);
-      
   });
 
 
@@ -119,19 +98,22 @@ if (userType ==='restaurant') {
     if (!userId) {
       res.redirect('/login');
       return;
-      };
-
+    }
+//TODO we can grab the order in full instead of just order id when they log in
     if (userType === 'restaurant') {
       confirmOrder(orderId)
-      .then(() => res.redirect('/orders/:orderId'))
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-    }
-//TODO when restaurant confirms order, we need to let the custmer know the order is in preparation
-  });
+        .then(order =>{
+          req.session.orderStatus = order.status;
+          res.redirect(`/orders/${orderId}`)
+        })
+        .catch(err => {
+          res
+            .status(500)
+            .json({ error: err.message });
+        });
+      
+    //TODO when restaurant confirms order, we need to let the custmer know the order is in preparation
+  };
 
   router.post("/:orderId/complete", (req, res) => {
 
@@ -143,73 +125,20 @@ if (userType ==='restaurant') {
     if (!userId) {
       res.redirect('/login');
       return;
-      };
+    }
 
     if (userType === 'restaurant') {
       completeOrder(orderId)
-      .then(() => res.redirect('/orders'))
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
+        .then(() => res.redirect('/orders'))
+        .catch(err => {
+          res
+            .status(500)
+            .json({ error: err.message });
+        });
     }
   });
 
-
   
-  // router.get '/orders/:orderId
-     
-        // if restaurant show 'accept' button that updates the status to 'in_preparation'
-      // if customer this is where 'checkout' takes them to. 
-        // if customer this thanks the customer, order number,  maybe gives them estimated time, and updates the status when restaurant accepts it. 
-
-
-// /orders/:orderId/confirm
-// /orders/:orderId/
-
-
-
-  //TODO add to table: user type
-
-  // orders.ejs 
-    // router.get '/orders'
-      // if customer show ALL customer specific orders and their status
-      // status, total price, created at
-      // if restaurant show ALL  orders and their status. (waiting approval at top)
-      // status, total price, created at
-
-    // router.get '/orders/:orderId
-      // if restaurant - show the specific order details. (all the items)
-        // if restaurant show 'accept' button that updates the status to 'in_preparation'
-      // if customer this is where 'checkout' takes them to. 
-        // if customer this thanks the customer, order number,  maybe gives them estimated time, and updates the status when restaurant accepts it. 
-
-
-
-
-
- 
-
-  return router;
+  });
+return router;
 };
-
-
-//ejs file needs to have an if statement: if order status is 'waiting approval', we need to see that on screen
-      
-      //
-  
-      //send message to restaurant (twilio logic)
-
-      //restaurant apporves order: maybe using SetTimeout to fake waiting for approval?
-      // setTimeout(function(){
-      //   //Change order status to : ‘in preparation’
-      //   //ejs file needs to have an if statement: if order status is ‘in preparation’, we need to see that on screen
-      //   //send message to client (twilio logic)
-      // }, 5000);
-
-      // setTimeout(function(){
-      //   //Change order status to : ‘completed’
-      //   //ejs file needs to have an if statement: if order status is ‘completed’, we need to see that on screen
-        
-      // }, 15000);
