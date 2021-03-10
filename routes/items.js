@@ -11,12 +11,17 @@ module.exports = (db) => {
     const userName = req.session.userName;
     const userType = req.session.userType;
 
+    console.log('>>>>items.js LINE 14 this user info', userType);
+
     if (userType === 'restaurant') {
+      console.log('>>>>>>items.js this user is restaurant: ', userId)
       res.redirect('/orders');
       return;
     }
 
     if (!userId) {
+      console.log('>>>>>>items.js this user doesnt exist ', userId)
+
       res.redirect('/login');
       return;
     }

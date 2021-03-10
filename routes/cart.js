@@ -5,11 +5,11 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-const { response } = require('express');
+// const { response } = require('express');
 const express = require('express');
 const router = express.Router();
-const { getOrderById, createOrderItem, getOrderItems, placeOrder } = require('../db/items_queries');
-const items = require('./items');
+const { createOrderItem, getOrderItems, placeOrder } = require('../db/items_queries');
+
 
 module.exports = (db) => {
 
@@ -22,14 +22,12 @@ module.exports = (db) => {
 
     const orderItems = req.body; //should be an array of objects with itemId and quantity
     //an object {5:1, 1:1, etc }
-    // console.log(orderItems); input=button <- we may get this...
+    console.log('this is the body we return for order!!!', orderItems);
 
     if (!userId) {
       res.redirect('/login');
       return;
     }
-
-
 
     //TODO make sure this works
     if (order.status === 'precheckout') {
@@ -50,6 +48,7 @@ module.exports = (db) => {
     const order = req.session.order;
 
     if (userType === 'restaurant') {
+      console.log('>>>>> cart.js line 51. this is the restaurant user: ', userId)
       res.redirect('/orders');
       return;
     }
@@ -62,6 +61,8 @@ module.exports = (db) => {
     //User logged in
     getOrderItems(order.id)
       .then(items => {
+        console.log('>>>>> cart.js line 64. this is the customer user: ', userId)
+        console.log('>>>>> cart.js line 64. this is the customer user order: ', order.id)
         const templateVars = { items };
         res.render('cart', templateVars);
       })

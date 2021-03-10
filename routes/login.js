@@ -29,20 +29,22 @@ module.exports = (db) => {
   //REMINDER: Reset db
   router.post("/", (req, res) => {
     const userName = req.body.userName;
-    console.log('Post: /login')
     db.query(`
-    SELECT id from users
+    SELECT * from users
     WHERE name = $1;`, [userName])
-      .then(result => {
-        if (!result.rows[0]) {
+      .then(user => {
+        if (!user.rows[0]) {
           return res.status(401).json({ error: 'Invalid User' });
         }
-        const userId = result.rows[0].id;
-        const userType = result.rows[0].type;
+        const userId = user.rows[0].id;
+        const userType = user.rows[0].type;
 
         req.session.userId = userId;
         req.session.userName = userName;
         req.session.userType = userType;
+        console.log('userId in login.js line 46: ', userId)
+        console.log('userName in login.js line 47: ', userName)
+        console.log('userType in login.js line 48: ', userType)
         res.redirect('/items');
       });
   });
