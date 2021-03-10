@@ -14,12 +14,12 @@ const getAllItems = function () {
 const getOrderById = function (userId) {
   return db.query(`
   SELECT id FROM orders
-  WHERE user_id = ${userId} AND status = 'precheckout';
+  WHERE user_id = ${userId};
   `)
   .then(res => res.rows[0]);
   };
-  
-  
+
+
 const createOrder = function (userId) {
   return db.query(
   `INSERT INTO orders (user_id, status)
@@ -39,7 +39,7 @@ const createOrderItem = function (orderItems, orderId) {
       `)
     }
   };
-  return 
+  return
 };
 
 const getOrderItems = function (orderId) {

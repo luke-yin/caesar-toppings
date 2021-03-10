@@ -30,7 +30,7 @@ module.exports = (db) => {
             .status(500)
             .json({ error: err.message });
         });
-  
+
       return;
     }
 
@@ -47,7 +47,7 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-  
+
 
   router.get("/:orderId", (req, res) => {
     let templateVars = {};
@@ -55,7 +55,7 @@ module.exports = (db) => {
     const orderId = req.session.orderId;
     const userName = req.session.userName;
     const userType = req.session.userType;
-    
+
     if (!userId) {
       res.redirect('/login');
       return;
@@ -63,7 +63,7 @@ module.exports = (db) => {
     // if restaurant - show the specific order details. (all the items)
     if (userType === 'restaurant') {
       getSpecificOrder(orderId)
-        .then(order => { 
+        .then(order => {
           templateVars = {order};
           res.render('order', templateVars);
         })
@@ -111,7 +111,7 @@ module.exports = (db) => {
             .status(500)
             .json({ error: err.message });
         });
-      
+
     //TODO when restaurant confirms order, we need to let the custmer know the order is in preparation
   };
 
@@ -138,7 +138,7 @@ module.exports = (db) => {
     }
   });
 
-  
+
   });
 return router;
 };

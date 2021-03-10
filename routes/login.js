@@ -10,7 +10,7 @@ app.use(cookieSession({
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    
+
     const userId = req.session.userId;
 
     if (!userId) {
@@ -20,7 +20,7 @@ module.exports = (db) => {
       res.render("login", templateVars);
       return;
     }
-  
+
     res.redirect("/items");
   });
 
