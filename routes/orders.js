@@ -124,10 +124,6 @@ module.exports = (db) => {
       //TODO when restaurant confirms order, we need to let the custmer know the order is in preparation
     };
 
-<<<<<<< HEAD
-=======
-  router.post("/:orderid/complete", (req, res) => {
->>>>>>> master
 
     router.post("/:orderid/complete", (req, res) => {
 
