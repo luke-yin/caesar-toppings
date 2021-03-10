@@ -35,11 +35,11 @@ const createOrderItem = function (orderItems, orderId) {
 
     if(item.value > 0) {
       db.query(`INSERT INTO items_orders (item_id, order_id, quantity)
-      VALUES (${item.itemId}, ${orderId}, ${item.value});
+      VALUES (${item[id]}, ${orderId}, ${item[quantity]});
       `)
     }
   };
-  return
+  return;
 };
 
 const getOrderItems = function (orderId) {
