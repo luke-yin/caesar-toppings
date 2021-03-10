@@ -50,10 +50,15 @@ $(document).ready(function() {
   // });
 
   let total = 0;
+
+  let cartOB = {};
+
   $('#itemTotalPrice').text(total);
 
 
   $(".button").on("click", function() {
+    // console.log($(this));
+    let id = $(this)[0].parentElement.parentElement.parentElement.children[3].innerHTML;
     let price = $(this)[0].parentElement.parentElement.parentElement.children[0].children[1].children[0].innerHTML;
     currentPrice = parseFloat(price);
     currentPrice = Math.round(currentPrice * 100 ) / 100;
@@ -67,11 +72,10 @@ $(document).ready(function() {
       total += currentPrice;
 
     } else {
-    // Don't allow decrementing below zero
+     // Don't allow decrementing below zero
       if (oldValue > 0) {
         var newVal = parseFloat(oldValue) - 1;
          total -= currentPrice;
-
       } else {
         newVal = 0;
       }
@@ -80,8 +84,30 @@ $(document).ready(function() {
     $button.parent().find("input").val(newVal);
     total = Math.round(total * 100 ) / 100;
     $("#itemTotalPrice").text(total);
+    // for (let i = 0; i < cart.length; i++) {
+    //   if
+    // itemQuantity.push(newVal);
+    // cart.push({"id": id, 'quantity': itemQuantity});
+    cartOB[id] = newVal;
+    //cart = [{"id": id, 'quantity': newVal}];
+  });
 
 
+  $(".view-cart").on("click", function() {
+    console.log($(this));
+    console.log($("#for-loop").children.length);
+    // console.log(cart);
+    console.log(cartOB);
+
+    // for (let i = 0; i <  ) {
+    //   /*
+    //   db.query(`
+    // SELECT *
+    // FROM items;
+    // `)
+    // */
+
+    // }
   });
 
 
