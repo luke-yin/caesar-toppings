@@ -72,6 +72,13 @@ body {
   font-size: 18px;
 }
 
+.dec {
+  border-radius:10px 0 0 10px;
+}
+.inc {
+  border-radius:0px 10px 10px 0px;
+}
+
 input[type=text] {
   display: flex;
   float: left;
