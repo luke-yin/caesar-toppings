@@ -1,6 +1,13 @@
 const { database } = require('pg/lib/defaults');
 const db = require('../server');
 
+// returns user info with user's first name
+const getUser = function (userName) {
+ return  db.query(`
+  SELECT * from users
+  WHERE name = $1;`, [userName])
+  .then(data => data.rows[0])
+}
 
 // Returns all the information of every menu item
 const getAllItems = function () {
@@ -126,6 +133,7 @@ const completeOrder = function (orderId) {
 
 
 module.exports = {
+  getUser,
   getAllItems,
   getOrderById,
   createOrder,
