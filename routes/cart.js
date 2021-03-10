@@ -1,14 +1,7 @@
-/*
- * All rouor Users are defined here
- * Since this file is loaded in server.js into api/users,
- *   these routes are mounted onto /users
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
-
-// const { response } = require('express');
 const express = require('express');
 const router = express.Router();
 const { createOrderItem, getOrderItems, placeOrder } = require('../db/items_queries');
+const items = require('./items');
 
 
 module.exports = (db) => {
@@ -57,18 +50,14 @@ module.exports = (db) => {
       return;
     }
 
-    //User logged in
+    //Send current order's items and total of the full order
     getOrderItems(order.id)
-      .then(items => {
-        console.log('>>>>> cart.js line 64. this is the customer user: ', userId)
-        console.log('>>>>> cart.js line 64. this is the customer user order: ', order.id)
-        console.log('>>>>> cart.js line 64. this is the customer user order: ', items)
-
-       totalPrice(order.id)
-        const templateVars = { items };
+      .then(data => {
+        const {items, total} = data
+        const templateVars = { items, total };
+        console.log(items, total)
         res.render('cart', templateVars);
       })
-
       .catch(err => {
         res
           .status(500)
@@ -95,7 +84,8 @@ module.exports = (db) => {
 
     //IMPLEMENT TWILIO
     // ON POST (places order) USE TWILIO TO SEND TEXT TO RESTAURANT
-
+    // restaurant should confirm how long it'll take
+    //
 
     //       App.post (‘/cart/:orderid’)
     // Places the order and sends notification to restaurant

@@ -3,10 +3,10 @@ const db = require('../server');
 
 // returns user info with user's first name
 const getUser = function (userName) {
- return  db.query(`
+  return db.query(`
   SELECT * from users
   WHERE name = $1;`, [userName])
-  .then(data => data.rows[0])
+    .then(data => data.rows[0])
 }
 
 // Returns all the information of every menu item
@@ -15,7 +15,7 @@ const getAllItems = function () {
     SELECT *
     FROM items;
     `)
-  .then(data => data.rows)
+    .then(data => data.rows)
 }
 
 // Returns user's orders with status = precheckout
@@ -26,8 +26,8 @@ const getOrderById = function (userId) {
   WHERE user_id = ${userId} AND status = 'precheckout';
 
   `)
-  .then(res => res.rows[0]);
-  };
+    .then(res => res.rows[0]);
+};
 
 // User logs in with ACTIVE order - load the order
 const loadActiveOrder = function (orderId) {
@@ -38,33 +38,44 @@ const loadActiveOrder = function (orderId) {
   WHERE order_id = ${orderId}
   GROUP BY item_id, quantity;
   `)
-  .then(res => res.rows);
+    .then(res => res.rows);
 };
 
-
+//customer without ACTIVE order gets a new order created on get request of /items
 const createOrder = function (userId) {
   return db.query(
-  `INSERT INTO orders (user_id, status)
+    `INSERT INTO orders (user_id, status)
   VALUES (${userId}, 'precheckout')
   RETURNING *;
   `)
-  .then(res => res.rows[0]);
+    .then(res => res.rows[0]);
 };
 
+
+//TODO want to loop through each item/quantity selected and insert it into the items_orders table
 const createOrderItem = function (orderItems, orderId) {
+  //takes an array of promises
+const promises = [];
 
   for (const item in orderItems) {
 
-    if(item.value > 0) {
-      db.query(`INSERT INTO items_orders (item_id, order_id, quantity)
-      VALUES (${item[id]}, ${orderId}, ${item[quantity]});
-      `)
+    if (item.value > 0) {
+      promises.push(db.query(`INSERT INTO items_orders (item_id, order_id, quantity)
+      VALUES (${item.id}, ${orderId}, ${item.quantity});
+      `))
     }
   };
 
-  return;
+
+
+
+  // makes sure ALL the promises are finished and then run the then()
+  return Promise.all(promises)
+  .then(() => true)
+  .catch(err => console.log(err))
 
 };
+
 
 // Returns details and total price of EACH item in order
 const getOrderItems = function (orderId) {
@@ -75,10 +86,14 @@ const getOrderItems = function (orderId) {
   WHERE order_id = ${orderId}
   GROUP BY items.id, quantity, order_id;
 `)
-.then(res => res.rows);
+.then(res => {
+  let total = 0;
+  res.rows.forEach(row => total += row.total)
+  // res.rows.push({total})
+  return {items: res.rows, total};
+})
 };
 
-//create total price selector
 
 const placeOrder = function (orderId) {
   return db.query(`
@@ -87,7 +102,7 @@ const placeOrder = function (orderId) {
   created_at = NOW()
   RETURNING status, created_at;
   `)
-  .then(res => res.rows[0]);
+    .then(res => res.rows[0]);
 }
 
 const getUserOrders = function (userId) {
@@ -97,14 +112,14 @@ const getUserOrders = function (userId) {
   WHERE users.id = ${userId}
   ORDER BY created_at DESC;
 `)
-.then(res => res.rows);
+    .then(res => res.rows);
 };
 
 const getAllOrders = function () {
   return db.query(`
   SELECT * FROM orders;
 `)
-.then(res => res.rows);
+    .then(res => res.rows);
 };
 
 
@@ -113,7 +128,7 @@ const getSpecificOrder = function (orderId) {
   SELECT * FROM orders
   WHERE id = ${orderId};
 `)
-.then(res => res.rows[0]);
+    .then(res => res.rows[0]);
 };
 
 const getSpecificUserOrders = function (orderId, userId) {
@@ -126,7 +141,7 @@ const getSpecificUserOrders = function (orderId, userId) {
   WHERE orders.id = ${orderId} AND user_id = ${userId}
   GROUP BY orders.id;
 `)
-.then(res => res.rows);
+    .then(res => res.rows);
 };
 
 const confirmOrder = function (orderId) {
@@ -136,7 +151,7 @@ const confirmOrder = function (orderId) {
   WHERE orderId = ${orderId}
   RETURNING status;
   `)
-  .then(res => res.rows[0]);
+    .then(res => res.rows[0]);
 }
 
 const completeOrder = function (orderId) {
