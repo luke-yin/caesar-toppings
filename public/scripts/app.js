@@ -6,7 +6,7 @@ $(() => {
     for(user of users) {
       $("<div>").text(user.name).appendTo($("body"));
     }
-  });;
+  });
 });
 
 $(document).ready(function() {
@@ -37,7 +37,7 @@ $(document).ready(function() {
     if ($button.text() == "+") {
       const newVal = parseFloat(oldValue) + 1;
     } else {
-     // Don't allow decrementing below zero
+    // Don't allow decrementing below zero
       if (oldValue > 0) {
         const newVal = parseFloat(oldValue) - 1;
       } else {
@@ -46,6 +46,7 @@ $(document).ready(function() {
     }
 
     $button.parent().find("input").val(newVal);
+
 
   });
 
