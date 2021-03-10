@@ -6,14 +6,13 @@ const items = require('./items');
 
 module.exports = (db) => {
 
+  // 🛒 Customer chooses items and views cart
   router.post("/", (req, res) => {
     const userId = req.session.userId; //TODO **** add user through req.session.userId
-    const userName = req.session.userName;
-    const orderId = req.session.orderId;
-
-  //should be an array of objects with itemId and quantity
+    const order = req.session.order;
     const orderItems = req.body;
-    //an object {5:1, 1:1, etc }
+
+
     console.log('this is the body we return for order!!!', orderItems);
 
     if (!userId) {
@@ -28,8 +27,7 @@ module.exports = (db) => {
       return;
     }
 
-    // if user's order is waiting_approval, preparation, or completed
-    //user is directed to the specific order info page
+    // if user's order is anything but 'precheckout'
     res.redirect(`/orders/${order.id}`);
   });
 
@@ -38,6 +36,7 @@ module.exports = (db) => {
     const userId = req.session.userId;
     const userType = req.session.userType;
     const order = req.session.order;
+    const orderId = order.id;
 
     if (userType === 'restaurant') {
       console.log('>>>>> cart.js line 51. this is the restaurant user: ', userId)
@@ -51,10 +50,10 @@ module.exports = (db) => {
     }
 
     //Send current order's items and total of the full order
-    getOrderItems(order.id)
+    getOrderItems(orderId)
       .then(data => {
         const {items, total} = data
-        const templateVars = { items, total };
+        const templateVars = { items, total, orderId };
         console.log(items, total)
         res.render('cart', templateVars);
       })
