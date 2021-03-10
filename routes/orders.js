@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getAllOrders, getUserOrders, getSpecificOrder, getSpecificUserOrder, confirmOrder, completeOrder } = require('../db/items_queries');
+const { getAllOrders, getUserOrders, getSpecificOrder, getSpecificUserOrders, confirmOrder, completeOrder } = require('../db/items_queries');
 
 
 module.exports = (db) => {
@@ -36,9 +36,8 @@ module.exports = (db) => {
 
     //order history for specific user
     getUserOrders(userId)
-      .then(data => {
-        const orders = data.rows;
-        templateVars = {orders, userType, user: userName};
+      .then(orders => {
+        templateVars = { orders, userType, user: userName };
         res.render('orders', templateVars);
       })
       .catch(err => {
@@ -49,10 +48,10 @@ module.exports = (db) => {
   });
 
 
-  router.get("/:orderId", (req, res) => {
+  router.get("/:orderid", (req, res) => {
     let templateVars = {};
     const userId = req.session.userId;
-    const orderId = req.session.orderId;
+    const order = req.session.order;
     const userName = req.session.userName;
     const userType = req.session.userType;
 
@@ -62,9 +61,17 @@ module.exports = (db) => {
     }
     // if restaurant - show the specific order details. (all the items)
     if (userType === 'restaurant') {
-      getSpecificOrder(orderId)
-        .then(order => {
-          templateVars = {order};
+
+
+      //TODO customer is already on this page (submitted order)
+      //Restaurant may come back after 'confirming' order
+      //We need to somehow refresh the message on customer side
+      //and show that their cookie @ order.status is now at 'preparation'
+
+      getSpecificOrder(order.id)
+        .then(customerOrder => {
+          templateVars = { customerOrder };
+
           res.render('order', templateVars);
         })
         .catch(err => {
@@ -72,11 +79,12 @@ module.exports = (db) => {
             .status(500)
             .json({ error: err.message });
         });
-        return;
+      return;
     }
 
-    getSpecificUserOrder(orderId, userId)
-      .then(order => { templateVars = { order };
+    getSpecificUserOrders(order.id, userId)
+      .then(userOrder => {
+        templateVars = { userOrder };
         res.render('order', templateVars);
       })
       .catch(err => {
@@ -88,22 +96,22 @@ module.exports = (db) => {
   });
 
 
-  router.post("/:orderId/confirm", (req, res) => {
+  router.post("/:orderid/confirm", (req, res) => {
 
     const userId = req.session.userId;
-    const orderId = req.session.orderId;
-    const userName = req.session.userName;
+    const order = req.session.order;
     const userType = req.session.userType;
 
     if (!userId) {
       res.redirect('/login');
       return;
     }
-//TODO we can grab the order in full instead of just order id when they log in
+    //TODO we can grab the order in full instead of just order id when they log in
     if (userType === 'restaurant') {
-      confirmOrder(orderId)
-        .then(order =>{
-          req.session.orderStatus = order.status;
+      confirmOrder(order.id)
+        .then(status => {
+          //update the order Status in the session object @ order.status
+          order.status = status;
           res.redirect(`/orders/${orderId}`)
         })
         .catch(err => {
@@ -112,33 +120,34 @@ module.exports = (db) => {
             .json({ error: err.message });
         });
 
-    //TODO when restaurant confirms order, we need to let the custmer know the order is in preparation
-  };
+        //TODO AJAX can listen for change in order.status cookie? or from orders??????????
+      //TODO when restaurant confirms order, we need to let the custmer know the order is in preparation
+    };
 
-  router.post("/:orderId/complete", (req, res) => {
 
-    const userId = req.session.userId;
-    const orderId = req.session.orderId;
-    const userName = req.session.userName;
-    const userType = req.session.userType;
+    router.post("/:orderid/complete", (req, res) => {
 
-    if (!userId) {
-      res.redirect('/login');
-      return;
-    }
+      const userId = req.session.userId;
+      const orderId = req.session.orderId;
+      const userType = req.session.userType;
 
-    if (userType === 'restaurant') {
-      completeOrder(orderId)
-        .then(() => res.redirect('/orders'))
-        .catch(err => {
-          res
-            .status(500)
-            .json({ error: err.message });
-        });
-    }
+      if (!userId) {
+        res.redirect('/login');
+        return;
+      }
+
+      if (userType === 'restaurant') {
+        completeOrder(orderId)
+          .then(() => res.redirect('/orders'))
+          .catch(err => {
+            res
+              .status(500)
+              .json({ error: err.message });
+          });
+      }
+    });
+
+
   });
-
-
-  });
-return router;
+  return router;
 };

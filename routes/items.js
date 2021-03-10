@@ -4,14 +4,20 @@ const router = express.Router();
 //query functions
 const { getAllItems, getOrderById, createOrder } = require('../db/items_queries');
 
+
 module.exports = (db) => {
 
+
+  // 🛍 Main Order Page For Customer
   router.get("/", (req, res) => {
-    const userId = req.session.userId; //TODO **** add user through req.session.userId
+    const userId = req.session.userId;
     const userName = req.session.userName;
     const userType = req.session.userType;
-  
+
+    console.log('>>>>🛍 userType', userType);
+
     if (userType === 'restaurant') {
+      console.log(`>>>>>>🛍 Redirecting restaurant user ${userName} to /orders`);
       res.redirect('/orders');
       return;
     }
@@ -21,37 +27,46 @@ module.exports = (db) => {
       return;
     }
 
-    //This is a logged in user
+    //Display menu item for customer
     let allItems;
 
     getAllItems()
       .then(items => {
         allItems = items;
-        //user is signed in and has a pre-existing active order
-        return getOrderById(userId);
+        return getOrderById(userId); //check if user has ACTIVE order
       })
+
       .then((order) => {
         if (order) {
-          req.session.orderId = order.id;
-     
+          req.session.order = order;
+          console.log('>>>>🛍 user has ACTIVE order: ', order)
+
           const templateVars = { items: allItems, user: userName };
-          //this page AJAX - loads ALL items for the order (existing order history)
           res.render('index', templateVars);
           return;
         }
- 
-        // no order in progress
-        return createOrder(userId);
+
+        createOrder(userId) // create NEW order if no active order
+          .then(order => {
+            req.session.order = order;
+            const templateVars = { items: allItems, user: userName };
+            console.log('>>>>🛍 created NEW order: ', order)
+            res.render('index', templateVars);
+          })
+
+          .catch((err) => {
+            res.status(500).json({ error: err.message });
+          });
       })
-      .then(orderId => {
-        req.session.orderId = orderId; //TODO clear this on checkout
-        console.log('THIS IS COOKIE ORDER ID!!!!!!🍪: ', req.session.orderId);
-        res.redirect("/items");
-      })
+
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
+
   });
+
+
+
 
   return router;
 };

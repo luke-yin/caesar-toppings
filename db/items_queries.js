@@ -1,6 +1,13 @@
 const { database } = require('pg/lib/defaults');
 const db = require('../server');
 
+// returns user info with user's first name
+const getUser = function (userName) {
+ return  db.query(`
+  SELECT * from users
+  WHERE name = $1;`, [userName])
+  .then(data => data.rows[0])
+}
 
 // Returns all the information of every menu item
 const getAllItems = function () {
@@ -13,8 +20,10 @@ const getAllItems = function () {
 
 const getOrderById = function (userId) {
   return db.query(`
-  SELECT id FROM orders
-  WHERE user_id = ${userId};
+
+  SELECT * FROM orders
+  WHERE user_id = ${userId} AND status = 'precheckout';
+
   `)
   .then(res => res.rows[0]);
   };
@@ -24,9 +33,9 @@ const createOrder = function (userId) {
   return db.query(
   `INSERT INTO orders (user_id, status)
   VALUES (${userId}, 'precheckout')
-  RETURNING id;
+  RETURNING *;
   `)
-  .then(res => res.rows[0].id);
+  .then(res => res.rows[0]);
 };
 
 const createOrderItem = function (orderItems, orderId) {
@@ -35,11 +44,13 @@ const createOrderItem = function (orderItems, orderId) {
 
     if(item.value > 0) {
       db.query(`INSERT INTO items_orders (item_id, order_id, quantity)
-      VALUES (${item.itemId}, ${orderId}, ${item.value});
+      VALUES (${item[id]}, ${orderId}, ${item[quantity]});
       `)
     }
   };
-  return
+
+  return;
+
 };
 
 const getOrderItems = function (orderId) {
@@ -49,6 +60,7 @@ JOIN items_orders ON items.id = items_orders.id
 JOIN orders ON order_id = orders.id
 WHERE orders.id = ${orderId};
 `)
+.then(res => res.rows);
 };
 
 
@@ -59,6 +71,7 @@ const placeOrder = function (orderId) {
   created_at = NOW()
   RETURNING status, created_at;
   `)
+  .then(res => res.rows[0]);
 }
 
 const getUserOrders = function (userId) {
@@ -68,6 +81,7 @@ const getUserOrders = function (userId) {
   WHERE users.id = ${userId}
   ORDER BY created_at DESC;
 `)
+.then(res => res.rows);
 };
 
 const getAllOrders = function () {
@@ -86,13 +100,13 @@ const getSpecificOrder = function (orderId) {
 .then(res => res.rows[0]);
 };
 
-const getSpecificUserOrder = function (orderId, userId) {
+const getSpecificUserOrders = function (orderId, userId) {
   return db.query(`
   SELECT orders.id AS order_id, orders.status AS order_status, orders.created_at AS created_at,
   SUM(items.price) AS total_price
   FROM orders
   JOIN items_orders ON items_orders.order_id = orders.id
-  JOIN items ON items.id = items_orders.items_id
+  JOIN items ON items.id = items_orders.item_id
   WHERE orders.id = ${orderId} AND user_id = ${userId}
   GROUP BY orders.id;
 `)
@@ -103,8 +117,10 @@ const confirmOrder = function (orderId) {
   return db.query(`
   UPDATE orders
   SET status = 'preparing'
-  WHERE orderId = ${orderId};
+  WHERE orderId = ${orderId}
+  RETURNING status;
   `)
+  .then(res => res.rows[0]);
 }
 
 const completeOrder = function (orderId) {
@@ -117,6 +133,7 @@ const completeOrder = function (orderId) {
 
 
 module.exports = {
+  getUser,
   getAllItems,
   getOrderById,
   createOrder,
@@ -126,7 +143,7 @@ module.exports = {
   getUserOrders,
   getAllOrders,
   getSpecificOrder,
-  getSpecificUserOrder,
+  getSpecificUserOrders,
   confirmOrder,
   completeOrder
 };
