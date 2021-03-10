@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 //query functions
-const { getAllItems, getOrderById, createOrder } = require('../db/items_queries');
+const { getAllItems, getOrderById, createOrder, loadActiveOrder } = require('../db/items_queries');
+const { totalCount } = require('../server');
 
 
 module.exports = (db) => {
@@ -41,6 +42,13 @@ module.exports = (db) => {
           req.session.order = order;
           console.log('>>>>🛍 user has ACTIVE order: ', order)
 
+          //if user has ACTIVE order load the active order
+          //promise error
+          loadActiveOrder(order.id)
+          .then(res => {return console.log('active order info: ',res)})
+          .catch((err) => {res.status(500).json({ error: err.message });});
+
+          //TODO send the ACTIVE order info to index.ejs to populate the quantity / cart price
           const templateVars = { items: allItems, user: userName };
           res.render('index', templateVars);
           return;
@@ -53,10 +61,10 @@ module.exports = (db) => {
             console.log('>>>>🛍 created NEW order: ', order)
             res.render('index', templateVars);
           })
-
-          .catch((err) => {
-            res.status(500).json({ error: err.message });
-          });
+return;
+          // .catch((err) => {
+          //   res.status(500).json({ error: err.message });
+          // });
       })
 
       .catch((err) => {

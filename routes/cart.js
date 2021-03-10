@@ -62,9 +62,13 @@ module.exports = (db) => {
       .then(items => {
         console.log('>>>>> cart.js line 64. this is the customer user: ', userId)
         console.log('>>>>> cart.js line 64. this is the customer user order: ', order.id)
+        console.log('>>>>> cart.js line 64. this is the customer user order: ', items)
+
+       totalPrice(order.id)
         const templateVars = { items };
         res.render('cart', templateVars);
       })
+
       .catch(err => {
         res
           .status(500)

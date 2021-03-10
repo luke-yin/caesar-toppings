@@ -18,6 +18,7 @@ const getAllItems = function () {
   .then(data => data.rows)
 }
 
+// Returns user's orders with status = precheckout
 const getOrderById = function (userId) {
   return db.query(`
 
@@ -27,6 +28,18 @@ const getOrderById = function (userId) {
   `)
   .then(res => res.rows[0]);
   };
+
+// User logs in with ACTIVE order - load the order
+const loadActiveOrder = function (orderId) {
+  return db.query(`
+
+  SELECT item_id, quantity
+  FROM items_orders
+  WHERE order_id = ${orderId}
+  GROUP BY item_id, quantity;
+  `)
+  .then(res => res.rows);
+};
 
 
 const createOrder = function (userId) {
@@ -53,16 +66,19 @@ const createOrderItem = function (orderItems, orderId) {
 
 };
 
+// Returns details and total price of EACH item in order
 const getOrderItems = function (orderId) {
   return db.query(`
-  SELECT name, price, prep_duration, photo_url FROM items
-JOIN items_orders ON items.id = items_orders.id
-JOIN orders ON order_id = orders.id
-WHERE orders.id = ${orderId};
+  SELECT order_id, items.name, items.price * quantity AS total, quantity, prep_duration, photo_url
+  FROM items_orders
+  JOIN items ON items.id = item_id
+  WHERE order_id = ${orderId}
+  GROUP BY items.id, quantity, order_id;
 `)
 .then(res => res.rows);
 };
 
+//create total price selector
 
 const placeOrder = function (orderId) {
   return db.query(`
@@ -136,6 +152,7 @@ module.exports = {
   getUser,
   getAllItems,
   getOrderById,
+  loadActiveOrder,
   createOrder,
   createOrderItem,
   getOrderItems,
