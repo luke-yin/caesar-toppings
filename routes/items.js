@@ -30,6 +30,7 @@ module.exports = (db) => {
 
     //Display menu item for customer
     let allItems;
+    // let activeOrder;
 
     getAllItems()
       .then(items => {
@@ -43,14 +44,14 @@ module.exports = (db) => {
           console.log('>>>>🛍 user has ACTIVE order: ', order)
 
           //if user has ACTIVE order load the active order
-          //promise error
           loadActiveOrder(order.id)
-          .then(res => {return console.log('active order info: ',res)})
-          .catch((err) => {res.status(500).json({ error: err.message });});
+            .then(activeOrder => {
+              const templateVars = { items: allItems, user: userName, activeOrder };
+              console.log('>>>>>>>>> 🛍  ACTIVE ORDER customer template vars: ', templateVars)
+              res.render('index', templateVars);
+            })
+            .catch((err) => { res.status(500).json({ error: err.message }); });
 
-          //TODO send the ACTIVE order info to index.ejs to populate the quantity / cart price
-          const templateVars = { items: allItems, user: userName };
-          res.render('index', templateVars);
           return;
         }
 
@@ -61,10 +62,8 @@ module.exports = (db) => {
             console.log('>>>>🛍 created NEW order: ', order)
             res.render('index', templateVars);
           })
-return;
-          // .catch((err) => {
-          //   res.status(500).json({ error: err.message });
-          // });
+
+        return;
       })
 
       .catch((err) => {
