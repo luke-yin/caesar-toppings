@@ -66,9 +66,6 @@ const promises = [];
     }
   };
 
-
-
-
   // makes sure ALL the promises are finished and then run the then()
   return Promise.all(promises)
   .then(() => true)
@@ -77,7 +74,7 @@ const promises = [];
 };
 
 
-// Returns details and total price of EACH item in order
+// Returns order details AND total price of order
 const getOrderItems = function (orderId) {
   return db.query(`
   SELECT order_id, items.name, items.price * quantity AS total, quantity, prep_duration, photo_url
@@ -89,7 +86,6 @@ const getOrderItems = function (orderId) {
 .then(res => {
   let total = 0;
   res.rows.forEach(row => total += row.total)
-  // res.rows.push({total})
   return {items: res.rows, total};
 })
 };

@@ -30,7 +30,6 @@ module.exports = (db) => {
 
     //Display menu item for customer
     let allItems;
-    // let activeOrder;
 
     getAllItems()
       .then(items => {
