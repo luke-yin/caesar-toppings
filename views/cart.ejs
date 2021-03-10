@@ -1,2 +1,81 @@
 <!-- Receive templateVars and display that -->
 <!-- Needs button that submits order (/:orderId, POST)-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  <!-- Google font -->
+ 
+
+  <!-- External JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <title>Home Page</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
+
+  <body>
+    <%- include('partials/_header') %>
+    <main>
+      
+    <h2>Cart</h2>
+     <section class='cart-all-items'>
+      <% for(let item of items) { %>
+        <article class="cart-item">
+          <div class='cart-item-pic'>
+            <img src='<%= item.photo_url %>'></img>
+          </div>
+          <div class='cart-item-info'>
+            <h3 class='cart-item-info'><%= item.name %></h3>
+            <h4 class='cart-item-price'><%= item.price %></h4>
+            <!-- Need this info from templateVars? -->
+            <h4 class='cart-item-quantity'><%= item.quantity %></h4>
+          </div>
+        </article>
+    <% } %>
+  </section class='cart-total-price'>
+    <strong class="cart-total-title">Total</strong>
+    <span class="cart-total-price">$</span>
+  <section>
+
+  </section>
+    <div class="space"> </div>
+    <div class="view-cart">View Cart ($<div id='itemTotalPrice'>0</div>)</div>
+    </main>
+    <!-- <footer>
+      <div class="view-cart">View Cart</div>
+    </footer> -->
+
+    <script>
+      
+      function updateCartTotal() {
+          let cartItemContainer = document.querySelector('.cart-all-items');
+          let cartRows = cartItemContainer.querySelectorAll('.cart-item');
+
+          let total = 0
+          for (let i = 0; i < cartRows.length; i++) {
+              let cartRow = cartRows[i]
+              let priceElement = cartRow.querySelector('.cart-item-price');
+              let quantityElement = cartRow.querySelector('.cart-item-quantity');
+
+              let price = parseFloat(priceElement.innerText.replace('$', ''))
+              let quantity = quantityElement.value
+              total = total + (price * quantity)
+          }
+          total = Math.round(total * 100) / 100
+          document.querySelector('.cart-total-price').innerText = '$' + total;
+      }
+  </script>
+  </body>
+</html>
