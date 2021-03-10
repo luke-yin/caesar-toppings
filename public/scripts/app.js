@@ -6,7 +6,7 @@ $(() => {
     for(user of users) {
       $("<div>").text(user.name).appendTo($("body"));
     }
-  });;
+  });
 });
 
 $(document).ready(function() {
@@ -28,25 +28,37 @@ $(document).ready(function() {
   // On click, hide picture 1, hide card 1, and show picture * and card *
   // On click of ca
 
+  let total = 0;
+
 
   $(".button").on("click", function() {
-
-    const $button = $(this);
-    const oldValue = $button.parent().find("input").val();
+    //it has to be var not let or const in order to work
+    var $button = $(this);
+    var oldValue = $button.parent().find("input").val();
 
     if ($button.text() == "+") {
-      const newVal = parseFloat(oldValue) + 1;
+      var newVal = parseFloat(oldValue) + 1;
+      $(".itemTotalPriceTest").val(this.price);
+      total++;
     } else {
      // Don't allow decrementing below zero
       if (oldValue > 0) {
-        const newVal = parseFloat(oldValue) - 1;
+        var newVal = parseFloat(oldValue) - 1;
+        total--;
       } else {
         newVal = 0;
       }
     }
 
     $button.parent().find("input").val(newVal);
+    console.log(newVal);
 
+    // total = newVal;
+    $("#itemTotalPrice").html(total);
   });
+
+
+
+
 
 });
