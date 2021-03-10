@@ -6,32 +6,8 @@ const items = require('./items');
 
 module.exports = (db) => {
 
-  // 🛒 Customer chooses items and views cart
-  router.post("/", (req, res) => {
-    const userId = req.session.userId; //TODO **** add user through req.session.userId
-    const order = req.session.order;
-    const orderItems = req.body;
 
-
-    console.log('this is the body we return for order!!!', orderItems);
-
-    if (!userId) {
-      res.redirect('/login');
-      return;
-    }
-
-    //TODO make sure this works
-    if (order.status === 'precheckout') {
-      createOrderItem(orderItems, order.id)
-        .then(() => res.redirect('/cart'))
-      return;
-    }
-
-    // if user's order is anything but 'precheckout'
-    res.redirect(`/orders/${order.id}`);
-  });
-
-
+  // 🛒 Show customer the cart details before checkout
   router.get("/", (req, res) => {
     const userId = req.session.userId;
     const userType = req.session.userType;
@@ -63,6 +39,39 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+
+
+
+  // 🛒 Customer clicks view cart - directs them to /cart
+  router.post("/", (req, res) => {
+    const userId = req.session.userId; //TODO **** add user through req.session.userId
+    const order = req.session.order;
+    const orderItems = req.body;
+
+    console.log('this is the body we return for order!!!', orderItems);
+
+    if (!userId) {
+      res.redirect('/login');
+      return;
+    }
+
+    //TODO make sure this works
+    if (order.status === 'precheckout') {
+      createOrderItem(orderItems, order.id)
+        .then(() => res.redirect('/cart'))
+      return;
+    }
+
+    // if user's order is anything but 'precheckout'
+    res.redirect(`/orders/${order.id}`);
+  });
+
+
+
+
+
+
 
 
   router.post("/:orderid", (req, res) => {
