@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { createOrderItem, getOrderItems, placeOrder } = require('../db/items_queries');
-const items = require('./items');
+// const items = require('./items');
 
+let cart = window.localStorage.getItem("cart"); // Cart object as a JSON string
 
 module.exports = (db) => {
+
 
 
   // 🛒 Show customer the cart details before checkout
@@ -42,7 +44,6 @@ module.exports = (db) => {
 
 
 
-
   // 🛒 Customer clicks view cart - directs them to /cart
   router.post("/", (req, res) => {
     const userId = req.session.userId; //TODO **** add user through req.session.userId
@@ -69,19 +70,14 @@ module.exports = (db) => {
 
 
 
-
-
-
-
-
+// 🛒  Submit and checkout the order
   router.post("/:orderid", (req, res) => {
-    const userId = req.session.userId; //TODO **** add user through req.session.userId
     const order = req.session.order;
 
     //update status of orders = 'waiting_approval'
     placeOrder(order.id)
-      .then(order => {
-        console.log(order);
+      .then(orderStatus => {
+        console.log('🛒 order has been submitted', orderStatus, order.id);
         res.redirect(`/orders/${order.id}`);
       })
       .catch(err => {

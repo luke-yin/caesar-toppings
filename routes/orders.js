@@ -5,7 +5,8 @@ const { getAllOrders, getUserOrders, getSpecificOrder, getSpecificUserOrders, co
 
 module.exports = (db) => {
 
-  //main page for restaurant. if restaurant at login. user gets redirected here.
+
+  // 📘 view all orders for customers and restaurant
   router.get("/", (req, res) => {
 
     const userId = req.session.userId;
@@ -19,6 +20,7 @@ module.exports = (db) => {
 
     let templateVars = {};
 
+    //if userType = restaurant, show ALL order history
     if (userType === 'restaurant') {
       getAllOrders()
         .then(orders => {
@@ -120,7 +122,7 @@ module.exports = (db) => {
             .json({ error: err.message });
         });
 
-// send a notification to  the user phone number when restaurant confirms it
+      // send a notification to  the user phone number when restaurant confirms it
 
     };
 
