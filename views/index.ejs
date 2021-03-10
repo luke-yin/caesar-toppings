@@ -30,13 +30,12 @@
       <!-- All the pictures are loaded here -->
     <h2>Our Caesars</h2>
      <!-- form action method maybe to send the quatity to js? -->
-     []
     <% for(let item of items) { %>
       <article class="open-card">
         <!-- <div class="item-name"><%= item.name %></div> -->
         <div class='item-header'>
           <label for="item-name"><%= item.name %></label>
-          <div class="item-price">$<%= item.price %></div>
+          <div class="item-price">$<p class="actual-price"><%= item.price / 100 %></p></div>
         </div>
         <!-- Wrap lines 42-47 in another container -->
         <p class="item-description"><%= item.description %></p>
@@ -48,10 +47,11 @@
           </div>
           <!-- <div class='space'></div> -->
         </form>
+        <!-- <div class='itemTotalPriceTest'>0</div> -->
       </article>
     <% } %>
     <div class="space"> </div>
-    <div class="view-cart">View Cart</div>
+    <div class="view-cart">View Cart ($<div id='itemTotalPrice'>0</div>)</div>
     </main>
     <!-- <footer>
       <div class="view-cart">View Cart</div>

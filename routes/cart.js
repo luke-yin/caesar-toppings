@@ -14,13 +14,12 @@ const items = require('./items');
 module.exports = (db) => {
 
   router.post("/", (req, res) => {
-  // req from form(s), the quantity and the items(id)
-  //tell luke to name the form submit (using serializeArray() to cart!)
     const userId = req.session.userId; //TODO **** add user through req.session.userId
     const userName = req.session.userName;
     const orderId = req.session.orderId;
-  
-    const orderItems = req.body; //should be an array of objects with itemId and quantity
+
+  //should be an array of objects with itemId and quantity
+    const orderItems = req.body;
     //an object {5:1, 1:1, etc }
     // console.log(orderItems); input=button <- we may get this...
 
@@ -28,7 +27,7 @@ module.exports = (db) => {
       res.redirect('/login');
       return;
     }
-      
+
     getOrderById(userID)
       .then(order => {
         createOrderItem(orderItems, order);
@@ -51,7 +50,7 @@ module.exports = (db) => {
       res.redirect('/login');
       return;
     }
-      
+
     //User logged in
     getOrderItems(orderId)
       .then(data => {
@@ -71,7 +70,7 @@ module.exports = (db) => {
     const userId = req.session.userId; //TODO **** add user through req.session.userId
     const userName = req.session.userName;
     const orderId = req.session.orderId;
-  
+
     //update status of orders = 'waiting_approval'
     placeOrder(orderId)
       .then(result => {
@@ -85,22 +84,22 @@ module.exports = (db) => {
       });
 
 
-      
+
 
     //IMPLEMENT TWILIO
     // ON POST (places order) USE TWILIO TO SEND TEXT TO RESTAURANT
 
-      
+
     //       App.post (‘/cart/:orderid’)
     // Places the order and sends notification to restaurant
     // Sends message / shows on page - ‘order placed…etc’
 
     // res.redirect('/cart', orderId);
-    
+
   });
 
 
 
   return router;
-  
+
 };
