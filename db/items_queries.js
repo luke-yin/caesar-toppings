@@ -14,15 +14,15 @@ const getItems = function () {
 const getOrderId = function (userId) {
   return db.query(`
   SELECT id FROM orders
-  WHERE user_id = ${userId} AND status = 'precheckout';
+  WHERE user_id = ${userId};
   `)
   };
-  
-  
+
+
   const createOrder = function (userId) {
     return db.query(
-    `INSERT INTO orders (user_id, status)
-    VALUES (${userId}, 'precheckout')
+    `INSERT INTO orders (user_id)
+    VALUES (${userId})
     RETURNING id;
     `);
     //RETURNING * ;
@@ -39,7 +39,7 @@ const createOrderItem = function (orderItems, orderId) {
       `)
     }
   };
-  return 
+  return
 };
 
 const getOrderItems = function (orderId) {

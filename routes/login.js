@@ -20,14 +20,14 @@ module.exports = (db) => {
       res.render("login", templateVars);
       return;
     }
-  
+
     res.redirect("/items");
   });
 
-  //REMINDER: Reset db 
+  //REMINDER: Reset db
   router.post("/", (req, res) => {
     const userName = req.body.userName; //input = sori han
-
+    console.log('abc');
     db.query(`
     SELECT id from users
     WHERE name = $1;`, [userName])
@@ -38,7 +38,7 @@ module.exports = (db) => {
      const userId = result.rows[0].id;
 
      req.session.userId = userId;
-     req.session.userName = userName; 
+     req.session.userName = userName;
 
      getOrderId(userId)
      .then((result) => {
@@ -56,11 +56,11 @@ module.exports = (db) => {
 
            res.redirect("/items");
           })
-        })  
+        })
     })
     .catch((err) => {
-    res.status(500).json({ error: err.message });
-  });
+      res.status(500).json({ error: err.message });
+    });
 });
 return router;
 };
