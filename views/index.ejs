@@ -27,8 +27,10 @@
   <body>
     <%- include('partials/_header') %>
     <main>
+      <!-- All the pictures are loaded here -->
     <h2>Our Caesars</h2>
      <!-- form action method maybe to send the quatity to js? -->
+     []
     <% for(let item of items) { %>
       <article class="open-card">
         <!-- <div class="item-name"><%= item.name %></div> -->
@@ -36,8 +38,9 @@
           <label for="item-name"><%= item.name %></label>
           <div class="item-price">$<%= item.price %></div>
         </div>
+        <!-- Wrap lines 42-47 in another container -->
         <p class="item-description"><%= item.description %></p>
-        <form method="post" action="">
+        <form method="post" action="/cart">
           <div class="quantity">
             <div class="dec button">-</div>
             <input type="text" name="amount" id="amount" value="0">

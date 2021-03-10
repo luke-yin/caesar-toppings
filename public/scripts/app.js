@@ -22,17 +22,24 @@ $(document).ready(function() {
 
   // });
 
+  // Logic for adding the subtotal
+  // Hide all the pictures except for picture #1
+  // Hide all the new div elements for each card except for caesar #1
+  // On click, hide picture 1, hide card 1, and show picture * and card *
+  // On click of ca
+
+
   $(".button").on("click", function() {
 
-    var $button = $(this);
-    var oldValue = $button.parent().find("input").val();
+    const $button = $(this);
+    const oldValue = $button.parent().find("input").val();
 
     if ($button.text() == "+") {
-      var newVal = parseFloat(oldValue) + 1;
+      const newVal = parseFloat(oldValue) + 1;
     } else {
      // Don't allow decrementing below zero
       if (oldValue > 0) {
-        var newVal = parseFloat(oldValue) - 1;
+        const newVal = parseFloat(oldValue) - 1;
       } else {
         newVal = 0;
       }
