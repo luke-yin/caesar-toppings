@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  <!-- Google font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- External JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <title>Home Page</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
@@ -12,20 +25,28 @@
   </head>
 
   <body>
-    <h1>Hello World!</h1>
-
-    <article>
-      <% for(let item of items) { %>
-        <ul>
-          <li><%= item.name %></li>
-          <li><%= item.price %></li>
-          <li><%= item.desription %></li>
-          <img src='<%= item.photo_url %>'>
-          <li><%= item.desription %></li>
-
-        </ul>
-      <% } %>
-  </article>
-
+    <%- include('partials/_header') %>
+    <main>
+    <h2>Our Caesars</h2>
+     <!-- form action method maybe to send the quatity to js? -->
+    <% for(let item of items) { %>
+      <article class="open-card">
+        <!-- <div class="item-name"><%= item.name %></div> -->
+        <div class='item-header'>
+          <label for="item-name"><%= item.name %></label>
+          <div class="item-price">$<%= item.price %></div>
+        </div>
+        <p class="item-description"><%= item.description %></p>
+        <form method="post" action="">
+          <div class="quantity">
+            <div class="dec button">-</div>
+            <input type="text" name="amount" id="amount" value="0">
+            <div class="inc button">+</div>
+          </div>
+          <!-- <div class='space'></div> -->
+        </form>
+      </article>
+    <% } %>
+    </main>
   </body>
 </html>
