@@ -13,7 +13,7 @@
   <!-- External JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <title>Order details</title>
+    <title>Order Confirmation page</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -24,14 +24,24 @@
   <body>
     <%- include('partials/_header') %>
 
+    <h2>Order Confirmation</h2>
+
   <main>
     <section> 
-      <h3>Order status: <span><%= order_status %></span></h3>
-      <h4>Total Price: <span>$<%= total_price / 100 %></span></h4>
+      <h3>Order Id: <span><%= items[0].order_id %></span></h3>
+    
+      <% for(let item of items) { %>
+        <section> 
+          <h4>Item: <span><%= item.name %></span></h4>
+          <h4>Quantity: <span><%= item.quantity %></span></h4>
+        </section>
+        <% } %>
+
+      <h4>Total Price: <span>$<%= total / 100 %></span></h4>
     </section>
     <footer>
-      <form action="/orders/restaurant/<%= order_id %>/confirm" method="post">
-        <button type="submit">Confirm order</button>
+      <form action="/orders/restaurant/<%= items[0].order_id %>/confirm" method="post">
+        <button type="submit">Confirm order ✅</button>
       </form>
     </footer>
   </main>

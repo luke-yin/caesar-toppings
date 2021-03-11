@@ -31,14 +31,14 @@
       <% if(userType === 'customer'){ %>
         <% for(let order of orders) { %>
         <section> 
-          <h3>Order id: <span><%= order.id %></span></h3>
+          <h3>Order id <span><a href="/orders/customer/<%= order.id %>">Order Detail</a></span> </h3>
           <h3>Order status: <span><%= order.status %></span></h3>
           <h4>Created at: <span><%= order.created_at %></span></h4>
         </section>
         <% } %>
         <footer>
-          <form action="/orders/" method="post">
-            <button type="submit">All orders</button>
+          <form action="/items" method="get">
+            <button type="submit">New Order</button>
           </form>
         </footer>
 
@@ -48,17 +48,16 @@
           <h3>Order id: <span><%= order.id %></span></h3>
           <h3>Order status: <span><%= order.status %></span></h3>
           <h4>Created at: <span><%= order.created_at %></span></h4>
+          <form action="/orders/restaurant/<%= order.id %>" method="get">
+            <button type="submit">Order Detail</button>
+          </form>
         </section>
         <% } %>
-        <footer>
-          <form action="/orders/<%= orders.order_id %>/confirm" method="post">
-            <button type="submit">Confirm order</button>
-          </form>
-        </footer>
-
+      
      <% } %>
-    
     </main>
+    <footer>
+   </footer>
 
   </body>
 </html>

@@ -164,7 +164,7 @@ const completeOrder = function (orderId) {
   return db.query(`
   UPDATE orders
   SET status = 'complete'
-  WHERE id = ${orderId}
+  WHERE ordersid = ${orderId}
   RETURNING *;
   `)
 };
