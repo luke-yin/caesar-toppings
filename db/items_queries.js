@@ -61,7 +61,7 @@ const createOrderItem = function (orderItems, orderId) {
 
     if (item.value > 0) {
       promises.push(db.query(`INSERT INTO items_orders (item_id, order_id, quantity)
-      VALUES (${item.id}, ${orderId}, ${item.quantity});
+      VALUES (${item}, ${orderId}, ${orderItems[item]});
       `))
     }
   };
