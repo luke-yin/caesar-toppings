@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
   <!-- Google font -->
- 
+
 
   <!-- External JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -28,11 +28,11 @@
   <body>
     <%- include('partials/_header') %>
     <main>
-      
-      
+
+
       <a href="./items">←</a>
       <h2>Cart</h2>
-      
+
       <section class='cart-all-items'>
         <% for(let item of items) { %>
           <article class="cart-item">
@@ -47,7 +47,7 @@
           </article>
       <% } %>
       </section class='cart-total-price'>
-    
+
       <section>
         <h3>Cart total: <span class="cart-total-price">$<%= total / 100 %></span></h3>
       </section>
@@ -55,7 +55,7 @@
     </main>
 
     <footer>
-      <form action="/orders/<%= orderId %>" method="post">
+      <form action="/cart/<%= orderId %>" method="post">
         <button type="submit">Checkout</button>
       </form>
     </footer>

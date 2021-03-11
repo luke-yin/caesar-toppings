@@ -104,7 +104,8 @@ const placeOrder = function (orderId, userId) {
 //restaurant can receive all order history
 const getAllOrders = function () {
   return db.query(`
-  SELECT * FROM orders;
+  SELECT * FROM orders
+  ORDER BY created_at;
 `)
     .then(res => res.rows);
 };
@@ -112,7 +113,7 @@ const getAllOrders = function () {
 // returns all order history from user
 const getUserOrders = function (userId) {
   return db.query(`
-  SELECT orders.id, orders.status, created_at
+  SELECT orders.id AS id, orders.status, created_at
   FROM orders
   JOIN users ON orders.user_id = users.id
   WHERE users.id = ${userId}
@@ -143,7 +144,10 @@ const getSpecificUserOrder = function (orderId, userId) {
   WHERE orders.id = ${orderId} AND user_id = ${userId}
   GROUP BY orders.id;
 `)
-    .then(res => res.rows[0]);
+    .then(res => {
+      console.log(res.rows)
+      res.rows[0]
+    });
 };
 
 
@@ -152,7 +156,7 @@ const confirmOrder = function (orderId) {
   return db.query(`
   UPDATE orders
   SET status = 'preparing'
-  WHERE orderId = ${orderId}
+  WHERE id = ${orderId}
   RETURNING *;
   `)
     .then(res => res.rows[0]);

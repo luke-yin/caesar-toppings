@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
   <!-- Google font -->
- 
+
 
   <!-- External JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -24,11 +24,11 @@
   <body>
     <%- include('partials/_header') %>
     <main>
-      
+
       <h2>Order details</h2>
 
-        <section> 
-          <h3>Order status: <span><%= order_status %></span></h3>
+        <section>
+          <h3>Order status: <span><%= status %></span></h3>
           <h4>Total Price: <span>$<%= total_price / 100 %></span></h4>
         </section>
         <footer>
@@ -36,7 +36,7 @@
             <button type="submit">All orders</button>
           </form>
         </footer>
-    
+
     </main>
 
   </body>

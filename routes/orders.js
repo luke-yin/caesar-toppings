@@ -68,6 +68,7 @@ module.exports = (db) => {
 
     getSpecificUserOrder(order.id, userId)
       .then(userOrder => {
+        console.log('placed order', order.id, userId, userOrder)
         templateVars = { ...userOrder, userType };
         res.render('order', templateVars);
       })
@@ -96,7 +97,7 @@ module.exports = (db) => {
 
     // if customer - redirect
     if (userType === 'customer') {
-      res.redirect('/orders/:orderid');
+      res.redirect('/orders/customer/:orderid');
       return;
     }
 
@@ -137,7 +138,7 @@ module.exports = (db) => {
       confirmOrder(orderId)
         .then(confirmedOrder => {
           console.log('🥤 restaurant confirmed order🥤 : ', confirmedOrder);
-          res.redirect(`/orders/${orderId}`)
+          res.redirect(`/orders`)
         })
         .catch(err => {
           res
@@ -162,10 +163,10 @@ module.exports = (db) => {
         res.redirect('/login');
         return;
       }
-      
+
       if (userType === 'restaurant') {
         completeOrder(orderId)//does not exist?
-        
+
           .then(completedOrder => {
             //TODO order id does not exist error
             console.log('✅ restaurant completed order🥤 : ', completedOrder);
@@ -185,7 +186,7 @@ module.exports = (db) => {
 
     });
     return router;
-    
+
   };
-  
+
 
