@@ -85,7 +85,7 @@ module.exports = (db) => {
   router.get("/restaurant/:orderid", (req, res) => {
     let templateVars = {};
     const userId = req.session.userId;
-    // const order = req.session.order;
+    const order = req.params.orderid;
     const userType = req.session.userType;
 
     if (!userId) {
@@ -100,7 +100,7 @@ module.exports = (db) => {
     }
 
 
-    getSpecificOrder(order.id)
+    getSpecificOrder(order)
       .then(customerOrder => {
         templateVars = { ...customerOrder, userType };
         res.render('order_confirm', templateVars);
@@ -110,9 +110,6 @@ module.exports = (db) => {
           .status(500)
           .json({ error: err.message });
       });
-
-      SELECT * FROM orders
-      WHERE id = 4;
 
   });
 

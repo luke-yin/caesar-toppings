@@ -48,6 +48,9 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
     const userId = req.session.userId;
     const order = req.session.order;
+
+    const orderItems = req.body;
+
     // localstorage of cart from front-end
     const orderItems = cart;
 
