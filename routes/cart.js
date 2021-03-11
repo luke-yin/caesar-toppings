@@ -84,7 +84,7 @@ module.exports = (db) => {
       .then(orderStatus => {
         console.log('🛒 order has been submitted', orderStatus, order.id);
         //order confirmation page
-        res.redirect(`/customer/orders/${order.id}`);
+        res.redirect(`/orders/customer/${order.id}`);
       })
       .catch(err => {
         res
