@@ -2,7 +2,8 @@
 $greenBtn: #ABD148;
 $bgColor:#EEE;
 $orange-red: #E35645;
-
+$btnOrange: #F2753F;
+$black2: #222222;
 
 @font-face {
   font-family: Intro;
@@ -13,7 +14,7 @@ body {
   background-color: $bgColor;
 
   h2 {
-    color: #222222;
+    color: $black2;
     font: bold 36px Lato, sans-serif;
     margin-bottom: 1.5rem;
   }
@@ -107,7 +108,7 @@ input[type=text] {
   left: 6vw;
   height: 72px;
   width: 85vw;
-  background-color: #F2753F;
+  background-color: $btnOrange;
   font: bold 24px Lato, sans-serif;
   color: #FFFFFF;
   position: fixed;
@@ -115,3 +116,5 @@ input[type=text] {
   z-index: 1;
   border-radius: 10px 10px 0 0;
 }
+
+
