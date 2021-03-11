@@ -46,8 +46,11 @@ module.exports = (db) => {
 
   // 🛒 Customer clicks view cart - directs them to /cart
   router.post("/", (req, res) => {
-    const userId = req.session.userId; //TODO **** add user through req.session.userId
+    const userId = req.session.userId;
     const order = req.session.order;
+
+    const orderItems = req.body;
+
     // localstorage of cart from front-end
     const orderItems = cart;
 
@@ -66,7 +69,7 @@ module.exports = (db) => {
     }
 
     // if user's order is anything but 'precheckout'
-    res.redirect(`/orders/${order.id}`);
+    res.redirect(`/customer/orders/${order.id}`);
   });
 
 
@@ -74,13 +77,14 @@ module.exports = (db) => {
 // 🛒  Submit and checkout the order
   router.post("/:orderid", (req, res) => {
     const order = req.session.order;
+    const userId = req.session.userId;
 
     //update status of orders = 'waiting_approval'
-    placeOrder(order.id)
+    placeOrder(order.id, userId)
       .then(orderStatus => {
         console.log('🛒 order has been submitted', orderStatus, order.id);
         //order confirmation page
-        res.redirect(`/orders/${order.id}`);
+        res.redirect(`/customer/orders/${order.id}`);
       })
       .catch(err => {
         res

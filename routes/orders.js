@@ -49,32 +49,20 @@ module.exports = (db) => {
   });
 
 
-
-  router.get("/:orderid", (req, res) => {
+  // 📘 specific order info - order status for customer
+  router.get("/customer/:orderid", (req, res) => {
     let templateVars = {};
     const userId = req.session.userId;
     const order = req.session.order;
-    const userName = req.session.userName;
     const userType = req.session.userType;
 
     if (!userId) {
       res.redirect('/login');
       return;
     }
-    // if restaurant - show the specific order details. (all the items)
+    // if restaurant - redirect
     if (userType === 'restaurant') {
-
-      getSpecificOrder(order.id)
-        .then(customerOrder => {
-          templateVars = {...customerOrder, userType };
-
-          res.render('order', templateVars);
-        })
-        .catch(err => {
-          res
-            .status(500)
-            .json({ error: err.message });
-        });
+      res.redirect('/orders/restaurant/:orderid');
       return;
     }
 
@@ -92,10 +80,46 @@ module.exports = (db) => {
   });
 
 
-  router.post("/:orderid/confirm", (req, res) => {
+
+  // 📘 restaurant's order detail page
+  router.get("/restaurant/:orderid", (req, res) => {
+    let templateVars = {};
+    const userId = req.session.userId;
+    const orderId = req.params.orderid;
+    const userType = req.session.userType;
+
+    if (!userId) {
+      res.redirect('/login');
+      return;
+    }
+
+    // if customer - redirect
+    if (userType === 'customer') {
+      res.redirect('/orders/:orderid');
+      return;
+    }
+
+
+    getSpecificOrder(orderId)
+      .then(customerOrder => {
+        templateVars = { ...customerOrder, userType };
+        res.render('order_confirm', templateVars);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+
+  });
+
+
+
+  // 📘 Restaurant confirms the order and notifies user
+  router.post("/restaurant/:orderid/confirm", (req, res) => {
 
     const userId = req.session.userId;
-    const order = req.session.order;
+    const orderId = req.params.orderid;
     const userType = req.session.userType;
 
     if (!userId) {
@@ -105,9 +129,8 @@ module.exports = (db) => {
     //TODO we can grab the order in full instead of just order id when they log in
     if (userType === 'restaurant') {
       confirmOrder(order.id)
-        .then(status => {
-          //update the order Status in the session object @ order.status
-          order.status = status;
+        .then(confirmedOrder => {
+          console.log('🥤 restaurant confirmed order🥤 : ', confirmedOrder);
           res.redirect(`/orders/${orderId}`)
         })
         .catch(err => {
@@ -116,15 +139,16 @@ module.exports = (db) => {
             .json({ error: err.message });
         });
 
-      // send a notification to  the user phone number when restaurant confirms it
+      //TODO  send a notification to the user phone number when restaurant confirms it
 
     };
 
 
-    router.post("/:orderid/complete", (req, res) => {
+    //📘 Restaurant confirms the completion of order. Notify user and changes order status
+    router.post("/restaurant/:orderid/complete", (req, res) => {
 
       const userId = req.session.userId;
-      const orderId = req.session.orderId;
+      const orderId = req.params.orderid;
       const userType = req.session.userType;
 
       if (!userId) {
@@ -134,7 +158,10 @@ module.exports = (db) => {
 
       if (userType === 'restaurant') {
         completeOrder(orderId)
-          .then(() => res.redirect('/orders'))
+          .then(completedOrder => {
+            console.log('✅ restaurant completed order🥤 : ', completedOrder);
+            res.redirect('/orders')
+          })
           .catch(err => {
             res
               .status(500)
@@ -143,7 +170,7 @@ module.exports = (db) => {
       }
     });
 
-
+    res.redirect('/index');
   });
   return router;
 };
