@@ -6,7 +6,7 @@ $(() => {
     for(user of users) {
       $("<div>").text(user.name).appendTo($("body"));
     }
-  });;
+  });
 });
 
 $(document).ready(function() {
@@ -28,25 +28,60 @@ $(document).ready(function() {
   // On click, hide picture 1, hide card 1, and show picture * and card *
   // On click of ca
 
+  // $('.item-price').on('click', function(){
+  //   currentPrice = parseFloat($(this)[0].innerText);
+  //   currentPrice = Math.round(currentPrice * 100 ) / 100;
+  // });
+
+  let currentPrice = 0;
+
+  // $(".open-card").on("click", function() {
+  //   //console.log($(this).children().find("innerHTML").val());
+  //   // let thisCheck = $(this);
+  //   // currentPrice = $(this)[0].children[0].children[1].children[0].innerText.val();
+  //   // console.log(currentPrice);
+
+  //    //this works
+  //   //currentPrice = parseFloat($(this)[0].children[0].children[1].children[0].innerHTML);
+  //   //currentPrice = Math.round(currentPrice * 100 ) / 100;
+
+
+
+  // });
+
+  let total = 0;
+  $('#itemTotalPrice').text(total);
+
 
   $(".button").on("click", function() {
-
-    const $button = $(this);
-    const oldValue = $button.parent().find("input").val();
+    let price = $(this)[0].parentElement.parentElement.parentElement.children[0].children[1].children[0].innerHTML;
+    currentPrice = parseFloat(price);
+    currentPrice = Math.round(currentPrice * 100 ) / 100;
+    //it has to be var not let or const in order to work
+    var $button = $(this);
+    var oldValue = $button.parent().find("input").val();
 
     if ($button.text() == "+") {
-      const newVal = parseFloat(oldValue) + 1;
+      var newVal = parseFloat(oldValue) + 1;
+
+      total += currentPrice;
+
     } else {
      // Don't allow decrementing below zero
       if (oldValue > 0) {
-        const newVal = parseFloat(oldValue) - 1;
+        var newVal = parseFloat(oldValue) - 1;
+         total -= currentPrice;
+
       } else {
         newVal = 0;
       }
     }
 
     $button.parent().find("input").val(newVal);
+    total = Math.round(total * 100 ) / 100;
+    $("#itemTotalPrice").text(total);
 
   });
+
 
 });
