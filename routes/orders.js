@@ -85,7 +85,7 @@ module.exports = (db) => {
   router.get("/restaurant/:orderid", (req, res) => {
     let templateVars = {};
     const userId = req.session.userId;
-    const order = req.params.orderid;
+    const orderId = req.params.orderid;
     const userType = req.session.userType;
 
     if (!userId) {
@@ -100,7 +100,7 @@ module.exports = (db) => {
     }
 
 
-    getSpecificOrder(order)
+    getSpecificOrder(orderId)
       .then(customerOrder => {
         templateVars = { ...customerOrder, userType };
         res.render('order_confirm', templateVars);
@@ -116,10 +116,10 @@ module.exports = (db) => {
 
 
   // 📘 Restaurant confirms the order and notifies user
-  router.post("/:orderid/confirm", (req, res) => {
+  router.post("/restaurant/:orderid/confirm", (req, res) => {
 
     const userId = req.session.userId;
-    const order = req.session.order;
+    const orderId = req.params.orderid;
     const userType = req.session.userType;
 
     if (!userId) {
@@ -145,10 +145,10 @@ module.exports = (db) => {
 
 
     //📘 Restaurant confirms the completion of order. Notify user and changes order status
-    router.post("/:orderid/complete", (req, res) => {
+    router.post("/restaurant/:orderid/complete", (req, res) => {
 
       const userId = req.session.userId;
-      const orderId = req.session.orderId;
+      const orderId = req.params.orderid;
       const userType = req.session.userType;
 
       if (!userId) {
