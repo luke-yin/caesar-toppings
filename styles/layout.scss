@@ -24,28 +24,41 @@ body {
     margin: 1em;
   }
 
+
+  .main-common {
+    margin: 1em;
+    padding-top: 100px;
+  }
+
+  .page-title-common {
+    margin-bottom: 0;
+    color: $black2;
+    font: bold 32px Lato, sans-serif;
+    margin-bottom: 1.5rem;
+    // align-self: center;
+    // justify-self: center;
+    margin: 0 auto;
+    z-index: 999;
+  }
 }
+
+
+  .navbar {
+    width: 100%;
+    background-color: $orange-red !important;
+    height: 96px;
+    position: fixed;
+    top: 0%;
+    z-index: 999;
+  }
+
+  .navbar-brand {
+    font:  40px Intro, sans-serif;
+  }
+
 
 .index-main {
   padding-top: 450px;
-}
-
-.main-common {
-  margin: 1em;
-  padding-top: 100px;
-}
-
-.navbar {
-  width: 100%;
-  background-color: $orange-red !important;
-  height: 96px;
-  position: fixed;
-  top: 0%;
-  z-index: 999;
-}
-
-.navbar-brand {
-  font:  40px Intro, sans-serif;
 }
 
 .caesars {
@@ -138,7 +151,7 @@ input[type=text] {
   height: 72px;
   width: 85vw;
   background-color: $btnOrange;
-  font: bold 24px Lato, sans-serif;
+  font: bold 28px Lato, sans-serif;
   color: #FFFFFF;
   position: fixed;
   bottom: 0%;

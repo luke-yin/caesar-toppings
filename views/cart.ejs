@@ -39,13 +39,13 @@
 
   <body>
     <%- include('partials/_header') %>
-    <main>
-
+    <main class='main-common'>
       <div class='cart-page-header'>
       <div class='back-icon'>
         <a href="./items">←</a>
       </div>
-      <h2 class='cart-h2'>Cart</h2>
+      <!-- <h2 class='cart-h2'>Cart</h2> -->
+      <h2 class='page-title-common'>Cart</h2>
     </div>
       <section class='cart-all-items'>
         <% for(let item of items) { %>
@@ -74,6 +74,9 @@
 
       <div class="space"> </div>
       <form action="/cart/<%= orderId %>" method="post">
+        <!-- <div class="view-cart">
+          <button type ='submit'>Checkout</button>
+         </div> -->
         <button type ='submit' class="view-cart">Checkout</button>
       </form>
       </main>

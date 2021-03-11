@@ -17,13 +17,18 @@ body main {
   margin: 1em;
 }
 
-.index-main {
-  padding-top: 450px;
-}
-
-.main-common {
+body .main-common {
   margin: 1em;
   padding-top: 100px;
+}
+
+body .page-title-common {
+  margin-bottom: 0;
+  color: #222222;
+  font: bold 32px Lato, sans-serif;
+  margin-bottom: 1.5rem;
+  margin: 0 auto;
+  z-index: 999;
 }
 
 .navbar {
@@ -37,6 +42,10 @@ body main {
 
 .navbar-brand {
   font: 40px Intro, sans-serif;
+}
+
+.index-main {
+  padding-top: 450px;
 }
 
 .caesars {
@@ -128,7 +137,7 @@ input[type=text] {
   height: 72px;
   width: 85vw;
   background-color: #F2753F;
-  font: bold 24px Lato, sans-serif;
+  font: bold 28px Lato, sans-serif;
   color: #FFFFFF;
   position: fixed;
   bottom: 0%;
