@@ -75,11 +75,12 @@ const createOrderItem = function (orderItems, orderId) {
 // returns order details AND total price of order
 const getOrderItems = function (orderId) {
   return db.query(`
-  SELECT order_id, items.name, items.price * quantity AS total, quantity, prep_duration, photo_url
+  SELECT status, order_id, items.name, items.price * quantity AS total, quantity, prep_duration, photo_url
   FROM items_orders
   JOIN items ON items.id = item_id
+  JOIN orders ON orders.id = order_id
   WHERE order_id = ${orderId}
-  GROUP BY items.id, quantity, order_id;
+  GROUP BY items.id, quantity, order_id, status;
 `)
     .then(res => {
       let total = 0;
@@ -104,7 +105,8 @@ const placeOrder = function (orderId, userId) {
 //restaurant can receive all order history
 const getAllOrders = function () {
   return db.query(`
-  SELECT * FROM orders;
+  SELECT * FROM orders
+  ORDER BY created_at;
 `)
     .then(res => res.rows);
 };
@@ -112,7 +114,7 @@ const getAllOrders = function () {
 // returns all order history from user
 const getUserOrders = function (userId) {
   return db.query(`
-  SELECT orders.id, orders.status, created_at
+  SELECT orders.id AS id, orders.status, created_at
   FROM orders
   JOIN users ON orders.user_id = users.id
   WHERE users.id = ${userId}
@@ -135,16 +137,34 @@ const getSpecificOrder = function (orderId) {
 // returns specific order for user
 const getSpecificUserOrder = function (orderId, userId) {
   return db.query(`
-  SELECT orders.id AS order_id, orders.status AS order_status, orders.created_at AS created_at,
-  SUM(items.price) AS total_price
-  FROM orders
-  JOIN items_orders ON items_orders.order_id = orders.id
-  JOIN items ON items.id = items_orders.item_id
-  WHERE orders.id = ${orderId} AND user_id = ${userId}
-  GROUP BY orders.id;
-`)
-    .then(res => res.rows[0]);
+  SELECT status, order_id, items.name, items.price * quantity AS total, quantity, prep_duration, photo_url, SUM(items.price) AS total_price
+  FROM items_orders
+  JOIN items ON items.id = item_id
+  JOIN orders ON orders.id = order_id
+  WHERE order_id = $1 AND user_id = $2
+  GROUP BY items.id, quantity, order_id, status;
+`, [orderId, userId])
+.then(res => {
+  let total = 0;
+  res.rows.forEach(row => total += row.total)
+  return { items: res.rows[0], total };
+})
 };
+// const getSpecificUserOrder = function (orderId, userId) {
+//   return db.query(`
+//   SELECT orders.id AS order_id, orders.status AS order_status, orders.created_at AS created_at,
+//   SUM(items.price) AS total_price
+//   FROM orders
+//   JOIN items_orders ON items_orders.order_id = orders.id
+//   JOIN items ON items.id = item_id
+//   WHERE orders.id = $1 AND orders.user_id = $2
+//   GROUP BY orders.id;
+// `, [orderId, userId])
+//     .then(res => {
+//       console.log(res)
+//       res.rows[0]
+//     });
+// };
 
 
 // order status is updated on restaurant's confirm.
@@ -152,7 +172,7 @@ const confirmOrder = function (orderId) {
   return db.query(`
   UPDATE orders
   SET status = 'preparing'
-  WHERE orderId = ${orderId}
+  WHERE id = ${orderId}
   RETURNING *;
   `)
     .then(res => res.rows[0]);

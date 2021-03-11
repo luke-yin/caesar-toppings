@@ -1,13 +1,13 @@
-$(() => {
-  $.ajax({
-    method: "GET",
-    url: "/api/users"
-  }).done((users) => {
-    for(user of users) {
-      $("<div>").text(user.name).appendTo($("body"));
-    }
-  });
-});
+// $(() => {
+//   $.ajax({
+//     method: "GET",
+//     url: "/api/users"
+//   }).done((users) => {
+//     for(user of users) {
+//       $("<div>").text(user.name).appendTo($("body"));
+//     }
+//   });
+// });
 
 $(document).ready(function() {
   const escape =  function(str) {
@@ -74,10 +74,10 @@ $(document).ready(function() {
   });
 
 
-
-  $(".view-cart").on("click", function() {
+  $("#hidden-form").on("submit", function(event) {
+    // event.preventDefault();
     $("#hidden-form").innerHTML = cartOB;
-    // console.log(cartOB);
+    console.log(cartOB);
     $.ajax({
       url: "/cart",
       method: 'POST',

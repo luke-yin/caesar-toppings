@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
   <!-- Google font -->
- 
+
 
   <!-- External JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -24,16 +24,16 @@
   <body>
     <%- include('partials/_header') %>
     <main>
-      
+
       <h2>Order history</h2>
-       
-    
+
+
       <% if(userType === 'customer'){ %>
         <% for(let order of orders) { %>
-        <section> 
-          <h3>Order id <span><a href="/orders/customer/<%= order.id %>">Order Detail</a></span> </h3>
+        <section>
+          <h3>Order ID: <span><a href="/orders/customer/<%= order.id %>"><%= order.id %> -- Order Detail</a></span> </h3>
           <h3>Order status: <span><%= order.status %></span></h3>
-          <h4>Created at: <span><%= order.created_at %></span></h4>
+          <h4>Order Placed at: <span><%= order.created_at %></span></h4>
         </section>
         <% } %>
         <footer>
@@ -44,7 +44,7 @@
 
       <% } else{ %>
         <% for(let order of orders) { %>
-        <section> 
+        <section>
           <h3>Order id: <span><%= order.id %></span></h3>
           <h3>Order status: <span><%= order.status %></span></h3>
           <h4>Created at: <span><%= order.created_at %></span></h4>
@@ -53,7 +53,7 @@
           </form>
         </section>
         <% } %>
-      
+
      <% } %>
     </main>
     <footer>
