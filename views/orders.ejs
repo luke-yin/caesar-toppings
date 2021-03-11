@@ -1,2 +1,63 @@
-<!-- If the user is a restaurant, show them all the orders with the recent order and active order at the top -->
-<!-- If the user is a customer, show them all the orders in the customer's history -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  <!-- Google font -->
+ 
+
+  <!-- External JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <title>Order history</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
+
+  <body>
+    <%- include('partials/_header') %>
+    <main>
+      
+      <h2>Order history</h2>
+       
+    
+      <% if(userType === 'customer'){ %>
+        <% for(let order of orders) { %>
+        <section> 
+          <h3>Order id <span><a href="/orders/customer/<%= order.id %>">Order Detail</a></span> </h3>
+          <h3>Order status: <span><%= order.status %></span></h3>
+          <h4>Created at: <span><%= order.created_at %></span></h4>
+        </section>
+        <% } %>
+        <footer>
+          <form action="/items" method="get">
+            <button type="submit">New Order</button>
+          </form>
+        </footer>
+
+      <% } else{ %>
+        <% for(let order of orders) { %>
+        <section> 
+          <h3>Order id: <span><%= order.id %></span></h3>
+          <h3>Order status: <span><%= order.status %></span></h3>
+          <h4>Created at: <span><%= order.created_at %></span></h4>
+          <form action="/orders/restaurant/<%= order.id %>" method="get">
+            <button type="submit">Order Detail</button>
+          </form>
+        </section>
+        <% } %>
+      
+     <% } %>
+    </main>
+    <footer>
+   </footer>
+
+  </body>
+</html>

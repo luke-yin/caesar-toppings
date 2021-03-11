@@ -7,7 +7,7 @@ const getUser = function (userName) {
   SELECT * from users
   WHERE name = $1;`, [userName])
     .then(data => data.rows[0])
-}
+};
 
 // Returns all the information of every menu item
 const getAllItems = function () {
@@ -16,7 +16,7 @@ const getAllItems = function () {
     FROM items;
     `)
     .then(data => data.rows)
-}
+};
 
 // Returns user's orders with status = precheckout
 const getOrderById = function (userId) {
@@ -52,10 +52,10 @@ const createOrder = function (userId) {
 };
 
 
-//TODO want to loop through each item/quantity selected and insert it into the items_orders table
+// Receive order info from index.ejs and insert orders
 const createOrderItem = function (orderItems, orderId) {
   //takes an array of promises
-const promises = [];
+  const promises = [];
 
   for (const item in orderItems) {
 
@@ -65,16 +65,14 @@ const promises = [];
       `))
     }
   };
-
-  // makes sure ALL the promises are finished and then run the then()
   return Promise.all(promises)
-  .then(() => true)
-  .catch(err => console.log(err))
+    .then(() => true)
+    .catch(err => console.log(err))
 
 };
 
 
-// Returns order details AND total price of order
+// returns order details AND total price of order
 const getOrderItems = function (orderId) {
   return db.query(`
   SELECT order_id, items.name, items.price * quantity AS total, quantity, prep_duration, photo_url
@@ -83,34 +81,27 @@ const getOrderItems = function (orderId) {
   WHERE order_id = ${orderId}
   GROUP BY items.id, quantity, order_id;
 `)
-.then(res => {
-  let total = 0;
-  res.rows.forEach(row => total += row.total)
-  return {items: res.rows, total};
-})
+    .then(res => {
+      let total = 0;
+      res.rows.forEach(row => total += row.total)
+      return { items: res.rows, total };
+    })
 };
 
 
-const placeOrder = function (orderId) {
+// user submits order and places order
+const placeOrder = function (orderId, userId) {
   return db.query(`
   UPDATE orders
-  status = 'waiting_approval'
+  SET status = 'waiting_approval',
   created_at = NOW()
-  RETURNING status, created_at;
+  WHERE id = ${orderId} and user_id = ${userId}
+  RETURNING *;
   `)
     .then(res => res.rows[0]);
-}
-
-const getUserOrders = function (userId) {
-  return db.query(`
-  SELECT * FROM orders
-  JOIN users ON orders.user_id = users.id
-  WHERE users.id = ${userId}
-  ORDER BY created_at DESC;
-`)
-    .then(res => res.rows);
 };
 
+//restaurant can receive all order history
 const getAllOrders = function () {
   return db.query(`
   SELECT * FROM orders;
@@ -118,7 +109,20 @@ const getAllOrders = function () {
     .then(res => res.rows);
 };
 
+// returns all order history from user
+const getUserOrders = function (userId) {
+  return db.query(`
+  SELECT orders.id, orders.status, created_at
+  FROM orders
+  JOIN users ON orders.user_id = users.id
+  WHERE users.id = ${userId}
+  ORDER BY created_at DESC;
+`)
+    .then(res => res.rows);
+};
 
+
+// returns one order using orderId
 const getSpecificOrder = function (orderId) {
   return db.query(`
   SELECT * FROM orders
@@ -127,7 +131,9 @@ const getSpecificOrder = function (orderId) {
     .then(res => res.rows[0]);
 };
 
-const getSpecificUserOrders = function (orderId, userId) {
+
+// returns specific order for user
+const getSpecificUserOrder = function (orderId, userId) {
   return db.query(`
   SELECT orders.id AS order_id, orders.status AS order_status, orders.created_at AS created_at,
   SUM(items.price) AS total_price
@@ -137,26 +143,33 @@ const getSpecificUserOrders = function (orderId, userId) {
   WHERE orders.id = ${orderId} AND user_id = ${userId}
   GROUP BY orders.id;
 `)
-    .then(res => res.rows);
+    .then(res => res.rows[0]);
 };
 
+
+// order status is updated on restaurant's confirm.
 const confirmOrder = function (orderId) {
   return db.query(`
   UPDATE orders
   SET status = 'preparing'
   WHERE orderId = ${orderId}
-  RETURNING status;
+  RETURNING *;
   `)
     .then(res => res.rows[0]);
-}
+};
 
+
+// order status is updated on restaurant's complete
 const completeOrder = function (orderId) {
   return db.query(`
   UPDATE orders
   SET status = 'complete'
-  WHERE orderId = ${orderId};
+  WHERE ordersid = ${orderId}
+  RETURNING *;
   `)
-}
+};
+
+
 
 
 module.exports = {
@@ -171,7 +184,7 @@ module.exports = {
   getUserOrders,
   getAllOrders,
   getSpecificOrder,
-  getSpecificUserOrders,
+  getSpecificUserOrder,
   confirmOrder,
   completeOrder
 };
