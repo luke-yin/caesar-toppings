@@ -31,14 +31,6 @@ body .page-title-common {
   z-index: 999;
 }
 
-.textfield-common {
-  width: 200px !important;
-  height: 36px !important;
-  margin: 1em 1em 0 0;
-  padding: 6px;
-  border-radius: 5px;
-}
-
 .navbar {
   width: 100%;
   background-color: #e35645 !important;
