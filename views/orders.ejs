@@ -1,2 +1,80 @@
-<!-- If the user is a restaurant, show them all the orders with the recent order and active order at the top -->
-<!-- If the user is a customer, show them all the orders in the customer's history -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  <!-- Google font -->
+ 
+
+  <!-- External JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <title>Past orders Page</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
+
+  <body>
+    <%- include('partials/_header') %>
+    <main>
+      
+      <h2>Past orders</h2>
+       
+    
+      <% if(userType === 'customer'){ %>
+        <section> 
+          <h3>Order status: <span><%= order_status %></span></h3>
+          <h4>Total Price: <span>$<%= total_price / 100 %></span></h4>
+        </section>
+        <footer>
+          <form action="/orders/" method="post">
+            <button type="submit">All orders</button>
+          </form>
+        </footer>
+
+      <% } else{ %>
+        <section> 
+          <h3>Order status: <span><%= order_status %></span></h3>
+          <h4>Total Price: <span>$<%= total_price / 100 %></span></h4>
+        </section>
+        <footer>
+          <form action="/orders/<%= order_id %>/confirm" method="post">
+            <button type="submit">Confirm order</button>
+          </form>
+        </footer>
+
+     <% } %>
+    
+    </main>
+
+  </body>
+</html>
+
+
+
+
+
+
+
+
+<section class='cart-all-items'>
+  <% for(let item of items) { %>
+    <article class="cart-item">
+      <div class='cart-item-pic'>
+        <img src='<%= item.photo_url %>'></img>
+      </div>
+      <div class='cart-item-info'>
+        <h3 class='cart-item-info'><%= item.name %></h3>
+        <h4>Quantity: <span class='cart-item-quantity'><%= item.quantity %></span></h4>
+        <h4>Price: <span class='cart-item-price'>$<%= item.total / 100 %></span>
+      </div>
+    </article>
+<% } %>
+</section class='cart-total-price'>

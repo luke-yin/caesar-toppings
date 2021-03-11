@@ -1,2 +1,58 @@
-<!-- If customer and if order is in progress, show them the status of the order and order details -->
-<!-- If restaurant and the order is in progress, show them the order details and order confirmation button (POST, /orders/:orderId/confirm)-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  <!-- Google font -->
+ 
+
+  <!-- External JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <title>Order Page</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
+
+  <body>
+    <%- include('partials/_header') %>
+    <main>
+      
+      <h2>Order</h2>
+       
+    
+      <% if(userType === 'customer'){ %>
+        <section> 
+          <h3>Order status: <span><%= order_status %></span></h3>
+          <h4>Total Price: <span>$<%= total_price / 100 %></span></h4>
+        </section>
+        <footer>
+          <form action="/orders/" method="post">
+            <button type="submit">All orders</button>
+          </form>
+        </footer>
+
+      <% } else{ %>
+        <section> 
+          <h3>Order status: <span><%= order_status %></span></h3>
+          <h4>Total Price: <span>$<%= total_price / 100 %></span></h4>
+        </section>
+        <footer>
+          <form action="/orders/<%= order_id %>/confirm" method="post">
+            <button type="submit">Confirm order</button>
+          </form>
+        </footer>
+
+     <% } %>
+    
+    </main>
+
+  </body>
+</html>
