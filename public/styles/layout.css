@@ -1,0 +1,114 @@
+@font-face {
+  font-family: Intro;
+  src: url("../fonts/IntroBlackInline.otf");
+}
+
+body {
+  background-color: #EEE;
+}
+
+body h2 {
+  color: #222222;
+  font: bold 36px Lato, sans-serif;
+  margin-bottom: 1.5rem;
+}
+
+body main {
+  margin: 1em;
+}
+
+.navbar {
+  background-color: #E35645 !important;
+  height: 96px;
+}
+
+.navbar-brand {
+  font: 40px Intro, sans-serif;
+}
+
+.quantity {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.open-card {
+  display: block;
+  background-color: #51832D;
+  color: #FFFFFF;
+  padding: 12px;
+  padding-bottom: 16px;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  font: bold 24px Lato, sans-serif;
+  padding: 10 10 10 10;
+}
+
+.button {
+  background-color: #ABD148;
+  margin: 0 0 0 0;
+  cursor: pointer;
+  width: 28px;
+  height: 30px;
+  float: left;
+  color: #111111;
+  text-align: center;
+  font-size: 18px;
+}
+
+.dec {
+  border-radius: 10px 0 0 10px;
+}
+
+.inc {
+  border-radius: 0px 10px 10px 0px;
+}
+
+input[type=text] {
+  display: flex;
+  float: left;
+  width: 40px;
+  height: 30px;
+  font: 16px Lato, sans-serif;
+  padding-bottom: 1.5px;
+  text-align: center;
+  align-items: center;
+}
+
+.amount {
+  color: #51832D !important;
+}
+
+.space {
+  height: 40px;
+  background-color: #EEE;
+}
+
+.view-cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 6vw;
+  height: 72px;
+  width: 85vw;
+  background-color: #F2753F;
+  font: bold 24px Lato, sans-serif;
+  color: #FFFFFF;
+  position: fixed;
+  bottom: 0%;
+  z-index: 1;
+  border-radius: 10px 10px 0 0;
+}
+
+.view-cart:hover {
+  text-decoration: none;
+  color: #FFFFFF;
+}
