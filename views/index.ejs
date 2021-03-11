@@ -54,13 +54,15 @@
         </form>
 
         <!-- <div class='itemTotalPriceTest'>0</div> -->
-        <div class='item-id'><%= item.id %></div>
+        <div class='item-id' style="color:#51832D"><%= item.id %></div>
       </article>
     <% } %></div>
     <div class="space"> </div>
-    <form action='/cart' method='POST'>
-    <a class="view-cart" href="/cart">View Cart ($ <div id='itemTotalPrice'>0</div>)</a>
-  </form>
+    <form class="hidden-form" action='/cart' method='POST'>
+      {1: 1}
+    <!-- <a class="view-cart" href="/cart">View Cart ($ <div id='itemTotalPrice'>0</div>)</a> -->
+    </form>
+    <button type="submit" class="view-cart">View Cart ($ <div id='itemTotalPrice'>0</div>)</button>
     </main>
     <!-- <footer>
       <div class="view-cart">View Cart</div>

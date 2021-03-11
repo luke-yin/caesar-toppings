@@ -69,12 +69,12 @@ $(document).ready(function() {
     total = Math.round(total * 100 ) / 100;
     $("#itemTotalPrice").text(total);
     cartOB[id] = newVal;
-    window.localStorage.setItem("cart", JSON.stringify(cartOB));
+    // window.localStorage.setItem("cart", JSON.stringify(cartOB));
 
   });
 
 
-  /*
+
   $(".view-cart").on("click", function() {
 
     // console.log(cartOB);
@@ -85,12 +85,11 @@ $(document).ready(function() {
     })
     .then(function () {
       console.log('Success: ');
+  })
+
 
   });
 
-
-  });
-  */
 
 
 });
