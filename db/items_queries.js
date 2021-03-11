@@ -7,7 +7,7 @@ const getUser = function (userName) {
   SELECT * from users
   WHERE name = $1;`, [userName])
     .then(data => data.rows[0])
-}
+};
 
 // Returns all the information of every menu item
 const getAllItems = function () {
@@ -16,7 +16,7 @@ const getAllItems = function () {
     FROM items;
     `)
     .then(data => data.rows)
-}
+};
 
 // Returns user's orders with status = precheckout
 const getOrderById = function (userId) {
@@ -55,7 +55,7 @@ const createOrder = function (userId) {
 // Receive order info from index.ejs and insert orders
 const createOrderItem = function (orderItems, orderId) {
   //takes an array of promises
-const promises = [];
+  const promises = [];
 
   for (const item in orderItems) {
 
@@ -66,8 +66,8 @@ const promises = [];
     }
   };
   return Promise.all(promises)
-  .then(() => true)
-  .catch(err => console.log(err))
+    .then(() => true)
+    .catch(err => console.log(err))
 
 };
 
@@ -81,11 +81,11 @@ const getOrderItems = function (orderId) {
   WHERE order_id = ${orderId}
   GROUP BY items.id, quantity, order_id;
 `)
-.then(res => {
-  let total = 0;
-  res.rows.forEach(row => total += row.total)
-  return {items: res.rows, total};
-})
+    .then(res => {
+      let total = 0;
+      res.rows.forEach(row => total += row.total)
+      return { items: res.rows, total };
+    })
 };
 
 
@@ -99,7 +99,7 @@ const placeOrder = function (orderId, userId) {
   RETURNING *;
   `)
     .then(res => res.rows[0]);
-}
+};
 
 //restaurant can receive all order history
 const getAllOrders = function () {
@@ -145,7 +145,8 @@ const getSpecificUserOrder = function (orderId, userId) {
     .then(res => res.rows[0]);
 };
 
-// order status is updated on restaurants confirm.
+
+// order status is updated on restaurant's confirm.
 const confirmOrder = function (orderId) {
   return db.query(`
   UPDATE orders
@@ -154,15 +155,20 @@ const confirmOrder = function (orderId) {
   RETURNING *;
   `)
     .then(res => res.rows[0]);
-}
+};
 
+
+// order status is updated on restaurant's complete
 const completeOrder = function (orderId) {
   return db.query(`
   UPDATE orders
   SET status = 'complete'
-  WHERE id = ${orderId};
+  WHERE id = ${orderId}
+  RETURNING *;
   `)
-}
+};
+
+
 
 
 module.exports = {
