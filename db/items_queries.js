@@ -143,10 +143,11 @@ const getSpecificUserOrder = function (orderId, userId) {
   WHERE order_id = $1 AND user_id = $2
   GROUP BY items.id, quantity, order_id, status;
 `, [orderId, userId])
-    .then(res => {
-      console.log(res.rows[0])
-      return res.rows[0]
-    });
+.then(res => {
+  let total = 0;
+  res.rows.forEach(row => total += row.total)
+  return { items: res.rows[0], total };
+})
 };
 // const getSpecificUserOrder = function (orderId, userId) {
 //   return db.query(`
