@@ -49,7 +49,7 @@ module.exports = (db) => {
     const userId = req.session.userId;
     const order = req.session.order;
 
-    const orderItems = req.body;
+    const orderItems = req.body.cartOB;
 
     // localstorage of cart from front-end
     // const orderItems = cart;
