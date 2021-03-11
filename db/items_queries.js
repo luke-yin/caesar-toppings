@@ -75,9 +75,10 @@ const createOrderItem = function (orderItems, orderId) {
 // returns order details AND total price of order
 const getOrderItems = function (orderId) {
   return db.query(`
-  SELECT order_id, items.name, items.price * quantity AS total, quantity, prep_duration, photo_url
+  SELECT status, order_id, items.name, items.price * quantity AS total, quantity, prep_duration, photo_url
   FROM items_orders
   JOIN items ON items.id = item_id
+  JOIN orders ON orders.id = order_id
   WHERE order_id = ${orderId}
   GROUP BY items.id, quantity, order_id;
 `)
@@ -143,10 +144,11 @@ const getSpecificUserOrder = function (orderId, userId) {
   WHERE order_id = $1 AND user_id = $2
   GROUP BY items.id, quantity, order_id, status;
 `, [orderId, userId])
-    .then(res => {
-      console.log(res.rows[0])
-      return res.rows[0]
-    });
+.then(res => {
+  let total = 0;
+  res.rows.forEach(row => total += row.total)
+  return { items: res.rows[0], total };
+})
 };
 // const getSpecificUserOrder = function (orderId, userId) {
 //   return db.query(`

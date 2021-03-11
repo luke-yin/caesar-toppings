@@ -28,8 +28,8 @@
       <h2>Order details</h2>
 
         <section>
-          <h3>Order status: <span><%= status %></span></h3>
-          <h4>Total Price: <span>$<%= total_price / 100 %></span></h4>
+          <h3>Order status: <span><%= items.status %></span></h3>
+          <h4>Total Price: <span>$<%= total / 100 %></span></h4>
         </section>
         <footer>
           <form action="/orders" method="get">
