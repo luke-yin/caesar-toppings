@@ -48,7 +48,8 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
     const userId = req.session.userId; //TODO **** add user through req.session.userId
     const order = req.session.order;
-    const orderItems = req.body;
+    // localstorage of cart from front-end
+    const orderItems = cart;
 
     console.log('this is the body we return for order!!!', orderItems);
 
@@ -78,6 +79,7 @@ module.exports = (db) => {
     placeOrder(order.id)
       .then(orderStatus => {
         console.log('🛒 order has been submitted', orderStatus, order.id);
+        //order confirmation page
         res.redirect(`/orders/${order.id}`);
       })
       .catch(err => {
@@ -86,17 +88,11 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
 
-    //IMPLEMENT TWILIO
-    // ON POST (places order) USE TWILIO TO SEND TEXT TO RESTAURANT
-    // restaurant should confirm how long it'll take
-    //
-
-    //       App.post (‘/cart/:orderid’)
-    // Places the order and sends notification to restaurant
-    // Sends message / shows on page - ‘order placed…etc’
-
-    // res.redirect('/cart', orderId);
+      //TODO TWILIO - Notify Restaurant - order so they can confirm
 
   });
+
+
+
   return router;
 };
