@@ -53,7 +53,7 @@ module.exports = (db) => {
   router.get("/customer/:orderid", (req, res) => {
     let templateVars = {};
     const userId = req.session.userId;
-    const order = req.session.order;
+    const order = req.params.orderid;
     const userType = req.session.userType;
 
     if (!userId) {
@@ -66,9 +66,10 @@ module.exports = (db) => {
       return;
     }
 
-    getSpecificUserOrder(order.id, userId)
+    //TODO returns undefined from query
+    getSpecificUserOrder(order, userId)
       .then(userOrder => {
-        console.log('placed order', order.id, userId, userOrder)
+        console.log('placed order🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡',userOrder)
         templateVars = { ...userOrder, userType };
         res.render('order', templateVars);
       })
@@ -79,6 +80,8 @@ module.exports = (db) => {
       });
 
   });
+
+
 
 
 
@@ -105,10 +108,6 @@ module.exports = (db) => {
     getOrderItems(orderId)
       .then(customerOrder => {
         console.log('>>>>>🤡customer oRDER!!!!!!!', customerOrder)
-        // let prepDuration = 0;
-        // for (item of items){
-        //   prepDuration += item.prep_duration;
-        // }
         templateVars = { ...customerOrder, userType };
         res.render('order_confirm', templateVars);
       })
