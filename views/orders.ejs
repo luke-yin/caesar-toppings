@@ -13,7 +13,7 @@
   <!-- External JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <title>Past orders Page</title>
+    <title>Order history</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -25,14 +25,17 @@
     <%- include('partials/_header') %>
     <main>
       
-      <h2>Past orders</h2>
+      <h2>Order history</h2>
        
     
       <% if(userType === 'customer'){ %>
+        <% for(let order of orders) { %>
         <section> 
-          <h3>Order status: <span><%= order_status %></span></h3>
-          <h4>Total Price: <span>$<%= total_price / 100 %></span></h4>
+          <h3>Order id: <span><%= order.id %></span></h3>
+          <h3>Order status: <span><%= order.status %></span></h3>
+          <h4>Created at: <span><%= order.created_at %></span></h4>
         </section>
+        <% } %>
         <footer>
           <form action="/orders/" method="post">
             <button type="submit">All orders</button>
@@ -40,12 +43,15 @@
         </footer>
 
       <% } else{ %>
+        <% for(let order of orders) { %>
         <section> 
-          <h3>Order status: <span><%= order_status %></span></h3>
-          <h4>Total Price: <span>$<%= total_price / 100 %></span></h4>
+          <h3>Order id: <span><%= order.id %></span></h3>
+          <h3>Order status: <span><%= order.status %></span></h3>
+          <h4>Created at: <span><%= order.created_at %></span></h4>
         </section>
+        <% } %>
         <footer>
-          <form action="/orders/<%= order_id %>/confirm" method="post">
+          <form action="/orders/<%= orders.order_id %>/confirm" method="post">
             <button type="submit">Confirm order</button>
           </form>
         </footer>
@@ -56,25 +62,3 @@
 
   </body>
 </html>
-
-
-
-
-
-
-
-
-<section class='cart-all-items'>
-  <% for(let item of items) { %>
-    <article class="cart-item">
-      <div class='cart-item-pic'>
-        <img src='<%= item.photo_url %>'></img>
-      </div>
-      <div class='cart-item-info'>
-        <h3 class='cart-item-info'><%= item.name %></h3>
-        <h4>Quantity: <span class='cart-item-quantity'><%= item.quantity %></span></h4>
-        <h4>Price: <span class='cart-item-price'>$<%= item.total / 100 %></span>
-      </div>
-    </article>
-<% } %>
-</section class='cart-total-price'>
