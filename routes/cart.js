@@ -66,7 +66,7 @@ module.exports = (db) => {
     }
 
     // if user's order is anything but 'precheckout'
-    res.redirect(`/orders/${order.id}`);
+    res.redirect(`/customer/orders/${order.id}`);
   });
 
 
@@ -81,7 +81,7 @@ module.exports = (db) => {
       .then(orderStatus => {
         console.log('🛒 order has been submitted', orderStatus, order.id);
         //order confirmation page
-        res.redirect(`/orders/${order.id}`);
+        res.redirect(`/customer/orders/${order.id}`);
       })
       .catch(err => {
         res

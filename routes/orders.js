@@ -49,8 +49,8 @@ module.exports = (db) => {
   });
 
 
-  // 📘 specific order info - order status for customer and restaurant can confirm order
-  router.get("/:orderid", (req, res) => {
+  // 📘 specific order info - order status for customer
+  router.get("/customer/:orderid", (req, res) => {
     let templateVars = {};
     const userId = req.session.userId;
     const order = req.session.order;
@@ -60,19 +60,9 @@ module.exports = (db) => {
       res.redirect('/login');
       return;
     }
-    // if restaurant - show the specific order details. (all the items)
+    // if restaurant - redirect
     if (userType === 'restaurant') {
-
-      getSpecificOrder(order.id)
-        .then(customerOrder => {
-          templateVars = { ...customerOrder, userType };
-          res.render('order', templateVars);
-        })
-        .catch(err => {
-          res
-            .status(500)
-            .json({ error: err.message });
-        });
+      res.redirect('/orders/restaurant/:orderid');
       return;
     }
 
@@ -88,6 +78,44 @@ module.exports = (db) => {
       });
 
   });
+
+
+
+  // 📘 restaurant's order detail page
+  router.get("/restaurant/:orderid", (req, res) => {
+    let templateVars = {};
+    const userId = req.session.userId;
+    // const order = req.session.order;
+    const userType = req.session.userType;
+
+    if (!userId) {
+      res.redirect('/login');
+      return;
+    }
+
+    // if customer - redirect
+    if (userType === 'customer') {
+      res.redirect('/orders/:orderid');
+      return;
+    }
+
+
+    getSpecificOrder(order.id)
+      .then(customerOrder => {
+        templateVars = { ...customerOrder, userType };
+        res.render('order_confirm', templateVars);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+
+      SELECT * FROM orders
+      WHERE id = 4;
+
+  });
+
 
 
   // 📘 Restaurant confirms the order and notifies user
