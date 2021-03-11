@@ -72,7 +72,7 @@ const promises = [];
 };
 
 
-// Returns order details AND total price of order
+// returns order details AND total price of order
 const getOrderItems = function (orderId) {
   return db.query(`
   SELECT order_id, items.name, items.price * quantity AS total, quantity, prep_duration, photo_url
@@ -90,12 +90,13 @@ const getOrderItems = function (orderId) {
 
 
 // user submits order and places order
-const placeOrder = function (orderId) {
+const placeOrder = function (orderId, userId) {
   return db.query(`
   UPDATE orders
-  status = 'waiting_approval'
+  SET status = 'waiting_approval',
   created_at = NOW()
-  RETURNING status, created_at;
+  WHERE id = ${orderId} and user_id = ${userId}
+  RETURNING *;
   `)
     .then(res => res.rows[0]);
 }
@@ -108,7 +109,7 @@ const getAllOrders = function () {
     .then(res => res.rows);
 };
 
-
+// returns all order history from user
 const getUserOrders = function (userId) {
   return db.query(`
   SELECT * FROM orders
@@ -120,7 +121,7 @@ const getUserOrders = function (userId) {
 };
 
 
-
+// returns one order using orderId
 const getSpecificOrder = function (orderId) {
   return db.query(`
   SELECT * FROM orders
@@ -129,6 +130,8 @@ const getSpecificOrder = function (orderId) {
     .then(res => res.rows[0]);
 };
 
+
+// returns specific order for user
 const getSpecificUserOrder = function (orderId, userId) {
   return db.query(`
   SELECT orders.id AS order_id, orders.status AS order_status, orders.created_at AS created_at,
@@ -142,12 +145,13 @@ const getSpecificUserOrder = function (orderId, userId) {
     .then(res => res.rows[0]);
 };
 
+// order status is updated on restaurants confirm.
 const confirmOrder = function (orderId) {
   return db.query(`
   UPDATE orders
   SET status = 'preparing'
   WHERE orderId = ${orderId}
-  RETURNING status;
+  RETURNING *;
   `)
     .then(res => res.rows[0]);
 }
@@ -156,7 +160,7 @@ const completeOrder = function (orderId) {
   return db.query(`
   UPDATE orders
   SET status = 'complete'
-  WHERE orderId = ${orderId};
+  WHERE id = ${orderId};
   `)
 }
 
