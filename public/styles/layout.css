@@ -4,7 +4,7 @@
 }
 
 body {
-  background-color: #EEE;
+  background-color: #eee;
 }
 
 body h2 {
@@ -25,15 +25,23 @@ body .main-common {
 body .page-title-common {
   margin-bottom: 0;
   color: #222222;
-  font: bold 32px Lato, sans-serif;
+  font: bold 24px Lato, sans-serif;
   margin-bottom: 1.5rem;
   margin: 0 auto;
   z-index: 999;
 }
 
+.textfield-common {
+  width: 200px !important;
+  height: 36px !important;
+  margin: 1em 1em 0 0;
+  padding: 6px;
+  border-radius: 5px;
+}
+
 .navbar {
   width: 100%;
-  background-color: #E35645 !important;
+  background-color: #e35645 !important;
   height: 96px;
   position: fixed;
   top: 0%;
@@ -42,6 +50,11 @@ body .page-title-common {
 
 .navbar-brand {
   font: 40px Intro, sans-serif;
+}
+
+.page-align {
+  display: flex;
+  justify-content: flex-start;
 }
 
 .index-main {
@@ -54,7 +67,7 @@ body .page-title-common {
   padding-left: 1.1rem;
   padding-top: 100px;
   padding-bottom: 50px;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
 }
 
 .quantity {
@@ -65,8 +78,8 @@ body .page-title-common {
 
 .open-card {
   display: block;
-  background-color: #51832D;
-  color: #FFFFFF;
+  background-color: #51832d;
+  color: #ffffff;
   padding: 12px;
   padding-bottom: 16px;
   border-radius: 8px;
@@ -90,7 +103,7 @@ body .page-title-common {
 }
 
 .button {
-  background-color: #ABD148;
+  background-color: #abd148;
   margin: 0 0 0 0;
   cursor: pointer;
   width: 28px;
@@ -109,7 +122,7 @@ body .page-title-common {
   border-radius: 0px 10px 10px 0px;
 }
 
-input[type=text] {
+input[type="text"] {
   display: flex;
   float: left;
   width: 40px;
@@ -121,12 +134,12 @@ input[type=text] {
 }
 
 .amount {
-  color: #51832D !important;
+  color: #51832d !important;
 }
 
 .space {
   height: 40px;
-  background-color: #EEE;
+  background-color: #eee;
 }
 
 .view-cart {
@@ -136,9 +149,9 @@ input[type=text] {
   left: 6vw;
   height: 72px;
   width: 85vw;
-  background-color: #F2753F;
+  background-color: #f2753f;
   font: bold 28px Lato, sans-serif;
-  color: #FFFFFF;
+  color: #ffffff;
   position: fixed;
   bottom: 0%;
   z-index: 1;
@@ -147,7 +160,7 @@ input[type=text] {
 
 .view-cart:hover {
   text-decoration: none;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .navbar-toggler {

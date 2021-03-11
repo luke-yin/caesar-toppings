@@ -1,13 +1,13 @@
 // See: https://sass-lang.com/
-$greenBtn: #ABD148;
-$bgColor:#EEE;
-$orange-red: #E35645;
-$btnOrange: #F2753F;
+$greenBtn: #abd148;
+$bgColor: #eee;
+$orange-red: #e35645;
+$btnOrange: #f2753f;
 $black2: #222222;
 
 @font-face {
   font-family: Intro;
-  src: url('../fonts/IntroBlackInline.otf');
+  src: url("../fonts/IntroBlackInline.otf");
 }
 
 body {
@@ -24,7 +24,6 @@ body {
     margin: 1em;
   }
 
-
   .main-common {
     margin: 1em;
     padding-top: 100px;
@@ -33,7 +32,7 @@ body {
   .page-title-common {
     margin-bottom: 0;
     color: $black2;
-    font: bold 32px Lato, sans-serif;
+    font: bold 24px Lato, sans-serif;
     margin-bottom: 1.5rem;
     // align-self: center;
     // justify-self: center;
@@ -41,21 +40,33 @@ body {
     z-index: 999;
   }
 }
+.textfield-common {
+  width: 200px !important;
+  height: 36px !important;
+  margin: 1em 1em 0 0;
+  padding: 6px;
+  border-radius: 5px;
+}
 
+.navbar {
+  width: 100%;
+  background-color: $orange-red !important;
+  height: 96px;
+  position: fixed;
+  top: 0%;
+  z-index: 999;
+}
 
-  .navbar {
-    width: 100%;
-    background-color: $orange-red !important;
-    height: 96px;
-    position: fixed;
-    top: 0%;
-    z-index: 999;
-  }
+.navbar-brand {
+  font: 40px Intro, sans-serif;
+}
 
-  .navbar-brand {
-    font:  40px Intro, sans-serif;
-  }
-
+.page-align {
+ display: flex;
+//  flex-direction: column;
+//  align-items: flex-start;
+justify-content: flex-start;
+}
 
 .index-main {
   padding-top: 450px;
@@ -67,7 +78,7 @@ body {
   padding-left: 1.1rem;
   padding-top: 100px;
   padding-bottom: 50px;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
 }
 
 .quantity {
@@ -78,8 +89,8 @@ body {
 
 .open-card {
   display: block;
-  background-color: #51832D;
-  color: #FFFFFF;
+  background-color: #51832d;
+  color: #ffffff;
   padding: 12px;
   padding-bottom: 16px;
   border-radius: 8px;
@@ -88,14 +99,12 @@ body {
   margin-bottom: 20px;
 }
 
-
 .item-header {
   display: flex;
   justify-content: space-between;
   align-self: center;
   font: bold 24px Lato, sans-serif;
   padding: 10 10 10 10;
-
 }
 
 .item-price {
@@ -105,7 +114,7 @@ body {
 }
 
 .button {
-  background-color:  $greenBtn;
+  background-color: $greenBtn;
   margin: 0 0 0 0;
   cursor: pointer;
   width: 28px;
@@ -117,13 +126,13 @@ body {
 }
 
 .dec {
-  border-radius:10px 0 0 10px;
+  border-radius: 10px 0 0 10px;
 }
 .inc {
-  border-radius:0px 10px 10px 0px;
+  border-radius: 0px 10px 10px 0px;
 }
 
-input[type=text] {
+input[type="text"] {
   display: flex;
   float: left;
   width: 40px;
@@ -135,7 +144,7 @@ input[type=text] {
 }
 
 .amount {
-  color: #51832D !important;
+  color: #51832d !important;
 }
 
 .space {
@@ -152,7 +161,7 @@ input[type=text] {
   width: 85vw;
   background-color: $btnOrange;
   font: bold 28px Lato, sans-serif;
-  color: #FFFFFF;
+  color: #ffffff;
   position: fixed;
   bottom: 0%;
   z-index: 1;
@@ -161,7 +170,7 @@ input[type=text] {
 
 .view-cart:hover {
   text-decoration: none;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .navbar-toggler {
