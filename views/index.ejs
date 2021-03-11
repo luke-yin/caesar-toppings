@@ -31,13 +31,16 @@
     <h2>Our Caesars</h2>
      <!-- form action method maybe to send the quatity to js? -->
       <div id="for-loop"><% for(let item of items) { %>
+        <div class="hidden-image">
+          <img src='<%= item.photo_url %>'></img>
+        </div>
       <article class="open-card">
-        <!-- <div class='item-id'><% item.id %></div> -->
         <div class='item-header'>
           <label for="item-name"><%= item.name %></label>
           <div class="item-price">$<p class="actual-price"><%= item.price / 100 %></p></div>
         </div>
         <!-- Wrap lines 42-47 in another container -->
+        <div class="collapsible">
         <p class="item-description"><%= item.description %></p>
         <form method="post" action="/cart">
           <div class="quantity">
@@ -45,17 +48,20 @@
             <input type="text" name="amount" id="amount" value="0">
             <div class="inc button">+</div>
           </div>
+        </div>
           <!-- <div class='space'></div> -->
 
         </form>
+
         <!-- <div class='itemTotalPriceTest'>0</div> -->
-        <div class='item-id'><%= item.id %></div>
+        <div class='item-id' style="color:#51832D"><%= item.id %></div>
       </article>
     <% } %></div>
     <div class="space"> </div>
-    <form action='/cart' method='POST'>
-    <a class="view-cart" href="/cart">View Cart ($ <div id='itemTotalPrice'>0</div>)</a>
-  </form>
+    <form id="hidden-form" action='/cart' method='POST'>
+    <!-- <a class="view-cart" href="/cart">View Cart ($ <div id='itemTotalPrice'>0</div>)</a> -->
+    </form>
+    <button type="submit" class="view-cart">View Cart ($ <div id='itemTotalPrice'>0</div>)</button>
     </main>
     <!-- <footer>
       <div class="view-cart">View Cart</div>

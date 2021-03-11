@@ -15,6 +15,8 @@ $(document).ready(function() {
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   }
+  $(".hidden-image").hide();
+  $(".collapsible").hide();
 
   // Logic for adding the subtotal
   // Hide all the pictures except for picture #1
@@ -30,11 +32,18 @@ $(document).ready(function() {
 
   $('#itemTotalPrice').text(total);
 
+  $(".item-header").on("click", function() {
+    console.log($(this));
+    $((this).parentElement.previousElementSibling).toggle();
+    $((this).nextElementSibling).toggle();
+  })
+
 
   $(".button").on("click", function() {
 
-    let id = $(this)[0].parentElement.parentElement.parentElement.children[3].innerHTML;
-    let price = $(this)[0].parentElement.parentElement.parentElement.children[0].children[1].children[0].innerHTML;
+    console.log($(this));
+    let id = $(this)[0].parentElement.parentElement.parentElement.parentElement.children[2].innerHTML;
+    let price = $(this)[0].parentElement.parentElement.parentElement.parentElement.children[0].children[1].children[0].innerHTML;
     currentPrice = parseFloat(price);
     currentPrice = Math.round(currentPrice * 100 ) / 100;
     //it has to be var not let or const in order to work
@@ -60,14 +69,14 @@ $(document).ready(function() {
     total = Math.round(total * 100 ) / 100;
     $("#itemTotalPrice").text(total);
     cartOB[id] = newVal;
-    window.localStorage.setItem("cart", JSON.stringify(cartOB));
+    // window.localStorage.setItem("cart", JSON.stringify(cartOB));
 
   });
 
 
-  /*
-  $(".view-cart").on("click", function() {
 
+  $(".view-cart").on("click", function() {
+    $("#hidden-form").innerHTML = cartOB;
     // console.log(cartOB);
     $.ajax({
       url: "/cart",
@@ -76,13 +85,11 @@ $(document).ready(function() {
     })
     .then(function () {
       console.log('Success: ');
+  })
+
 
   });
 
-
-  });
-  */
 
 
 });
-
