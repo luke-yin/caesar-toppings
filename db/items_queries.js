@@ -80,7 +80,7 @@ const getOrderItems = function (orderId) {
   JOIN items ON items.id = item_id
   JOIN orders ON orders.id = order_id
   WHERE order_id = ${orderId}
-  GROUP BY items.id, quantity, order_id;
+  GROUP BY items.id, quantity, order_id, status;
 `)
     .then(res => {
       let total = 0;
