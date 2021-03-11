@@ -3,7 +3,7 @@ const router = express.Router();
 const { createOrderItem, getOrderItems, placeOrder } = require('../db/items_queries');
 // const items = require('./items');
 
-let cart = window.localStorage.getItem("cart"); // Cart object as a JSON string
+// let cart = window.localStorage.getItem("cart"); // Cart object as a JSON string
 
 module.exports = (db) => {
 
@@ -52,7 +52,7 @@ module.exports = (db) => {
     const orderItems = req.body;
 
     // localstorage of cart from front-end
-    const orderItems = cart;
+    // const orderItems = cart;
 
     console.log('this is the body we return for order!!!', orderItems);
 

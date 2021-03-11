@@ -112,7 +112,8 @@ const getAllOrders = function () {
 // returns all order history from user
 const getUserOrders = function (userId) {
   return db.query(`
-  SELECT * FROM orders
+  SELECT orders.id, orders.status, created_at
+  FROM orders
   JOIN users ON orders.user_id = users.id
   WHERE users.id = ${userId}
   ORDER BY created_at DESC;

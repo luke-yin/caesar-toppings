@@ -23,21 +23,18 @@
 
   <body>
     <%- include('partials/_header') %>
-    <main>
-      
-      <h2>Order details</h2>
 
-        <section> 
-          <h3>Order status: <span><%= order_status %></span></h3>
-          <h4>Total Price: <span>$<%= total_price / 100 %></span></h4>
-        </section>
-        <footer>
-          <form action="/orders/" method="post">
-            <button type="submit">All orders</button>
-          </form>
-        </footer>
-    
-    </main>
+  <main>
+    <section> 
+      <h3>Order status: <span><%= order_status %></span></h3>
+      <h4>Total Price: <span>$<%= total_price / 100 %></span></h4>
+    </section>
+    <footer>
+      <form action="/orders/restaurant/<%= order_id %>/confirm" method="post">
+        <button type="submit">Confirm order</button>
+      </form>
+    </footer>
+  </main>
 
-  </body>
+</body>
 </html>
