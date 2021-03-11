@@ -31,6 +31,11 @@
           <h3>Order status: <span><%= items.status %></span></h3>
           <h4>Total Price: <span>$<%= total / 100 %></span></h4>
         </section>
+        <div>
+          <% if(items.status === 'preparing'){ %>
+            <p>Thanks for your order. We'll notify you when i'ts ready</p>
+          <% }  %>
+        </div>
         <footer>
           <form action="/orders" method="get">
             <button type="submit">All orders</button>
