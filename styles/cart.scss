@@ -5,6 +5,11 @@ $orange-red: #E35645;
 $btnOrange: #F2753F;
 $black2: #222222;
 
+@font-face {
+  font-family: Intro;
+  src: url("../fonts/IntroBlackInline.otf");
+}
+
 .cart-page-header {
   display: flex;
   align-items: center;
