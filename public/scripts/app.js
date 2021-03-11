@@ -76,7 +76,7 @@ $(document).ready(function() {
 
 
   $(".view-cart").on("click", function() {
-
+    $("#hidden-form").innerHTML = cartOB;
     // console.log(cartOB);
     $.ajax({
       url: "/cart",
