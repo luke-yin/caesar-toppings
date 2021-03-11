@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
   <!-- Google font -->
- 
+
 
   <!-- External JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -27,11 +27,11 @@
     <h2>Order Confirmation</h2>
 
   <main>
-    <section> 
+    <section>
       <h3>Order Id: <span><%= items[0].order_id %></span></h3>
-    
+
       <% for(let item of items) { %>
-        <section> 
+        <section>
           <h4>Item: <span><%= item.name %></span></h4>
           <h4>Quantity: <span><%= item.quantity %></span></h4>
         </section>

@@ -45,7 +45,7 @@ const cartRoutes = require("./routes/cart");
 const loginRoutes = require("./routes/login");
 const ordersRoutes = require("./routes/orders");
 const apiRoutes = require("./routes/api");
-
+const twilioRouter = require("./routes/send-sms.js");
 
 // Mount all resource routes
 app.use("/items", itemRoutes(db));
@@ -53,6 +53,8 @@ app.use("/cart", cartRoutes(db));
 app.use("/login", loginRoutes(db));
 app.use("/orders", ordersRoutes(db));
 app.use("/api", apiRoutes(db));
+app.use("/twilio", twilioRouter);
+
 
 
 // Note: mount other resources here, using the same pattern above
