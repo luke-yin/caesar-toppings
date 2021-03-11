@@ -52,7 +52,7 @@ const createOrder = function (userId) {
 };
 
 
-//TODO want to loop through each item/quantity selected and insert it into the items_orders table
+// Receive order info from index.ejs and insert orders
 const createOrderItem = function (orderItems, orderId) {
   //takes an array of promises
 const promises = [];
@@ -65,11 +65,6 @@ const promises = [];
       `))
     }
   };
-
-
-
-
-  // makes sure ALL the promises are finished and then run the then()
   return Promise.all(promises)
   .then(() => true)
   .catch(err => console.log(err))
@@ -77,7 +72,7 @@ const promises = [];
 };
 
 
-// Returns details and total price of EACH item in order
+// Returns order details AND total price of order
 const getOrderItems = function (orderId) {
   return db.query(`
   SELECT order_id, items.name, items.price * quantity AS total, quantity, prep_duration, photo_url
@@ -89,12 +84,12 @@ const getOrderItems = function (orderId) {
 .then(res => {
   let total = 0;
   res.rows.forEach(row => total += row.total)
-  // res.rows.push({total})
   return {items: res.rows, total};
 })
 };
 
 
+// user submits order and places order
 const placeOrder = function (orderId) {
   return db.query(`
   UPDATE orders
@@ -104,6 +99,15 @@ const placeOrder = function (orderId) {
   `)
     .then(res => res.rows[0]);
 }
+
+//restaurant can receive all order history
+const getAllOrders = function () {
+  return db.query(`
+  SELECT * FROM orders;
+`)
+    .then(res => res.rows);
+};
+
 
 const getUserOrders = function (userId) {
   return db.query(`
@@ -115,12 +119,6 @@ const getUserOrders = function (userId) {
     .then(res => res.rows);
 };
 
-const getAllOrders = function () {
-  return db.query(`
-  SELECT * FROM orders;
-`)
-    .then(res => res.rows);
-};
 
 
 const getSpecificOrder = function (orderId) {
@@ -131,7 +129,7 @@ const getSpecificOrder = function (orderId) {
     .then(res => res.rows[0]);
 };
 
-const getSpecificUserOrders = function (orderId, userId) {
+const getSpecificUserOrder = function (orderId, userId) {
   return db.query(`
   SELECT orders.id AS order_id, orders.status AS order_status, orders.created_at AS created_at,
   SUM(items.price) AS total_price
@@ -141,7 +139,7 @@ const getSpecificUserOrders = function (orderId, userId) {
   WHERE orders.id = ${orderId} AND user_id = ${userId}
   GROUP BY orders.id;
 `)
-    .then(res => res.rows);
+    .then(res => res.rows[0]);
 };
 
 const confirmOrder = function (orderId) {
@@ -175,7 +173,7 @@ module.exports = {
   getUserOrders,
   getAllOrders,
   getSpecificOrder,
-  getSpecificUserOrders,
+  getSpecificUserOrder,
   confirmOrder,
   completeOrder
 };

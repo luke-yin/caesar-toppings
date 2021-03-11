@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { getAllOrders, getUserOrders, getSpecificOrder, getSpecificUserOrders, confirmOrder, completeOrder } = require('../db/items_queries');
+const { getAllOrders, getUserOrders, getSpecificOrder, getSpecificUserOrder, confirmOrder, completeOrder } = require('../db/items_queries');
 
 
 module.exports = (db) => {
 
-  //main page for restaurant. if restaurant at login. user gets redirected here.
+  // 📘 view all order history for customers and restaurant
   router.get("/", (req, res) => {
 
     const userId = req.session.userId;
@@ -19,6 +19,7 @@ module.exports = (db) => {
 
     let templateVars = {};
 
+    //if userType = restaurant, show ALL order history
     if (userType === 'restaurant') {
       getAllOrders()
         .then(orders => {
@@ -48,6 +49,7 @@ module.exports = (db) => {
   });
 
 
+
   router.get("/:orderid", (req, res) => {
     let templateVars = {};
     const userId = req.session.userId;
@@ -62,15 +64,9 @@ module.exports = (db) => {
     // if restaurant - show the specific order details. (all the items)
     if (userType === 'restaurant') {
 
-
-      //TODO customer is already on this page (submitted order)
-      //Restaurant may come back after 'confirming' order
-      //We need to somehow refresh the message on customer side
-      //and show that their cookie @ order.status is now at 'preparation'
-
       getSpecificOrder(order.id)
         .then(customerOrder => {
-          templateVars = { customerOrder };
+          templateVars = {...customerOrder, userType };
 
           res.render('order', templateVars);
         })
@@ -82,9 +78,9 @@ module.exports = (db) => {
       return;
     }
 
-    getSpecificUserOrders(order.id, userId)
+    getSpecificUserOrder(order.id, userId)
       .then(userOrder => {
-        templateVars = { userOrder };
+        templateVars = { ...userOrder, userType };
         res.render('order', templateVars);
       })
       .catch(err => {
@@ -120,7 +116,7 @@ module.exports = (db) => {
             .json({ error: err.message });
         });
 
-// send a notification to  the user phone number when restaurant confirms it
+      // send a notification to  the user phone number when restaurant confirms it
 
     };
 
