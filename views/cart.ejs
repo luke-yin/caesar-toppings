@@ -44,30 +44,33 @@
   <body>
     <%- include('partials/_header') %>
     <main>
+      <div class='cart-page-header'>
       <div class='back-icon'>
         <a href="./items">←</a>
       </div>
       <h2 class='cart-h2'>Cart</h2>
-
+    </div>
       <section class='cart-all-items'>
         <% for(let item of items) { %>
           <article class="cart-item">
             <header class="cart-article-header">
               <div class='article-left'>
-            <div class='cart-item-pic' id="pic1">
-
-              <img src='<%= item.photo_url %>'></img>
-            </div>
-              <span class='cart-item-info'><%= item.name %></span>
-            </div>
-            <span >Quantity: <%= item.quantity %></span>
+                <div class='pic-container'>
+                <div class='cart-item-pic'>
+                  <img src='<%= item.photo_url %>'></img>
+                </div>
+              </div>
+                <span class='cart-item-info'><%= item.name %></span>
+              </div>
+            <span class='cart-quantity'>Quantity: <%= item.quantity %></span>
           </header>
           </article>
       <% } %>
       </section class='cart-total-price'>
 
-      <section>
-        <h3>Cart total: <span class="cart-total-price">$<%= total / 100 %></span></h3>
+      <section class='cart-section'>
+        <span class="total-title">Total:</span>
+        <span class="cart-total-price">$<%= total / 100 %></span>
       </section>
 
       <div class="space"> </div>
