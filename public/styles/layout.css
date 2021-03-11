@@ -9,7 +9,7 @@ body {
 
 body h2 {
   color: #222222;
-  font: bold 36px Lato, sans-serif;
+  font: bold 24px Lato, sans-serif;
   margin-bottom: 1.5rem;
 }
 
@@ -17,13 +17,35 @@ body main {
   margin: 1em;
 }
 
+.index-main {
+  padding-top: 450px;
+}
+
+.main-common {
+  margin: 1em;
+  padding-top: 100px;
+}
+
 .navbar {
+  width: 100%;
   background-color: #E35645 !important;
   height: 96px;
+  position: fixed;
+  top: 0%;
+  z-index: 999;
 }
 
 .navbar-brand {
   font: 40px Intro, sans-serif;
+}
+
+.caesars {
+  position: fixed;
+  width: 100%;
+  padding-left: 1.1rem;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  background-color: #EEEEEE;
 }
 
 .quantity {
@@ -50,6 +72,12 @@ body main {
   align-self: center;
   font: bold 24px Lato, sans-serif;
   padding: 10 10 10 10;
+}
+
+.item-price {
+  font: bold 18px Lato, sans-serif;
+  display: flex;
+  flex-direction: row;
 }
 
 .button {

@@ -47,7 +47,7 @@
       </div>
     </header>
 
-    <main>
+    <main class="index-main">
       <!-- All the pictures are loaded here -->
     <h2>Our Caesars</h2>
      <!-- form action method maybe to send the quatity to js? -->
@@ -55,7 +55,7 @@
       <article class="open-card">
         <div class='item-header'>
           <label for="item-name"><%= item.name %></label>
-          <div class="item-price">$<p class="actual-price"><%= item.price / 100 %></p></div>
+          <div class="item-price">$ <div class="actual-price"><%= item.price / 100 %></div></div>
         </div>
         <!-- Wrap lines 42-47 in another container -->
         <div class="collapsible">
