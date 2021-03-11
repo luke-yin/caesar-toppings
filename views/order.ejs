@@ -39,7 +39,7 @@
 
   <body>
     <%- include('partials/_header') %>
-    <main class='main-common main-order'>
+    <main class='main-common'>
 
       <h2 class='cart-h2'>Order details</h2>
 
@@ -47,9 +47,9 @@
           <h3>Order status: <span><%= items.status %></span></h3>
           <h4>Total Price: <span>$<%= total / 100 %></span></h4>
         </section>
-        <div>
+        <div class="text-message" style="font: 20px Lato, sans-serif;">
           <% if(items.status === 'preparing'){ %>
-            <p>Thanks for your order. We'll notify you when i'ts ready</p>
+            <p >Thanks for your order.<br>We'll notify you when it's ready.</p>
           <% }  %>
         </div>
         <footer>

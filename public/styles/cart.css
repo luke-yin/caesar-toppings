@@ -1,8 +1,3 @@
-@font-face {
-  font-family: Intro;
-  src: url("../fonts/IntroBlackInline.otf");
-}
-
 .cart-page-header {
   display: flex;
   align-items: center;
@@ -37,7 +32,7 @@
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  font: bold 30px Lato, sans-serif;
+  font: bold 26px Lato, sans-serif;
   padding: 10 10 10 10;
 }
 
@@ -73,7 +68,7 @@
   display: flex;
   justify-content: space-between;
   background-color: #E7F2D6;
-  font: bold 32px Lato, sans-serif;
+  font: bold 26px Lato, sans-serif;
   border-radius: 8px;
   padding: 20px;
   height: 100px;
