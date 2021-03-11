@@ -1,6 +1,3 @@
-<!-- Receive templateVars and display that -->
-<!-- Needs button that submits order (/:orderId, POST)-->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -77,18 +74,8 @@
 
       <div class="space"> </div>
       <form action="/cart/<%= orderId %>" method="post">
-        <div class="view-cart">
-          <button type ='submit'>Checkout</button>
-         </div>
+        <button type ='submit' class="view-cart">Checkout</button>
       </form>
-
       </main>
-
-    <!-- <footer>
-      <form action="/orders/<%= orderId %>" method="post">
-        <button type="submit">Checkout</button>
-      </form>
-    </footer> -->
-
   </body>
 </html>

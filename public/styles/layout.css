@@ -112,3 +112,7 @@ input[type=text] {
   text-decoration: none;
   color: #FFFFFF;
 }
+
+.navbar-toggler {
+  visibility: hidden;
+}
