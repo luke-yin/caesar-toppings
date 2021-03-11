@@ -1,0 +1,51 @@
+// See: https://sass-lang.com/
+$greenBtn: #ABD148;
+$bgColor:#EEE;
+$orange-red: #E35645;
+$btnOrange: #F2753F;
+$black2: #222222;
+
+.cart-h2 {
+  display: flex;
+  justify-content: center;
+}
+
+.back-icon {
+  font-size: 50px;
+}
+
+.cart-item {
+  display: flex;
+  background-color: $orange-red;
+
+  flex-wrap: wrap;
+  // flex-direction: row;
+  color: #ffffff;
+  padding: 12px;
+  padding-bottom: 16px;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+}
+.cart-article-header {
+  display: flex;
+  font-weight: bold;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  font: bold 24px Lato, sans-serif;
+  padding: 10 10 10 10;
+}
+
+.article-left {
+  display: flex;
+  align-items: flex-start;
+  font-size: 30px;
+}
+
+#pic1 {
+  width: 40%;
+  height: 40%;
+  float: left;
+}

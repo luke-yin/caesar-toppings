@@ -35,7 +35,6 @@
       <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
       <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
       <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-      <link rel="stylesheet" href="/styles/cart.css" type="text/css" />
 
       <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
       <script type="text/javascript" src="/scripts/app.js"></script>
@@ -44,24 +43,21 @@
   <body>
     <%- include('partials/_header') %>
     <main>
-      <div class='back-icon'>
-        <a href="./items">←</a>
-      </div>
-      <h2 class='cart-h2'>Cart</h2>
+
+
+      <a href="./items">←</a>
+      <h2>Cart</h2>
 
       <section class='cart-all-items'>
         <% for(let item of items) { %>
           <article class="cart-item">
-            <header class="cart-article-header">
-              <div class='article-left'>
-            <div class='cart-item-pic' id="pic1">
-
+            <div class='cart-item-pic'>
               <img src='<%= item.photo_url %>'></img>
             </div>
-              <span class='cart-item-info'><%= item.name %></span>
+            <div class='cart-item-info'>
+              <h3 class='cart-item-info'><%= item.name %></h3>
+              <h4>Quantity: <span class='cart-item-quantity'><%= item.quantity %></span></h4>
             </div>
-            <span >Quantity: <%= item.quantity %></span>
-          </header>
           </article>
       <% } %>
       </section class='cart-total-price'>
@@ -70,17 +66,13 @@
         <h3>Cart total: <span class="cart-total-price">$<%= total / 100 %></span></h3>
       </section>
 
-      <div class="space"> </div>
-      <form action="/orders/<%= orderId %>" method="post"></form>
-      <div class="view-cart">Checkout</div>
-    </form>
-      </main>
+    </main>
 
-    <!-- <footer>
+    <footer>
       <form action="/orders/<%= orderId %>" method="post">
         <button type="submit">Checkout</button>
       </form>
-    </footer> -->
+    </footer>
 
   </body>
 </html>
