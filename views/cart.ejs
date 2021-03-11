@@ -76,9 +76,12 @@
       </section>
 
       <div class="space"> </div>
-      <form action="/orders/<%= orderId %>" method="post"></form>
-      <div class="view-cart">Checkout</div>
-    </form>
+      <form action="/cart/<%= orderId %>" method="post">
+        <div class="view-cart">
+          <button type ='submit'>Checkout</button>
+         </div>
+      </form>
+
       </main>
 
     <!-- <footer>
