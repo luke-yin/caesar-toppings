@@ -6,20 +6,22 @@ $btnOrange: #F2753F;
 $black2: #222222;
 
 .cart-page-header {
-  display:flex;
-  flex-direction: row;
-  // justify-content: center;
+  display: flex;
+  align-items: center;
 }
 
 .cart-h2 {
-  display: flex;
-  justify-content: center;
+  margin-bottom: 0;
+  align-self: center;
+  justify-self: center;
+  margin: 0 auto;
 }
 
 .back-icon {
   font-size: 50px;
   display: flex;
 }
+
 
 .cart-item {
   display: flex;
@@ -75,10 +77,9 @@ $black2: #222222;
   display: flex;
   justify-content: space-between;
   background-color: #E7F2D6;
-  // background-color: blue;
   font: bold 32px Lato, sans-serif;
   border-radius: 8px;
-  padding: 20px 20px 20px 20px;
+  padding: 20px;
   height: 100px;
   margin: 20px 0px;
   align-items: center ;
