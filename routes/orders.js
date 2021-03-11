@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getAllOrders, getUserOrders, getSpecificOrder, getSpecificUserOrder, confirmOrder, completeOrder } = require('../db/items_queries');
+const { getAllOrders, getUserOrders, getSpecificOrder, getSpecificUserOrder, confirmOrder, completeOrder, getOrderItems } = require('../db/items_queries');
 
 
 module.exports = (db) => {
@@ -88,6 +88,7 @@ module.exports = (db) => {
     const orderId = req.params.orderid;
     const userType = req.session.userType;
 
+
     if (!userId) {
       res.redirect('/login');
       return;
@@ -100,8 +101,13 @@ module.exports = (db) => {
     }
 
 
-    getSpecificOrder(orderId)
+    getOrderItems(orderId)
       .then(customerOrder => {
+        console.log('>>>>>🤡customer oRDER!!!!!!!', customerOrder)
+        // let prepDuration = 0;
+        // for (item of items){
+        //   prepDuration += item.prep_duration;
+        // }
         templateVars = { ...customerOrder, userType };
         res.render('order_confirm', templateVars);
       })
@@ -128,7 +134,7 @@ module.exports = (db) => {
     }
     //TODO we can grab the order in full instead of just order id when they log in
     if (userType === 'restaurant') {
-      confirmOrder(order.id)
+      confirmOrder(orderId)
         .then(confirmedOrder => {
           console.log('🥤 restaurant confirmed order🥤 : ', confirmedOrder);
           res.redirect(`/orders/${orderId}`)
@@ -142,23 +148,26 @@ module.exports = (db) => {
       //TODO  send a notification to the user phone number when restaurant confirms it
 
     };
+  });
 
-
+//TODO TWILIO
     //📘 Restaurant confirms the completion of order. Notify user and changes order status
     router.post("/restaurant/:orderid/complete", (req, res) => {
 
       const userId = req.session.userId;
-      const orderId = req.params.orderid;
+      // const orderId = req.params.orderid;
       const userType = req.session.userType;
-
+      console.log('orderId: ', orderId)
       if (!userId) {
         res.redirect('/login');
         return;
       }
-
+      
       if (userType === 'restaurant') {
-        completeOrder(orderId)
+        completeOrder(orderId)//does not exist?
+        
           .then(completedOrder => {
+            //TODO order id does not exist error
             console.log('✅ restaurant completed order🥤 : ', completedOrder);
             res.redirect('/orders')
           })
@@ -167,10 +176,16 @@ module.exports = (db) => {
               .status(500)
               .json({ error: err.message });
           });
-      }
-    });
 
-    res.redirect('/index');
-  });
-  return router;
-};
+          return;
+      }
+      res.redirect('/items');
+
+
+
+    });
+    return router;
+    
+  };
+  
+
