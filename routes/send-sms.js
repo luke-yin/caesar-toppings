@@ -14,7 +14,7 @@ const client = require('twilio')(accountSid, authToken);
 
 module.exports = () => {
 
-router.get('/confirmation', (req, res) => {
+router.post('/confirmation', (req, res) => {
 const order = req.session.order;
 
 console.log(order, 'twilio!!!')
@@ -27,6 +27,7 @@ console.log(order, 'twilio!!!')
     console.log(message.sid)
     res.redirect('/orders/customer/${order.id}');
   });
+  return
 });
 
 
