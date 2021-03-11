@@ -137,7 +137,8 @@ module.exports = (db) => {
       confirmOrder(orderId)
         .then(confirmedOrder => {
           console.log('🥤 restaurant confirmed order🥤 : ', confirmedOrder);
-          res.redirect(`/orders`)
+          res.redirect('/twilio/confirmation')
+          // res.redirect(`/orders`)
         })
         .catch(err => {
           res
@@ -167,7 +168,6 @@ module.exports = (db) => {
         completeOrder(orderId)//does not exist?
 
           .then(completedOrder => {
-            //TODO order id does not exist error
             console.log('✅ restaurant completed order🥤 : ', completedOrder);
             res.redirect('/orders')
           })

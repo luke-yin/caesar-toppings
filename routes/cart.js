@@ -83,8 +83,7 @@ module.exports = (db) => {
     placeOrder(order.id, userId)
       .then(orderStatus => {
         console.log('🛒 order has been submitted', orderStatus, order.id);
-        //order confirmation page
-        res.redirect(`/orders/customer/${order.id}`);
+        res.redirect(`/twilio/confirmation`);
       })
       .catch(err => {
         res
@@ -92,7 +91,6 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
 
-      //TODO TWILIO - Notify Restaurant - order so they can confirm
 
   });
 
