@@ -77,6 +77,8 @@ app.post('/logout', (req, res) => {
     res.redirect("/login");
     return;
   }
+  req.session = null;
+  res.redirect("/login");
 });
 
 
