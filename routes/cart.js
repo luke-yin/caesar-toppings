@@ -17,6 +17,7 @@ module.exports = (db) => {
     const order = req.session.order;
     const orderId = order.id;
 
+    console.log('cart cart cart order:', order)
     if (userType === 'restaurant') {
       console.log('>>>>> cart.js line 51. this is the restaurant user: ', userId)
       res.redirect('/orders');
@@ -33,7 +34,7 @@ module.exports = (db) => {
       .then(data => {
         const { items, total } = data
         const templateVars = { items, total, orderId };
-        console.log(items, total)
+        console.log('items + total',items, total)
         res.render('cart', templateVars);
       })
       .catch(err => {
@@ -91,8 +92,8 @@ module.exports = (db) => {
           res.redirect('/orders');
           return;
         }
-        console.log('🛒 order has been submitted running TWILIO ☎️', orderStatus, order.id);
-        twilio();
+        // console.log('🛒 order has been submitted running TWILIO ☎️', orderStatus, order.id);
+        // twilio();
         res.redirect(`/orders/customer/${order.id}`);
 
       })

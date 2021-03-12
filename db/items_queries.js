@@ -57,11 +57,14 @@ const createOrderItem = function (orderItems, orderId) {
   //takes an array of promises
   const promises = [];
 
-  for (const item in orderItems) {
+  for (let item in orderItems) {
 
-    if (item.value > 0) {
+    item = Number(item);
+    let quantity = Number(orderItems[item]);
+
+    if (quantity > 0) {
       promises.push(db.query(`INSERT INTO items_orders (item_id, order_id, quantity)
-      VALUES (${item}, ${orderId}, ${orderItems[item]});
+      VALUES (${item}, ${orderId}, ${quantity});
       `))
     }
   };
@@ -144,11 +147,11 @@ const getSpecificUserOrder = function (orderId, userId) {
   WHERE order_id = $1 AND user_id = $2
   GROUP BY items.id, quantity, order_id, status;
 `, [orderId, userId])
-.then(res => {
-  let total = 0;
-  res.rows.forEach(row => total += row.total)
-  return { items: res.rows, total };
-})
+    .then(res => {
+      let total = 0;
+      res.rows.forEach(row => total += row.total)
+      return { items: res.rows, total };
+    })
 };
 
 
