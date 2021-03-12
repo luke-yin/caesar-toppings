@@ -51,6 +51,7 @@
       <!-- All the pictures are loaded here -->
     <h2>Our Caesars</h2>
      <!-- form action method maybe to send the quatity to js? -->
+     <form id="hidden-form" action='/cart' method='POST'>
       <div id="for-loop"><% for(let item of items) { %>
       <article class="open-card">
         <div class='item-header'>
@@ -60,7 +61,7 @@
         <!-- Wrap lines 42-47 in another container -->
         <div class="collapsible">
         <p class="item-description"><%= item.description %></p>
-        <form method="post" action="/cart">
+        <!-- <form method="post" action="/cart"> -->
           <div class="quantity">
             <div class="dec button">-</div>
             <input type="text" name="amount" id="amount" value="0">
@@ -69,14 +70,13 @@
         </div>
           <!-- <div class='space'></div> -->
 
-        </form>
+        <!-- </form> -->
 
         <!-- <div class='itemTotalPriceTest'>0</div> -->
         <div class='item-id' style="color:#51832D"><%= item.id %></div>
       </article>
     <% } %></div>
     <div class="space"> </div>
-    <form id="hidden-form" action='/cart' method='POST'>
       <button type="submit" class="view-cart">View Cart ($ <div id='itemTotalPrice'>0</div>)</button>
     <!-- <a class="view-cart" href="/cart">View Cart ($ <div id='itemTotalPrice'>0</div>)</a> -->
     </form>
