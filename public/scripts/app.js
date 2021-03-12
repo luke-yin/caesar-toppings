@@ -41,8 +41,8 @@ $(document).ready(function() {
 
   $(".item-header").on("click", function() {
     console.log($(this));
-    $((this).parentElement.previousElementSibling).toggle();
-    $((this).nextElementSibling).toggle();
+    $(this).parent().find(".collapsible").toggle();
+    $(this).parent().find(".item-id").toggle();
     let id = $(this)[0].parentElement.children[2].innerHTML;
     if (id == 1) {
       $(".caesar1").show();
@@ -51,6 +51,8 @@ $(document).ready(function() {
       $(".caesar4").hide();
       $(".caesar5").hide();
       $(".caesar6").hide();
+      $(this).parent().nextAll().find(".collapsible").hide();
+      $(this).parent().nextAll().find(".item-id").hide();
     }
     else if (id == 2) {
       $(".caesar1").hide();
@@ -59,6 +61,10 @@ $(document).ready(function() {
       $(".caesar4").hide();
       $(".caesar5").hide();
       $(".caesar6").hide();
+      $(this).parent().prevAll().find(".collapsible").hide();
+      $(this).parent().prevAll().find(".item-id").hide();
+      $(this).parent().nextAll().find(".collapsible").hide();
+      $(this).parent().nextAll().find(".item-id").hide();
     }
     else if (id == 3) {
       $(".caesar1").hide();
@@ -67,6 +73,10 @@ $(document).ready(function() {
       $(".caesar4").hide();
       $(".caesar5").hide();
       $(".caesar6").hide();
+      $(this).parent().prevAll().find(".collapsible").hide();
+      $(this).parent().prevAll().find(".item-id").hide();
+      $(this).parent().nextAll().find(".collapsible").hide();
+      $(this).parent().nextAll().find(".item-id").hide();
     }
     else if (id == 4) {
       $(".caesar1").hide();
@@ -75,6 +85,10 @@ $(document).ready(function() {
       $(".caesar4").show();
       $(".caesar5").hide();
       $(".caesar6").hide();
+      $(this).parent().prevAll().find(".collapsible").hide();
+      $(this).parent().prevAll().find(".item-id").hide();
+      $(this).parent().nextAll().find(".collapsible").hide();
+      $(this).parent().nextAll().find(".item-id").hide();
     }
     else if (id == 5) {
       $(".caesar1").hide();
@@ -83,6 +97,10 @@ $(document).ready(function() {
       $(".caesar4").hide();
       $(".caesar5").show();
       $(".caesar6").hide();
+      $(this).parent().prevAll().find(".collapsible").hide();
+      $(this).parent().prevAll().find(".item-id").hide();
+      $(this).parent().nextAll().find(".collapsible").hide();
+      $(this).parent().nextAll().find(".item-id").hide();
     }
     else if (id == 6) {
       $(".caesar1").hide();
@@ -91,6 +109,8 @@ $(document).ready(function() {
       $(".caesar4").hide();
       $(".caesar5").hide();
       $(".caesar6").show();
+      $(this).parent().prevAll().find(".collapsible").hide();
+      $(this).parent().prevAll().find(".item-id").hide();
     }
   })
 
