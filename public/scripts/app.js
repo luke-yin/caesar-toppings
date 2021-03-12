@@ -133,7 +133,7 @@ $(document).ready(function() {
   $("#hidden-form").on("submit", function(event) {
     // event.preventDefault();
     $("#hidden-form").innerHTML = cartOB;
-    console.log(cartOB);
+    console.log('🤖hidden form', cartOB);
     $.ajax({
       url: "/cart",
       method: 'POST',
