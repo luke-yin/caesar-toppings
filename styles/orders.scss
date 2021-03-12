@@ -40,7 +40,29 @@ $lightYellow: #c8d148;
   color: $black3;
 }
 
-.order-line {
+// order
+.order-detail {
+  font: bold 24px Lato, sans-serif;
+  display: flex;
+  background-color: $lightYellow;
+  // flex-wrap: wrap;
+  flex-direction: column;
+  padding: 8px;
+  border-radius: 8px;
   width: 100%;
-border-bottom: 1px solid $greenCard;
+  height: 400px;
+  margin-bottom: 20px;
+  color: $black2;
+}
+
+// .text-message {
+//   font: 20px Lato, sans-serif !important;
+// }
+
+.order-price {
+  font-size: 36px;
+}
+
+.order-subtitle {
+  font-size: 28px;
 }
