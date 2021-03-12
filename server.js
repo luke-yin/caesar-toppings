@@ -62,12 +62,21 @@ app.use("/twilio", twilioRouter);
 
 // Home page
 app.get('/', (req, res) => {
-const userId = req.session.userId;
+  const userId = req.session.userId;
   if (!userId) {
     res.redirect("/login");
     return;
   }
   res.redirect("/items");
+});
+
+app.post('/logout', (req, res) => {
+  const userId = req.session.userId;
+  if (!userId) {
+    req.session = null;
+    res.redirect("/login");
+    return;
+  }
 });
 
 
