@@ -50,7 +50,7 @@ module.exports = (db) => {
     const userId = req.session.userId;
     const order = req.session.order;
 
-    const orderItems = req.body.cartOB;
+    const orderItems = req.body;//.cartOB;
     console.log('this is the body we return for order!!!', orderItems);
 
     // localstorage of cart from front-end
