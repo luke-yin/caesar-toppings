@@ -26,15 +26,33 @@
 
   <body>
     <%- include('partials/_header') %>
+    <header class="caesars">
+      <div class="caesar1">
+        <img src="./images/01_classic.png">
+      </div>
+      <div class="caesar2">
+        <img src="./images/02_strange_brew.png">
+      </div>
+      <div class="caesar3">
+        <img src="./images/03_the_charr.png">
+      </div>
+      <div class="caesar4">
+        <img src="./images/04_the_everything.png">
+      </div>
+      <div class="caesar5">
+        <img src="./images/05_the_game_night.png">
+      </div>
+      <div class="caesar6">
+        <img src="./images/06_the_family_meal.png">
+      </div>
+    </header>
+
     <main>
       <!-- All the pictures are loaded here -->
     <h2>Our Caesars</h2>
      <!-- form action method maybe to send the quatity to js? -->
      <form id="hidden-form" action='/cart' method='POST'>
       <div id="for-loop"><% for(let item of items) { %>
-        <div class="hidden-image">
-          <img src='<%= item.photo_url %>'></img>
-        </div>
       <article class="open-card">
         <div class='item-header'>
           <label for="item-name"><%= item.name %></label>
