@@ -86,6 +86,10 @@ module.exports = (db) => {
     //update status of orders = 'waiting_approval'
     placeOrder(order.id, userId)
       .then(orderStatus => {
+        if(orderStatus.status !== 'precheckout'){
+          res.redirect('/items');
+          return;
+        }
         console.log('🛒 order has been submitted', orderStatus, order.id);
         twilio();
         res.redirect(`/orders/customer/${order.id}`);
