@@ -150,21 +150,7 @@ const getSpecificUserOrder = function (orderId, userId) {
   return { items: res.rows[0], total };
 })
 };
-// const getSpecificUserOrder = function (orderId, userId) {
-//   return db.query(`
-//   SELECT orders.id AS order_id, orders.status AS order_status, orders.created_at AS created_at,
-//   SUM(items.price) AS total_price
-//   FROM orders
-//   JOIN items_orders ON items_orders.order_id = orders.id
-//   JOIN items ON items.id = item_id
-//   WHERE orders.id = $1 AND orders.user_id = $2
-//   GROUP BY orders.id;
-// `, [orderId, userId])
-//     .then(res => {
-//       console.log(res)
-//       res.rows[0]
-//     });
-// };
+
 
 
 // order status is updated on restaurant's confirm.
