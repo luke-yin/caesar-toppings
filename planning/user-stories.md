@@ -24,9 +24,8 @@ eg. As a user, I shouldn't be able to edit other users posts, because I don't ow
 ## SCENARIO - ORDER IS IN CART / PLACED
 - As a user, I want to edit my order, because I may want to adjust my order.
 <!-- - As a user, I want to place the order for pick-up, because then I will pick it up in the restaurant. -->
-- As a user, I want to know how long an order will take, because I want to know when to leave.
-- As a user, I want to receive a notification by SMS when the order is ready, because I want to know the status of my order.
-- As a user, I want to be able to cancel my order after it has been placed.
+<!-- - As a user, I want to know how long an order will take, because I want to know when to leave. -->
+<!-- - As a user, I want to receive a notification by SMS when the order is ready, because I want to know the status of my order. -->
 
 
 ### RESTAURANT
@@ -41,9 +40,9 @@ eg. As a user, I shouldn't be able to edit other users posts, because I don't ow
 
 
 ### STRETCH:
-- As a user I want to favourite an item to re-order in the future. 
+<!-- - As a user I want to favourite an item to re-order in the future. 
 - As a user I want to pick the time when I will pick up the order, incase I want to plan ahead. 
 - As a user, I should only be able to cancel my order before the restaurant has started making it.
 - Given that the restaurant has started preparing my order, I should be able to contact them and see if they are willing to cancel or alter it.
-- As a restaraunt, I want to see the user's past order history because I want to build customer rapport.
+- As a restaraunt, I want to see the user's past order history because I want to build customer rapport. -->
 

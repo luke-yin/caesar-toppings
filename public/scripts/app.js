@@ -15,6 +15,13 @@ $(document).ready(function() {
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   }
+
+  $(".caesar2").hide();
+  $(".caesar3").hide();
+  $(".caesar4").hide();
+  $(".caesar5").hide();
+  $(".caesar6").hide();
+
   $(".hidden-image").hide();
   $(".collapsible").hide();
 
@@ -36,6 +43,55 @@ $(document).ready(function() {
     console.log($(this));
     $((this).parentElement.previousElementSibling).toggle();
     $((this).nextElementSibling).toggle();
+    let id = $(this)[0].parentElement.children[2].innerHTML;
+    if (id == 1) {
+      $(".caesar1").show();
+      $(".caesar2").hide();
+      $(".caesar3").hide();
+      $(".caesar4").hide();
+      $(".caesar5").hide();
+      $(".caesar6").hide();
+    }
+    else if (id == 2) {
+      $(".caesar1").hide();
+      $(".caesar2").show();
+      $(".caesar3").hide();
+      $(".caesar4").hide();
+      $(".caesar5").hide();
+      $(".caesar6").hide();
+    }
+    else if (id == 3) {
+      $(".caesar1").hide();
+      $(".caesar2").hide();
+      $(".caesar3").show();
+      $(".caesar4").hide();
+      $(".caesar5").hide();
+      $(".caesar6").hide();
+    }
+    else if (id == 4) {
+      $(".caesar1").hide();
+      $(".caesar2").hide();
+      $(".caesar3").hide();
+      $(".caesar4").show();
+      $(".caesar5").hide();
+      $(".caesar6").hide();
+    }
+    else if (id == 5) {
+      $(".caesar1").hide();
+      $(".caesar2").hide();
+      $(".caesar3").hide();
+      $(".caesar4").hide();
+      $(".caesar5").show();
+      $(".caesar6").hide();
+    }
+    else if (id == 6) {
+      $(".caesar1").hide();
+      $(".caesar2").hide();
+      $(".caesar3").hide();
+      $(".caesar4").hide();
+      $(".caesar5").hide();
+      $(".caesar6").show();
+    }
   })
 
 
@@ -77,7 +133,7 @@ $(document).ready(function() {
   $("#hidden-form").on("submit", function(event) {
     // event.preventDefault();
     $("#hidden-form").innerHTML = cartOB;
-    console.log(cartOB);
+    console.log('🤖hidden form', cartOB);
     $.ajax({
       url: "/cart",
       method: 'POST',

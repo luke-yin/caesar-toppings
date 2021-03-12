@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { createOrderItem, getOrderItems, placeOrder } = require('../db/items_queries');
 // const items = require('./items');
+const twilio = require('./send-sms');
 
 // let cart = window.localStorage.getItem("cart"); // Cart object as a JSON string
 
@@ -50,11 +51,11 @@ module.exports = (db) => {
     const order = req.session.order;
 
     const orderItems = req.body.cartOB;
+    console.log('this is the body we return for order!!!', orderItems);
 
     // localstorage of cart from front-end
     // const orderItems = cart;
 
-    console.log('this is the body we return for order!!!', orderItems);
 
     if (!userId) {
       res.redirect('/login');
@@ -76,14 +77,19 @@ module.exports = (db) => {
 
 // 🛒  Submit and checkout the order
   router.post("/:orderid", (req, res) => {
+    // TODO for repeated storage of cookie or other info, use a function and call that function
     const order = req.session.order;
+    //TODO refactor using :orderid <-- use the actual param within route
+    // const order = req.params.orderid
     const userId = req.session.userId;
 
     //update status of orders = 'waiting_approval'
     placeOrder(order.id, userId)
       .then(orderStatus => {
         console.log('🛒 order has been submitted', orderStatus, order.id);
-        res.redirect(`/twilio/confirmation`);
+        twilio();
+        res.redirect(`/orders/customer/${order.id}`);
+
       })
       .catch(err => {
         res

@@ -15,23 +15,36 @@ body {
 
   h2 {
     color: $black2;
-    font: bold 36px Lato, sans-serif;
+    font: bold 24px Lato, sans-serif;
     margin-bottom: 1.5rem;
   }
 
   main {
+    padding-top: 450px;
     margin: 1em;
   }
 
 }
 
 .navbar {
+  width: 100%;
   background-color: $orange-red !important;
   height: 96px;
+  position: fixed;
+  z-index: 999;
 }
 
 .navbar-brand {
   font:  40px Intro, sans-serif;
+}
+
+.caesars {
+  position: fixed;
+  width: 100%;
+  padding-left: 1.1rem;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  background-color: #EEEEEE;
 }
 
 .quantity {
@@ -60,6 +73,16 @@ body {
   font: bold 24px Lato, sans-serif;
   padding: 10 10 10 10;
 
+}
+
+.item-price {
+  font: bold 18px Lato, sans-serif;
+  align-self: left;
+}
+
+.actual-price {
+  font: bold 18px Lato, sans-serif;
+  align-self: right;
 }
 
 .button {
