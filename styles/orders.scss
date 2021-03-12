@@ -4,11 +4,12 @@ $bgColor: #eee;
 $orange-red: #e35645;
 $btnOrange: #f2753f;
 $black2: #222222;
+$lightYellow: #c8d148;
 
 
 .orders-item {
   display: flex;
-  background-color: $greenCard;
+  background-color: $lightYellow;
   flex-wrap: wrap;
   color: #ffffff;
   padding: 8px;
@@ -16,8 +17,21 @@ $black2: #222222;
   width: 100%;
   height: 100%;
   margin-bottom: 20px;
-}
-
-.order-detail {
   color: $black2;
 }
+
+// .card-header {
+//   display: flex;
+//   justify-content: space-between;
+// }
+// .order-detail {
+//   color: white;
+// }
+
+.card-subtile {
+  color: $greenCard;
+}
+
+// .card-content {
+//   color: white;
+// }
