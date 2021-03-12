@@ -44,7 +44,7 @@ $black2: #222222;
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  font: bold 26px Lato, sans-serif;
+  font: bold 24px Lato, sans-serif;
   padding: 10 10 10 10;
 }
 
@@ -68,12 +68,17 @@ $black2: #222222;
   float: right;
   margin-left: 16px;
   margin-top: 10px;
-  font-size: 36px;
+  font: bold 24px Lato, sans-serif;
+}
+
+.text-cart {
+  display:flex;
+  flex-direction: column;
 }
 
 .cart-quantity {
   margin-top: 10px;
-  margin-right: 10px;
+  margin-left: 16px;
 }
 
 .cart-section {

@@ -30,19 +30,21 @@ body {
     padding-top: 100px;
   }
 
-  .page-title-common {
-    margin-bottom: 0;
-    color: $black2;
-    font: bold 24px Lato, sans-serif;
-    margin-bottom: 1.5rem;
-    // align-self: center;
-    // justify-self: center;
-    margin: 0 auto;
-    z-index: 999;
-  }
+
 }
 
+.page-title-common {
+  margin-bottom: 0;
+  color: $black2;
+  font: bold 24px Lato, sans-serif;
+  margin-bottom: 1.5rem;
+  // align-self: center;
+  // justify-self: center;
+  margin: 0 auto;
+  z-index: 999;
+}
 
+// nav
 .navbar {
   width: 100%;
   background-color: $orange-red !important;
@@ -50,11 +52,23 @@ body {
   position: fixed;
   top: 0%;
   z-index: 999;
+  // padding: 1.5rem;
 }
 
 .navbar-brand {
   font: 40px Intro, sans-serif;
 }
+
+.navbar-toggler {
+  visibility: hidden;
+}
+
+.logout-btn {
+  width: 25px;
+  height: 25px;
+  // margin-right: 5px;
+}
+
 
 .page-align {
  display: flex;
@@ -63,11 +77,15 @@ body {
 justify-content: flex-start;
 }
 
+
+
 .space {
   height: 40px;
   background-color: $bgColor;
 }
 
+
+// btn in the page bottom
 .view-cart {
   display: flex;
   justify-content: center;
@@ -89,6 +107,7 @@ justify-content: flex-start;
   color: #ffffff;
 }
 
-.navbar-toggler {
-  visibility: hidden;
+.order-line {
+  width: 100%;
+border-bottom: 1px solid $greenCard;
 }

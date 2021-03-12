@@ -50,6 +50,7 @@
           <% if(order.status === 'precheckout'){ %>
 
             <h3 >Order ID: <span><a class="order-detail" href="/cart%>"><%= order.id %> -- Submit Order</a></span> </h3>
+            <div class="order-line"></div>
             <h3 class="card-subtile">Order status: <span class="card-content"><%= order.status %></span></h3>
             <% } else{ %>
           <!-- <div class="card-headter">  -->
@@ -69,10 +70,11 @@
 
       <% } else{ %>
         <% for(let order of orders) { %>
-        <section>
-          <h3>Order id: <span><%= order.id %></span></h3>
-          <h3>Order status: <span><%= order.status %></span></h3>
-          <h4>Created at: <span><%= order.created_at %></span></h4>
+        <section class="orders-item">
+          <h3 >Order id: <span><%= order.id %></span></h3>
+          <div class="order-line"></div>
+          <h3 class="card-subtile">Order status: <span><%= order.status %></span></h3>
+          <h4 class="card-subtile">Created at: <span><%= order.created_at %></span></h4>
           <form action="/orders/restaurant/<%= order.id %>" method="get">
             <button type="submit" class="btn btn-primary" >Order Detail</button>
           </form>
