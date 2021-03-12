@@ -14,7 +14,7 @@ const twilio = async () => {
   await client.messages.create({
     to: process.env.MY_PHONE_NUMBER,
     from: '+19027023630',
-    body: 'Your order is ready! Thank you and enjoy.🥤'
+    body: 'Your caesars are being prepared 🙌🏼... Come pick it up in 20 mins! 🥤'
   })
     .then(message => {
       console.log('within async message.sid', message.sid)
