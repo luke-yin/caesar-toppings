@@ -1,4 +1,5 @@
 // See: https://sass-lang.com/
+$greenCard: #51832D;
 $greenBtn: #ABD148;
 $bgColor:#EEE;
 $orange-red: #E35645;
@@ -12,14 +13,16 @@ $black2: #222222;
 
 .cart-h2 {
   margin-bottom: 0;
-  align-self: center;
-  justify-self: center;
+  // align-self: center;
+  // justify-self: center;
   margin: 0 auto;
+  z-index: 999;
 }
 
 .back-icon {
   font-size: 50px;
-  display: flex;
+  // display: flex;
+  z-index: 888;
 }
 
 
@@ -41,7 +44,7 @@ $black2: #222222;
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  font: bold 30px Lato, sans-serif;
+  font: bold 26px Lato, sans-serif;
   padding: 10 10 10 10;
 }
 
@@ -77,7 +80,7 @@ $black2: #222222;
   display: flex;
   justify-content: space-between;
   background-color: #E7F2D6;
-  font: bold 32px Lato, sans-serif;
+  font: bold 26px Lato, sans-serif;
   border-radius: 8px;
   padding: 20px;
   height: 100px;

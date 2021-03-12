@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/index.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -47,7 +48,7 @@
       </div>
     </header>
 
-    <main>
+    <main class="index-main">
       <!-- All the pictures are loaded here -->
     <h2>Our Caesars</h2>
      <!-- form action method maybe to send the quatity to js? -->
@@ -56,7 +57,7 @@
       <article class="open-card">
         <div class='item-header'>
           <label for="item-name"><%= item.name %></label>
-          <div class="item-price">$<p class="actual-price"><%= item.price / 100 %></p></div>
+          <div class="item-price">$ <div class="actual-price"><%= item.price / 100 %></div></div>
         </div>
         <!-- Wrap lines 42-47 in another container -->
         <div class="collapsible">
@@ -64,7 +65,7 @@
         <!-- <form method="post" action="/cart"> -->
           <div class="quantity">
             <div class="dec button">-</div>
-            <input type="text" name="amount" id="amount" value="0">
+            <input type="text" name="<%= item.id %>" class="amount" value="0">
             <div class="inc button">+</div>
           </div>
         </div>
@@ -73,17 +74,12 @@
         <!-- </form> -->
 
         <!-- <div class='itemTotalPriceTest'>0</div> -->
-        <div class='item-id' style="color:#51832D"><%= item.id %></div>
+        <div class='item-id'><%= item.id %></div>
       </article>
     <% } %></div>
     <div class="space"> </div>
       <button type="submit" class="view-cart">View Cart ($ <div id='itemTotalPrice'>0</div>)</button>
-    <!-- <a class="view-cart" href="/cart">View Cart ($ <div id='itemTotalPrice'>0</div>)</a> -->
     </form>
-    <!-- <button type="submit" class="view-cart">View Cart ($ <div id='itemTotalPrice'>0</div>)</button> -->
     </main>
-    <!-- <footer>
-      <div class="view-cart">View Cart</div>
-    </footer> -->
   </body>
 </html>

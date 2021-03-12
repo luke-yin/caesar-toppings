@@ -1,0 +1,91 @@
+// See: https://sass-lang.com/
+$greenCard: #51832D;
+$greenBtn: #abd148;
+$bgColor: #eee;
+$orange-red: #e35645;
+$btnOrange: #f2753f;
+$black2: #222222;
+
+.index-main {
+  padding-top: 450px;
+}
+
+.caesars {
+  position: fixed;
+  width: 100%;
+  padding-left: 1.1rem;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  background-color: #eeeeee;
+}
+
+.quantity {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.open-card {
+  display: block;
+  background-color:$greenCard;
+  color: #ffffff;
+  padding: 12px;
+  padding-bottom: 16px;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+}
+
+.item-id {
+  color: $greenCard;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  font: bold 24px Lato, sans-serif;
+  padding: 10 10 10 10;
+}
+
+.item-price {
+  font: bold 18px Lato, sans-serif;
+  display: flex;
+  flex-direction: row;
+}
+
+.button {
+  background-color: $greenBtn;
+  margin: 0 0 0 0;
+  cursor: pointer;
+  width: 28px;
+  height: 30px;
+  float: left;
+  color: #111111;
+  text-align: center;
+  font-size: 18px;
+}
+
+.dec {
+  border-radius: 10px 0 0 10px;
+}
+.inc {
+  border-radius: 0px 10px 10px 0px;
+}
+
+input[type="text"] {
+  display: flex;
+  float: left;
+  width: 40px;
+  height: 30px;
+  font: 16px Lato, sans-serif;
+  padding-bottom: 1.5px;
+  text-align: center;
+  align-items: center;
+}
+
+.amount {
+  color: #51832d !important;
+}
+
