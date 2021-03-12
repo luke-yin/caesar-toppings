@@ -98,7 +98,7 @@ const placeOrder = function (orderId, userId) {
   return db.query(`
   UPDATE orders
   SET status = 'waiting_approval',
-  created_at = NOW()
+  created_at = clock_timestamp()
   WHERE id = ${orderId} and user_id = ${userId}
   RETURNING *;
   `)
@@ -121,7 +121,7 @@ const getUserOrders = function (userId) {
   FROM orders
   JOIN users ON orders.user_id = users.id
   WHERE users.id = ${userId}
-  ORDER BY created_at DESC;
+  ORDER BY orders.id DESC;
 `)
     .then(res => res.rows);
 };

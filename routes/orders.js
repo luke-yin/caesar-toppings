@@ -39,7 +39,8 @@ module.exports = (db) => {
     //order history for specific user
     getUserOrders(userId)
       .then(orders => {
-        templateVars = { orders, userType, user: userName };
+
+        templateVars = { orders, userType, user: userName, };
         res.render('orders', templateVars);
       })
       .catch(err => {

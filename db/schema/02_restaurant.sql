@@ -14,7 +14,7 @@ CREATE TABLE items (
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  created_at TIMESTAMP,
+  created_at VARCHAR(100),
   status VARCHAR(30) NOT NULL
  );
 
