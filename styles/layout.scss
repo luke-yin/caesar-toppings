@@ -5,6 +5,8 @@ $bgColor: #eee;
 $orange-red: #e35645;
 $btnOrange: #f2753f;
 $black2: #222222;
+$black3: #444444;
+$lightYellow: #c8d148;
 
 @font-face {
   font-family: Intro;
@@ -110,4 +112,13 @@ justify-content: flex-start;
 .order-line {
   width: 100%;
 border-bottom: 1px solid $greenCard;
+}
+
+.order-line-light {
+  width: 100%;
+border-bottom: 1px solid white;
+}
+
+.margeTop10{
+  margin-top: 10px;
 }
