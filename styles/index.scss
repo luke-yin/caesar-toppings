@@ -1,4 +1,5 @@
 // See: https://sass-lang.com/
+$greenCard: #51832D;
 $greenBtn: #abd148;
 $bgColor: #eee;
 $orange-red: #e35645;
@@ -26,7 +27,7 @@ $black2: #222222;
 
 .open-card {
   display: block;
-  background-color: #51832d;
+  background-color:$greenCard;
   color: #ffffff;
   padding: 12px;
   padding-bottom: 16px;
@@ -34,6 +35,10 @@ $black2: #222222;
   width: 100%;
   height: 100%;
   margin-bottom: 20px;
+}
+
+.item-id {
+  color: $greenCard;
 }
 
 .item-header {

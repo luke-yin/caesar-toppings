@@ -1,3 +1,4 @@
+$greenCard: #51832D;
 $greenBtn: #abd148;
 $bgColor: #eee;
 $orange-red: #e35645;
@@ -5,6 +6,18 @@ $btnOrange: #f2753f;
 $black2: #222222;
 
 
-// .text-message {
-//   font: 20px Lato, sans-serif !important;
-// }
+.orders-item {
+  display: flex;
+  background-color: $greenCard;
+  flex-wrap: wrap;
+  color: #ffffff;
+  padding: 8px;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+}
+
+.order-detail {
+  color: $black2;
+}
