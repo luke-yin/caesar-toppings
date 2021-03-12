@@ -1,11 +1,8 @@
-// require('dotenv').config();
-// require('dotenv').load();
+
 var path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 
 
-// const express = require('express');
-// const router = express.Router();
 
 //TODO all caps for process.env vars
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
