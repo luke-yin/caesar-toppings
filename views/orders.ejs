@@ -30,11 +30,19 @@
 
       <% if(userType === 'customer'){ %>
         <% for(let order of orders) { %>
-        <section>
+          <section class="orders-item">
+          <% if(order.status === 'precheckout'){ %>
+
+            <h3>Order ID: <span><a href="/cart%>"><%= order.id %> -- Submit Order</a></span> </h3>
+            <h3>Order status: <span><%= order.status %></span></h3>
+            <% } else{ %>
+
           <h3>Order ID: <span><a href="/orders/customer/<%= order.id %>"><%= order.id %> -- Order Detail</a></span> </h3>
           <h3>Order status: <span><%= order.status %></span></h3>
           <h4>Order Placed at: <span><%= order.created_at %></span></h4>
+          <% } %>
         </section>
+
         <% } %>
         <footer>
           <form action="/items" method="get">
