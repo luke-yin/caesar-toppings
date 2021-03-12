@@ -42,7 +42,7 @@ body {
   }
 }
 
-
+// nav
 .navbar {
   width: 100%;
   background-color: $orange-red !important;
@@ -50,11 +50,23 @@ body {
   position: fixed;
   top: 0%;
   z-index: 999;
+  // padding: 1.5rem;
 }
 
 .navbar-brand {
   font: 40px Intro, sans-serif;
 }
+
+.navbar-toggler {
+  visibility: hidden;
+}
+
+.logout-btn {
+  width: 25px;
+  height: 25px;
+  // margin-right: 5px;
+}
+
 
 .page-align {
  display: flex;
@@ -63,11 +75,15 @@ body {
 justify-content: flex-start;
 }
 
+
+
 .space {
   height: 40px;
   background-color: $bgColor;
 }
 
+
+// btn in the page bottom
 .view-cart {
   display: flex;
   justify-content: center;
@@ -89,6 +105,3 @@ justify-content: flex-start;
   color: #ffffff;
 }
 
-.navbar-toggler {
-  visibility: hidden;
-}

@@ -4,10 +4,12 @@ $bgColor: #eee;
 $orange-red: #e35645;
 $btnOrange: #f2753f;
 $black2: #222222;
+$black3: #444444;
 $lightYellow: #c8d148;
 
 
 .orders-item {
+  font: bold 24px Lato, sans-serif;
   display: flex;
   background-color: $lightYellow;
   flex-wrap: wrap;
@@ -28,10 +30,17 @@ $lightYellow: #c8d148;
 //   color: white;
 // }
 
+// .card-subtile {
+//   color: $greenCard;
+// }
+
+
 .card-subtile {
-  color: $greenCard;
+  font-size: 22px;
+  color: $black3;
 }
 
-// .card-content {
-//   color: white;
-// }
+.order-line {
+  width: 100%;
+border-bottom: 1px solid $greenCard;
+}
