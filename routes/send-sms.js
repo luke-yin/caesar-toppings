@@ -9,26 +9,19 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
-
+// order is ready
 const twilio = async () => {
   await client.messages.create({
     to: process.env.MY_PHONE_NUMBER,
     from: '+19027023630',
-    body: 'A new order has been placed... Log in and confirm order 🥤'
+    body: 'Your order is ready! Thank you and enjoy.🥤'
   })
     .then(message => {
       console.log('within async message.sid', message.sid)
     });
 };
 
-const twilioTwo = async () => {
-  await client.messages.create({
-    to: process.env.MY_PHONE_NUMBER,
-    from: '+19027023630',
-    body: "Your Caesar's order is complete... enjoy! 🥤"
-  })
-    .then(message => {
-      console.log('within async message.sid', message.sid)
-    });
-};
-module.exports = twilio, twilioTwo;
+
+module.exports = twilio;
+
+
