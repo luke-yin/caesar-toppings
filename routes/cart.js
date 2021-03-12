@@ -51,11 +51,11 @@ module.exports = (db) => {
     const order = req.session.order;
 
     const orderItems = req.body.cartOB;
+    console.log('this is the body we return for order!!!', orderItems);
 
     // localstorage of cart from front-end
     // const orderItems = cart;
 
-    console.log('this is the body we return for order!!!', orderItems);
 
     if (!userId) {
       res.redirect('/login');
