@@ -1,6 +1,6 @@
 -- Menu-Items table seeds here
 INSERT INTO items (name, price, prep_duration, photo_url, description)
-VALUES ('Classic Caesar', 899, 8, '/images/01_classic.png', 'Canada''s national cocktail - with Clamato, Vodka Lime, Worccestershire, Celery, Tabasco and Celery Salt Rim... You can''t beat the original!'),
+VALUES ('Classic Caesar', 899, 8, '/images/01_classic.png', 'Canada''s national cocktail - with Clamato, Vodka Lime, Worcestershire, Celery, Tabasco and Celery-Salt Rim... You can''t beat the original!'),
  ('Strange Brew', 1199, 10, '/images/02_strange_brew.png', 'Strange Brew for strange times - with Lager, Maple Syrup, Candied Salmon and Everything Bagel Rim... Perfect vessel to stack your brunch!'),
  ('The Charr', 1099, 10, '/images/03_the_charr.png', 'Smokey and kinda sexy - with Clamato, Whisky, Candied Bacon and Charcoal Bacon Powder Rim... The Charr wants to be invited to your BBQ!'),
  ('The Everything', 2599, 20, '/images/04_the_everything.png', 'Everything you want for a hangover cure - Chicken and Waffles, Poached Egg, Candied Bacon, French Fries and Everything Bagel Rim... Perfectly paired with our Strange Brew Caesar.'),

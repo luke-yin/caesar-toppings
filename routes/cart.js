@@ -93,7 +93,6 @@ module.exports = (db) => {
           return;
         }
         // console.log('🛒 order has been submitted running TWILIO ☎️', orderStatus, order.id);
-        // twilio();
         res.redirect(`/orders/customer/${order.id}`);
 
       })
