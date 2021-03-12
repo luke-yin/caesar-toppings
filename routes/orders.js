@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { getAllOrders, getUserOrders, getSpecificOrder, getSpecificUserOrder, confirmOrder, completeOrder, getOrderItems } = require('../db/items_queries');
+const  twilioTwo  = require('./send-sms');
 
 
 module.exports = (db) => {
@@ -136,17 +137,16 @@ module.exports = (db) => {
     if (userType === 'restaurant') {
       confirmOrder(orderId)
         .then(confirmedOrder => {
-          console.log('🥤 restaurant confirmed order🥤 : ', confirmedOrder);
-          res.redirect('/twilio/confirmation')
-          // res.redirect(`/orders`)
+          console.log('🥤 restaurant confirmed order🥤🥤🥤🥤🥤🥤🥤 notifying customer 🥤🥤🥤🥤 : ', confirmedOrder);
+          // res.redirect('/twilio/confirmation')
+          twilioTwo();
+          res.redirect(`/orders`)
         })
         .catch(err => {
           res
             .status(500)
             .json({ error: err.message });
         });
-
-      //TODO  send a notification to the user phone number when restaurant confirms it
 
     };
   });

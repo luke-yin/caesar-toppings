@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { createOrderItem, getOrderItems, placeOrder } = require('../db/items_queries');
 // const items = require('./items');
-const twilio = require('./send-sms');
+const  twilio  = require('./send-sms');
 
 // let cart = window.localStorage.getItem("cart"); // Cart object as a JSON string
 
@@ -31,7 +31,7 @@ module.exports = (db) => {
     //Send current order's items and total of the full order
     getOrderItems(orderId)
       .then(data => {
-        const {items, total} = data
+        const { items, total } = data
         const templateVars = { items, total, orderId };
         console.log(items, total)
         res.render('cart', templateVars);
@@ -75,22 +75,23 @@ module.exports = (db) => {
 
 
 
-// 🛒  Submit and checkout the order
+  // 🛒  Submit and checkout the order
   router.post("/:orderid", (req, res) => {
     // TODO for repeated storage of cookie or other info, use a function and call that function
+    //TODO refactor using :orderid <-- use the actual param within route --> req.params.orderid
     const order = req.session.order;
-    //TODO refactor using :orderid <-- use the actual param within route
-    // const order = req.params.orderid
+
     const userId = req.session.userId;
 
     //update status of orders = 'waiting_approval'
     placeOrder(order.id, userId)
       .then(orderStatus => {
-        if(orderStatus.status !== 'precheckout'){
-          res.redirect('/items');
+        if (orderStatus.status === 'preparation' || orderStatus.status === 'completed') {
+          console.log(orderStatus.status)
+          res.redirect('/orders');
           return;
         }
-        console.log('🛒 order has been submitted', orderStatus, order.id);
+        console.log('🛒 order has been submitted running TWILIO ☎️', orderStatus, order.id);
         twilio();
         res.redirect(`/orders/customer/${order.id}`);
 
