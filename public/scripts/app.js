@@ -98,8 +98,10 @@ $(document).ready(function() {
   $(".button").on("click", function() {
 
     console.log($(this));
-    let id = $(this)[0].parentElement.parentElement.parentElement.parentElement.children[2].innerHTML;
-    let price = $(this)[0].parentElement.parentElement.parentElement.parentElement.children[0].children[1].children[0].innerHTML;
+    let id = $(this).parent().parent().parent().find(".item-id").html(); //children[2].innerHTML;
+    let price = $(this).parent().parent().parent().find(".actual-price").html(); //children[0].children[1].children[0].innerHTML;
+    console.log("id:", id);
+    console.log("price:", price);
     currentPrice = parseFloat(price);
     currentPrice = Math.round(currentPrice * 100 ) / 100;
     //it has to be var not let or const in order to work
@@ -130,21 +132,21 @@ $(document).ready(function() {
   });
 
 
-  $("#hidden-form").on("submit", function(event) {
-    // event.preventDefault();
-    $("#hidden-form").innerHTML = cartOB;
-    console.log('🤖hidden form', cartOB);
-    $.ajax({
-      url: "/cart",
-      method: 'POST',
-      data: cartOB
-    })
-    .then(function () {
-      console.log('Success: ');
-  })
+  // $("#hidden-form").on("submit", function(event) {
+  //   // event.preventDefault();
+  //   $("#hidden-form").innerHTML = cartOB;
+  //   console.log('🤖hidden form', cartOB);
+  //   $.ajax({
+  //     url: "/cart",
+  //     method: 'POST',
+  //     data: cartOB
+  //   })
+  //   .then(function () {
+  //     console.log('Success: ');
+  // })
 
 
-  });
+  // });
 
 
 
