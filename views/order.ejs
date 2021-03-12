@@ -30,7 +30,8 @@
       <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
       <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
       <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-      <link rel="stylesheet" href="/styles/order.css" type="text/css" />
+      <link rel="stylesheet" href="/styles/index.css" type="text/css" />
+      <link rel="stylesheet" href="/styles/orders.css" type="text/css" />
 
       <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
       <script type="text/javascript" src="/scripts/app.js"></script>
@@ -41,10 +42,9 @@
     <main class='main-common'>
 
       <h2 class='cart-h2'>Order details</h2>
-
-        <section>
-          <h3>Order status: <span><%= items.status %></span></h3>
-          <h4>Total Price: <span>$<%= total / 100 %></span></h4>
+        <section class="order-detail">
+          <h3 class="card-subtile order-subtitle">Order status: <span><%= items.status %></span></h3>
+          <h4 class="card-subtile order-subtitle">Total Price: <span class="order-price">$<%= total / 100 %></span></h4>
         </section>
         <div class="text-message">
           <% if(items.status === 'preparing'){ %>

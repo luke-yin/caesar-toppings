@@ -30,16 +30,18 @@ body {
     padding-top: 100px;
   }
 
-  .page-title-common {
-    margin-bottom: 0;
-    color: $black2;
-    font: bold 24px Lato, sans-serif;
-    margin-bottom: 1.5rem;
-    // align-self: center;
-    // justify-self: center;
-    margin: 0 auto;
-    z-index: 999;
-  }
+
+}
+
+.page-title-common {
+  margin-bottom: 0;
+  color: $black2;
+  font: bold 24px Lato, sans-serif;
+  margin-bottom: 1.5rem;
+  // align-self: center;
+  // justify-self: center;
+  margin: 0 auto;
+  z-index: 999;
 }
 
 // nav
@@ -105,3 +107,7 @@ justify-content: flex-start;
   color: #ffffff;
 }
 
+.order-line {
+  width: 100%;
+border-bottom: 1px solid $greenCard;
+}
