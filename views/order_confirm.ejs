@@ -31,7 +31,7 @@
       <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
       <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
       <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-      <link rel="stylesheet" href="/styles/cart.css" type="text/css" />
+      <link rel="stylesheet" href="/styles/orders.css" type="text/css" />
 
       <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
       <script type="text/javascript" src="/scripts/app.js"></script>
@@ -40,22 +40,24 @@
   <body>
     <%- include('partials/_header') %>
     <main class='main-common'>
-      <h2>Order Confirmation</h2>
-    <section>
-      <h3>Order Id: <span><%= items[0].order_id %></span></h3>
+      <h2 >Order Confirmation</h2>
+
+    <section class="order-confirm-card">
+      <h3 class="margeTop10">Order Id: <span><%= items[0].order_id %></span></h3>
+      <div class="order-line"></div>
 
       <% for(let item of items) { %>
-        <section>
-          <h4>Item: <span><%= item.name %></span></h4>
-          <h4>Quantity: <span><%= item.quantity %></span></h4>
+        <section class="margeTop10">
+          <h4 class="card-subtile ">Item: <span><%= item.name %></span></h4>
+          <h4 class="card-subtile">Quantity: <span><%= item.quantity %></span></h4>
+          <div class="order-line-light"></div>
         </section>
         <% } %>
-
-      <h4>Total Price: <span>$<%= total / 100 %></span></h4>
+      <h4 class="orderConfirm-subtitle margeTop10">Total Price: <span>$<%= total / 100 %></span></h4>
     </section>
     <footer>
       <form action="/orders/restaurant/<%= items[0].order_id %>/confirm" method="post">
-        <button type="submit" class="view-cart">Confirm order ✅</button>
+        <button type="submit" class="view-cart">Confirm order</button>
       </form>
     </footer>
   </main>

@@ -49,12 +49,12 @@
           <section class="orders-item">
           <% if(order.status === 'precheckout'){ %>
 
-            <h3 >Order ID: <span><a class="order-detail" href="/cart%>"><%= order.id %> -- Submit Order</a></span> </h3>
+            <h3 >Order ID: <span><a class="order-items-detail" href="/cart%>"><%= order.id %> -- Submit Order</a></span> </h3>
             <div class="order-line"></div>
             <h3 class="card-subtile">Order status: <span class="card-content"><%= order.status %></span></h3>
             <% } else{ %>
           <!-- <div class="card-headter">  -->
-          <h3>Order ID: <span><a class="order-detail" href="/orders/customer/<%= order.id %>"><%= order.id %> -- Order Detail</a></span> </h3>
+          <h3>Order ID: <span><a class="order-items-detail" href="/orders/customer/<%= order.id %>"><%= order.id %> -- Order Detail</a></span> </h3>
         <!-- </div> -->
           <h3 class="card-subtile">Order status: <span class="card-content"><%= order.status %></span></h3>
           <h4 class="card-subtile">Order Placed at: <span class="card-content"><%= order.created_at %></span></h4>

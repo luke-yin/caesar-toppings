@@ -13,7 +13,6 @@ $lightYellow: #c8d148;
   display: flex;
   background-color: $lightYellow;
   flex-wrap: wrap;
-  color: #ffffff;
   padding: 8px;
   border-radius: 8px;
   width: 100%;
@@ -55,9 +54,9 @@ $lightYellow: #c8d148;
   color: $black2;
 }
 
-// .text-message {
-//   font: 20px Lato, sans-serif !important;
-// }
+.text-message {
+  font: 20px Lato, sans-serif !important;
+}
 
 .order-price {
   font-size: 36px;
@@ -65,4 +64,24 @@ $lightYellow: #c8d148;
 
 .order-subtitle {
   font-size: 28px;
+}
+
+// order-confirm
+.orderConfirm-subtitle {
+  display: flex;
+  justify-content: space-between;
+  color: $black2;
+  color: $orange-red;
+  font: 26px Lato, sans-serif;
+}
+
+.order-confirm-card {
+  font: bold 24px Lato, sans-serif;
+  background-color: $lightYellow;
+  padding: 8px;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  color: $black2;
 }
