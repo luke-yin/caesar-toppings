@@ -97,7 +97,7 @@ const getOrderItems = function (orderId) {
 const placeOrder = function (orderId, userId) {
   return db.query(`
   UPDATE orders
-  SET status = 'waiting_approval',
+  SET status = 'in progress',
   created_at = clock_timestamp()
   WHERE id = ${orderId} and user_id = ${userId}
   RETURNING *;
