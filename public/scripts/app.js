@@ -40,7 +40,6 @@ $(document).ready(function() {
   $('#itemTotalPrice').text(total);
 
   $(".item-header").on("click", function() {
-    console.log($(this));
     $(this).parent().find(".collapsible").toggle();
     $(this).parent().find(".item-id").toggle();
     let id = $(this)[0].parentElement.children[2].innerHTML;
@@ -147,26 +146,10 @@ $(document).ready(function() {
     total = Math.round(total * 100 ) / 100;
     $("#itemTotalPrice").text(total);
     cartOB[id] = newVal;
-    // window.localStorage.setItem("cart", JSON.stringify(cartOB));
 
   });
 
 
-  // $("#hidden-form").on("submit", function(event) {
-  //   // event.preventDefault();
-  //   $("#hidden-form").innerHTML = cartOB;
-  //   console.log('🤖hidden form', cartOB);
-  //   $.ajax({
-  //     url: "/cart",
-  //     method: 'POST',
-  //     data: cartOB
-  //   })
-  //   .then(function () {
-  //     console.log('Success: ');
-  // })
-
-
-  // });
 
 
 

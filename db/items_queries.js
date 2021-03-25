@@ -150,7 +150,6 @@ const getSpecificUserOrder = function (orderId, userId) {
     .then(res => {
       let total = 0;
       let status = res.rows[0].status;
-      console.log('res.row', res.rows[0])
       res.rows.forEach(row => total += row.total)
       return { items: res.rows, total, status };
     })

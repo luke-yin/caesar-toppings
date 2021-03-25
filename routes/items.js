@@ -15,10 +15,8 @@ module.exports = (db) => {
     const userName = req.session.userName;
     const userType = req.session.userType;
 
-    console.log('>>>>🛍 userType', userType);
 
     if (userType === 'restaurant') {
-      console.log(`>>>>>>🛍 Redirecting restaurant user ${userName} to /orders`);
       res.redirect('/orders');
       return;
     }
@@ -40,13 +38,11 @@ module.exports = (db) => {
       .then((order) => {
         if (order) {
           req.session.order = order;
-          console.log('>>>>🛍 user has ACTIVE order: ', order)
 
           //if user has ACTIVE order load the active order
           loadActiveOrder(order.id)
             .then(activeOrder => {
               const templateVars = { items: allItems, user: userName, activeOrder };
-              console.log('>>>>>>>>> 🛍  ACTIVE ORDER customer template vars: ', templateVars)
               res.render('index', templateVars);
             })
             .catch((err) => { res.status(500).json({ error: err.message }); });
@@ -58,7 +54,6 @@ module.exports = (db) => {
           .then(order => {
             req.session.order = order;
             const templateVars = { items: allItems, user: userName };
-            console.log('>>>>🛍 created NEW order: ', order)
             res.render('index', templateVars);
           })
 

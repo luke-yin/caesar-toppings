@@ -71,7 +71,6 @@ module.exports = (db) => {
     //TODO returns undefined from query
     getSpecificUserOrder(order, userId)
       .then(userOrder => {
-        console.log('placed order🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡🤡', userOrder)
         templateVars = { ...userOrder, userType };
         res.render('order', templateVars);
       })
@@ -109,7 +108,6 @@ module.exports = (db) => {
 
     getOrderItems(orderId)
       .then(customerOrder => {
-        console.log('>>>>>🤡customer oRDER!!!!!!!', customerOrder)
         templateVars = { ...customerOrder, userType };
         res.render('order_confirm', templateVars);
       })
@@ -138,7 +136,6 @@ module.exports = (db) => {
     if (userType === 'restaurant') {
       confirmOrder(orderId)
         .then(confirmedOrder => {
-          console.log('🥤 restaurant confirmed order🥤🥤🥤🥤🥤🥤🥤 notifying customer 🥤🥤🥤🥤 : ', confirmedOrder);
           twilio();
           res.redirect(`/orders`)
         })
@@ -156,7 +153,6 @@ module.exports = (db) => {
     const userId = req.session.userId;
     // const orderId = req.params.orderid;
     const userType = req.session.userType;
-    console.log('orderId: ', orderId)
     if (!userId) {
       res.redirect('/login');
       return;
@@ -166,7 +162,6 @@ module.exports = (db) => {
       completeOrder(orderId)//does not exist?
 
         .then(completedOrder => {
-          console.log('✅ restaurant completed order🥤 : ', completedOrder);
           res.redirect('/orders')
         })
         .catch(err => {

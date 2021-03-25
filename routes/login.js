@@ -42,7 +42,6 @@ module.exports = (db) => {
         req.session.userName = userName;
         req.session.userType = userType;
 
-        console.log('>>>>>>🔑 POST /LOGIN INFO: ', userId, userName, userType);
         res.redirect('/items');
       });
   });

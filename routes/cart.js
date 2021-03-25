@@ -17,9 +17,7 @@ module.exports = (db) => {
     const order = req.session.order;
     const orderId = order.id;
 
-    console.log('cart cart cart order:', order)
     if (userType === 'restaurant') {
-      console.log('>>>>> cart.js line 51. this is the restaurant user: ', userId)
       res.redirect('/orders');
       return;
     }
@@ -34,7 +32,6 @@ module.exports = (db) => {
       .then(data => {
         const { items, total } = data
         const templateVars = { items, total, orderId };
-        console.log('items + total',items, total)
         res.render('cart', templateVars);
       })
       .catch(err => {
@@ -51,11 +48,7 @@ module.exports = (db) => {
     const userId = req.session.userId;
     const order = req.session.order;
 
-    const orderItems = req.body;//.cartOB;
-    console.log('this is the body we return for order!!!', orderItems);
-
-    // localstorage of cart from front-end
-    // const orderItems = cart;
+    const orderItems = req.body;
 
 
     if (!userId) {
@@ -63,7 +56,6 @@ module.exports = (db) => {
       return;
     }
 
-    //TODO make sure this works
     if (order.status === 'precheckout') {
       createOrderItem(orderItems, order.id)
         .then(() => res.redirect('/cart'))
@@ -78,8 +70,7 @@ module.exports = (db) => {
 
   // 🛒  Submit and checkout the order
   router.post("/:orderid", (req, res) => {
-    // TODO for repeated storage of cookie or other info, use a function and call that function
-    //TODO refactor using :orderid <-- use the actual param within route --> req.params.orderid
+
     const order = req.session.order;
 
     const userId = req.session.userId;
@@ -88,11 +79,9 @@ module.exports = (db) => {
     placeOrder(order.id, userId)
       .then(orderStatus => {
         if (orderStatus.status === 'preparation' || orderStatus.status === 'completed') {
-          console.log(orderStatus.status)
           res.redirect('/orders');
           return;
         }
-        // console.log('🛒 order has been submitted running TWILIO ☎️', orderStatus, order.id);
         res.redirect(`/orders/customer/${order.id}`);
 
       })
